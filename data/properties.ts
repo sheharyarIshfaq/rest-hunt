@@ -16,7 +16,7 @@ const DUMMY_PROPERTIES: Property[] = [
   {
     id: 1,
     image: Propery1,
-    title: "Continental Boys Hostel",
+    title: "Continental Hostel",
     address: "Model Town, Lahore",
     price: 15000,
   },

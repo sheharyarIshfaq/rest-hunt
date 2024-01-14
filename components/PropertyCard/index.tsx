@@ -11,8 +11,12 @@ interface PropertyCardProps {
 
 const PropertyCard = ({ image, title, address, price }: PropertyCardProps) => {
   return (
-    <div className="shadow-sm border flex flex-col relative">
-      <Image src={image} alt={title} className="w-full h-48 object-cover" />
+    <div className="shadow-sm border flex flex-col relative rounded-lg cursor-pointer hover:shadow-md">
+      <Image
+        src={image}
+        alt={title}
+        className="w-full max-h-[300px] object-cover"
+      />
       <div className="p-4 flex flex-col justify-between flex-1">
         <div>
           <h3 className="text-xl font-semibold">{title}</h3>
