@@ -3,7 +3,7 @@ import { BsSearch } from "react-icons/bs";
 
 const CustomSearch = () => {
   return (
-    <div className="bg-white flex items-center justify-between">
+    <div className="bg-white flex items-center justify-between shadow-md">
       <input
         type="text"
         placeholder="Find your ideal stay in the city you love..."

@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       <div className="h-screen flex flex-col justify-between">
-        <div className="bg-[#99E3AC] flex-1">
+        <div className="flex-1" id="hero-section">
           <Navbar />
           <HeroSection />
         </div>

@@ -1,25 +1,27 @@
 import IconCard from "@/components/IconCard";
 import React from "react";
-import { BsHouse } from "react-icons/bs";
+import HomeIcon from "@/public/icons/home.svg";
+import PriceTagIcon from "@/public/icons/pricetag.svg";
+import SupportIcon from "@/public/icons/support.svg";
 
 const DATA = [
   {
     id: 1,
-    icon: <BsHouse />,
+    icon: HomeIcon,
     title: "Perfect Home Guarantee",
     description:
       "Select the best student accommodation, providing safe & cozy living experience",
   },
   {
     id: 2,
-    icon: <BsHouse />,
+    icon: PriceTagIcon,
     title: "Best Price, Every Time",
     description:
       "Rest assured, you won't find a better deal elsewhere except on RestHunt",
   },
   {
     id: 3,
-    icon: <BsHouse />,
+    icon: SupportIcon,
     title: "Always at Your Service",
     description:
       "Get expert advice and service around the clock from our multi-lingual team",

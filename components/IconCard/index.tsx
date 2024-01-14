@@ -1,7 +1,8 @@
+import Image, { StaticImageData } from "next/image";
 import React from "react";
 
 interface IconCardProps {
-  icon: React.ReactNode;
+  icon: StaticImageData;
   title: string;
   description: string;
 }
@@ -9,7 +10,9 @@ interface IconCardProps {
 const IconCard = ({ icon, title, description }: IconCardProps) => {
   return (
     <div>
-      <div className="text-5xl">{icon}</div>
+      <div className="text-5xl">
+        <Image src={icon} alt={title} />
+      </div>
       <h3 className="text-xl font-bold my-2">{title}</h3>
       <p className="text-label font-[500]">{description}</p>
     </div>
