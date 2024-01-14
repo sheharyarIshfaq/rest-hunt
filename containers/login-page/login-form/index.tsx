@@ -8,14 +8,14 @@ import GoogleIcon from "@/public/icons/google.svg";
 
 const LoginForm = () => {
   return (
-    <section className="container flex justify-between items-center gap-8">
+    <section className="container flex justify-between items-center gap-8 flex-1">
       <div className="flex-1">
         <h1 className="text-3xl font-semibold text-center">Hi there!</h1>
         <p className="mt-3 text-center">
           Welcome back, great to see you here again
         </p>
         <Tabs defaultValue="user">
-          <TabsList className="my-4 w-full">
+          <TabsList className="my-3 w-full">
             <TabsTrigger className="w-full" value="user">
               User Login
             </TabsTrigger>
@@ -23,7 +23,7 @@ const LoginForm = () => {
               Property Owner Login
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="user" className="flex flex-col gap-4">
+          <TabsContent value="user" className="flex flex-col gap-3">
             <Input type="email" placeholder="Enter your Email" />
             <Input type="password" placeholder="Enter your password" />
             <p className="text-right underline">Forgot Password?</p>
@@ -43,8 +43,12 @@ const LoginForm = () => {
               />
               Login with Google
             </Button>
+            <p className="text-center">
+              Don't have an account?{" "}
+              <span className="text-main font-semibold">Sign Up</span>
+            </p>
           </TabsContent>
-          <TabsContent value="owner" className="flex flex-col gap-4">
+          <TabsContent value="owner" className="flex flex-col gap-3">
             <Input type="email" placeholder="Enter your Email" />
             <Input type="password" placeholder="Enter your password" />
             <p className="text-right underline">Forgot Password?</p>
@@ -64,6 +68,10 @@ const LoginForm = () => {
               />
               Login with Google
             </Button>
+            <p className="text-center">
+              Don't have an account?{" "}
+              <span className="text-main font-semibold">Sign Up</span>
+            </p>
           </TabsContent>
         </Tabs>
       </div>

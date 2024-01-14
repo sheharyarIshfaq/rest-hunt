@@ -3,7 +3,7 @@ import LoginForm from "@/containers/login-page/login-form";
 
 export default function LoginPage() {
   return (
-    <div className="">
+    <div className="h-screen flex flex-col">
       <Navbar />
       <LoginForm />
     </div>
