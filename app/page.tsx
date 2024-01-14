@@ -2,6 +2,7 @@ import Navbar from "@/components/Shared/Navbar";
 import DestinationsSection from "@/containers/home-page/destinations-section";
 import HeroSection from "@/containers/home-page/hero-section";
 import InfoSection from "@/containers/home-page/info-section";
+import TrendingPropertiesSection from "@/containers/home-page/trending-properties-section";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
         <InfoSection />
       </div>
       <DestinationsSection />
+      <TrendingPropertiesSection />
     </>
   );
 }
