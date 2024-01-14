@@ -1,6 +1,7 @@
 import Navbar from "@/components/Shared/Navbar";
 import DestinationsSection from "@/containers/home-page/destinations-section";
 import DetailSection from "@/containers/home-page/detail-section";
+import FAQSection from "@/containers/home-page/faq-section";
 import HeroSection from "@/containers/home-page/hero-section";
 import InfoSection from "@/containers/home-page/info-section";
 import TopPropertiesSection from "@/containers/home-page/top-properties-section";
@@ -20,6 +21,7 @@ export default function Home() {
       <TrendingPropertiesSection />
       <TopPropertiesSection />
       <DetailSection />
+      <FAQSection />
     </>
   );
 }
