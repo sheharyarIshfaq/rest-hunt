@@ -57,7 +57,7 @@ const FAQSection = () => {
       <h1 className="text-3xl font-semibold text-center">
         Frequently Asked Questions
       </h1>
-      <div className="mt-14">
+      <div className="mt-10">
         {DATA.map((item) => (
           <FAQItem
             key={item.id}
