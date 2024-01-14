@@ -24,12 +24,12 @@ const ImageWithText = ({
       <Image src={image} alt={title} className="w-full h-full object-cover" />
       <div
         className={`absolute inset-0 bg-black transition-all duration-200 ease-in ${
-          isHovered ? "bg-opacity-40" : "bg-opacity-20"
+          isHovered ? "bg-opacity-40" : "bg-opacity-10"
         }`}
       ></div>
       {!isHovered && (
         <div className="absolute bottom-0 left-0 text-white p-4">
-          <h3 className="text-xl font-bold my-2">{title}</h3>
+          <h3 className="text-2xl font-bold my-2">{title}</h3>
         </div>
       )}
       {isHovered && (

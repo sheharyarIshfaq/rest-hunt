@@ -1,5 +1,9 @@
 import React from "react";
-import JinnahMausoleum from "@/public/images/Jinnah_Mausoleum.jpg";
+import Karachi from "@/public/images/karachi.png";
+import Islamabad from "@/public/images/islamabad.png";
+import Peshawar from "@/public/images/peshawar.png";
+import Multan from "@/public/images/multan.png";
+import Faisalabad from "@/public/images/faisalabad.png";
 import ImageWithText from "@/components/ImageWithText";
 
 const DestinationsSection = () => {
@@ -10,32 +14,24 @@ const DestinationsSection = () => {
       </h1>
       <div className="mt-8">
         <div className="grid grid-cols-3 gap-8">
+          <ImageWithText image={Karachi} title="Karachi" totalProperties={76} />
           <ImageWithText
-            image={JinnahMausoleum}
-            title="Karachi"
-            totalProperties={76}
+            image={Islamabad}
+            title="Islamabad"
+            totalProperties={126}
           />
           <ImageWithText
-            image={JinnahMausoleum}
-            title="Karachi"
-            totalProperties={76}
-          />
-          <ImageWithText
-            image={JinnahMausoleum}
-            title="Karachi"
-            totalProperties={76}
+            image={Peshawar}
+            title="Peshawar"
+            totalProperties={56}
           />
         </div>
         <div className="grid grid-cols-2 gap-8 mt-8">
+          <ImageWithText image={Multan} title="Multan" totalProperties={109} />
           <ImageWithText
-            image={JinnahMausoleum}
-            title="Karachi"
-            totalProperties={76}
-          />
-          <ImageWithText
-            image={JinnahMausoleum}
-            title="Karachi"
-            totalProperties={76}
+            image={Faisalabad}
+            title="Faisalabad"
+            totalProperties={89}
           />
         </div>
       </div>
