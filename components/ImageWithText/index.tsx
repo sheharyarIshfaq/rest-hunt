@@ -6,18 +6,20 @@ interface ImageWithTextProps {
   image: StaticImageData;
   title: string;
   totalProperties: number;
+  className?: string;
 }
 
 const ImageWithText = ({
   image,
   title,
   totalProperties,
+  className,
 }: ImageWithTextProps) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
   return (
     <div
-      className="relative cursor-pointer max-h-[400px]"
+      className={`relative cursor-pointer h-[300px] sm:h-auto max-h-[400px] ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

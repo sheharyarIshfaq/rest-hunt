@@ -11,7 +11,7 @@ const HeroSection = () => {
         Discover Your <span className="text-white">"Perfect Stay"</span> with
         RestHunt!
       </h1>
-      <p className="text-label font-semibold text-2xl mt-6 text-center">
+      <p className="text-label font-semibold text-xl xs:text-2xl mt-6 text-center">
         Seamless Accommodation Search Made Simple.
       </p>
       <div className="hidden sm:flex items-center gap-3 text-label font-semibold justify-center mt-10">
