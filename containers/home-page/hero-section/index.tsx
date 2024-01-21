@@ -7,7 +7,7 @@ import CustomSearch from "@/components/CustomSearch";
 const HeroSection = () => {
   return (
     <section className="container py-20">
-      <h1 className="text-5xl font-semibold text-center">
+      <h1 className="text-4xl xs:text-5xl font-semibold text-center">
         Discover Your <span className="text-white">"Perfect Stay"</span> with
         RestHunt!
       </h1>
@@ -28,7 +28,7 @@ const HeroSection = () => {
           <p>24/7 Support</p>
         </div>
       </div>
-      <div className="max-w-[80vw] sm:max-w-[50vw] mx-auto mt-14">
+      <div className="xs:max-w-[80vw] sm:max-w-[50vw] mx-auto mt-14">
         <CustomSearch />
       </div>
     </section>

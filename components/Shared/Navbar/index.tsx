@@ -18,7 +18,7 @@ const Navbar = ({ isDark = false }: NavbarProps) => {
       >
         RestHunt
       </Link>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-1 xs:gap-3">
         <Button
           variant="outline"
           onClick={() => router.push("/login")}
