@@ -13,7 +13,7 @@ const DestinationsSection = () => {
         Explore the Hottest Destinations
       </h1>
       <div className="mt-8">
-        <div className="grid grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-8">
           <ImageWithText image={Karachi} title="Karachi" totalProperties={76} />
           <ImageWithText
             image={Islamabad}
@@ -26,7 +26,7 @@ const DestinationsSection = () => {
             totalProperties={56}
           />
         </div>
-        <div className="grid grid-cols-2 gap-8 mt-8">
+        <div className="grid md:grid-cols-2 gap-8 mt-8">
           <ImageWithText image={Multan} title="Multan" totalProperties={109} />
           <ImageWithText
             image={Faisalabad}

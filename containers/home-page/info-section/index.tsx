@@ -30,7 +30,7 @@ const DATA = [
 
 const InfoSection = () => {
   return (
-    <section className="container grid grid-cols-3 gap-8 py-10">
+    <section className="container grid sm:grid-cols-3 gap-8 py-10">
       {DATA.map((item) => (
         <IconCard
           key={item.id}

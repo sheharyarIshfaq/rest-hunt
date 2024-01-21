@@ -44,8 +44,8 @@ const FAQItem = ({ question, answer, id }: FAQItemProps) => {
   return (
     <Accordion type="single" collapsible>
       <AccordionItem value={id.toString()}>
-        <AccordionTrigger>{question}</AccordionTrigger>
-        <AccordionContent>{answer}</AccordionContent>
+        <AccordionTrigger className="text-left">{question}</AccordionTrigger>
+        <AccordionContent className="text-left">{answer}</AccordionContent>
       </AccordionItem>
     </Accordion>
   );

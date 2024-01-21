@@ -5,7 +5,7 @@ import { BsFacebook, BsInstagram, BsLinkedin, BsYoutube } from "react-icons/bs";
 const Footer = () => {
   return (
     <>
-      <footer className="container py-10 flex justify-between gap-6">
+      <footer className="container py-10 flex flex-col lg:flex-row justify-between gap-6">
         <div className="flex-[2]">
           <h1 className="text-2xl font-semibold text-main">RestHunt</h1>
           <p className="mt-2 text-label">
@@ -75,19 +75,21 @@ const Footer = () => {
         </div>
       </footer>
       <footer className="border-t py-4">
-        <div className="container flex items-center justify-center gap-8">
-          <Link className="text-label" href="/terms">
-            Terms & Conditions
-          </Link>
-          <Link className="text-label" href="/privacy">
-            Privacy Policy
-          </Link>
-          <Link className="text-label" href="/cookies">
-            Cookies Policy
-          </Link>
-          <Link className="text-label" href="/sitemap">
-            Sitemap
-          </Link>
+        <div className="container flex flex-col md:flex-row items-center justify-center gap-8">
+          <div className="hidden sm:flex items-center justify-center gap-8">
+            <Link className="text-label" href="/terms">
+              Terms & Conditions
+            </Link>
+            <Link className="text-label" href="/privacy">
+              Privacy Policy
+            </Link>
+            <Link className="text-label" href="/cookies">
+              Cookies Policy
+            </Link>
+            <Link className="text-label" href="/sitemap">
+              Sitemap
+            </Link>
+          </div>
           <p className="text-label">© 2024 RestHunt. All rights reserved.</p>
         </div>
       </footer>

@@ -18,6 +18,9 @@ module.exports = {
       },
     },
     extend: {
+      screens: {
+        xs: "500px",
+      },
       colors: {
         label: "#3C3C4399",
         main: "#34C759",

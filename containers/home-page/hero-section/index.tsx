@@ -14,7 +14,7 @@ const HeroSection = () => {
       <p className="text-label font-semibold text-2xl mt-6 text-center">
         Seamless Accommodation Search Made Simple.
       </p>
-      <div className="flex items-center gap-3 text-label font-semibold justify-center mt-10">
+      <div className="hidden sm:flex items-center gap-3 text-label font-semibold justify-center mt-10">
         <div className="flex items-center gap-1">
           <IoMdCheckmarkCircleOutline className="text-xl text-black" />
           <p>Verified Properties</p>
@@ -28,7 +28,7 @@ const HeroSection = () => {
           <p>24/7 Support</p>
         </div>
       </div>
-      <div className="max-w-[50vw] mx-auto mt-14">
+      <div className="max-w-[80vw] sm:max-w-[50vw] mx-auto mt-14">
         <CustomSearch />
       </div>
     </section>

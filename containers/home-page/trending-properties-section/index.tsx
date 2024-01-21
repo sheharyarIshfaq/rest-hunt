@@ -6,7 +6,7 @@ const TrendingPropertiesSection = () => {
   return (
     <section className="container py-10">
       <h1 className="text-3xl font-semibold">Trending Properties</h1>
-      <div className="mt-8 grid grid-cols-3 gap-4">
+      <div className="mt-8 grid md:grid-cols-3 gap-4">
         {DUMMY_PROPERTIES.slice(0, 3).map((property) => (
           <PropertyCard
             key={property.id}

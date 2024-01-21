@@ -33,7 +33,7 @@ const DetailSection = () => {
     <section className="bg-mainLight py-14">
       <div className="container">
         <h1 className="text-3xl font-semibold text-center">What We've Got</h1>
-        <div className="grid grid-cols-3 gap-8 mt-14">
+        <div className="grid sm:grid-cols-3 gap-8 mt-14">
           {DATA.map((item) => (
             <IconCard
               key={item.id}

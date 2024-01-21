@@ -10,7 +10,7 @@ import TrendingPropertiesSection from "@/containers/home-page/trending-propertie
 export default function Home() {
   return (
     <>
-      <div className="h-screen flex flex-col justify-between">
+      <div className="sm:h-screen flex flex-col justify-between">
         <div className="flex-1" id="hero-section">
           <Navbar isDark={true} />
           <HeroSection />
