@@ -8,8 +8,8 @@ import GoogleIcon from "@/public/icons/google.svg";
 
 const LoginForm = () => {
   return (
-    <section className="container flex justify-between items-center gap-8 flex-1">
-      <div className="flex-1">
+    <section className="container flex justify-center lg:justify-between items-center gap-8 flex-1">
+      <div className="flex-1 md:max-w-[60vw] lg:max-w-full">
         <h1 className="text-3xl font-semibold text-center">Hi there!</h1>
         <p className="mt-3 text-center">
           Welcome back, great to see you here again
@@ -75,7 +75,7 @@ const LoginForm = () => {
           </TabsContent>
         </Tabs>
       </div>
-      <div className="flex-1 flex justify-end">
+      <div className="flex-1 hidden lg:flex justify-end">
         <Image src={LoginImage} alt="Login Image" />
       </div>
     </section>

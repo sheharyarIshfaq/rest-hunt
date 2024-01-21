@@ -49,9 +49,9 @@ const Footer = () => {
             <input
               type="text"
               placeholder="Enter your email"
-              className="bg-transparent outline-none flex-1 py-3 px-4"
+              className="bg-transparent outline-none flex-1 py-3 px-3 sm:px-4"
             />
-            <button className="px-6 flex items-center justify-center bg-main font-semibold text-white">
+            <button className="px-3 sm:px-6 flex items-center justify-center bg-main font-semibold text-white">
               Subscribe
             </button>
           </div>
