@@ -11,7 +11,7 @@ const LoginForm = () => {
     <section className="container flex justify-center lg:justify-between items-center gap-8 flex-1">
       <div className="flex-1 md:max-w-[60vw] lg:max-w-full">
         <h1 className="text-3xl font-semibold text-center">Hi there!</h1>
-        <p className="mt-3 text-center">
+        <p className="my-4 text-center">
           Welcome back, great to see you here again
         </p>
         <Tabs defaultValue="user">
