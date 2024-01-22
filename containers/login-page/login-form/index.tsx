@@ -5,10 +5,11 @@ import LoginImage from "@/public/images/login.svg";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import GoogleIcon from "@/public/icons/google.svg";
+import Link from "next/link";
 
 const LoginForm = () => {
   return (
-    <section className="container flex justify-center lg:justify-between items-center gap-8 flex-1">
+    <section className="container flex justify-center lg:justify-between items-center gap-8 flex-1 md:max-w-[85vw]">
       <div className="flex-1 md:max-w-[60vw] lg:max-w-full">
         <h1 className="text-3xl font-semibold text-center">Hi there!</h1>
         <p className="my-4 text-center">
@@ -45,7 +46,9 @@ const LoginForm = () => {
             </Button>
             <p className="text-center">
               Don't have an account?{" "}
-              <span className="text-main font-semibold">Sign Up</span>
+              <Link href="/signup" className="text-main font-semibold">
+                Sign Up
+              </Link>
             </p>
           </TabsContent>
           <TabsContent value="owner" className="flex flex-col gap-3">
@@ -70,7 +73,9 @@ const LoginForm = () => {
             </Button>
             <p className="text-center">
               Don't have an account?{" "}
-              <span className="text-main font-semibold">Sign Up</span>
+              <Link href="/signup" className="text-main font-semibold">
+                Sign Up
+              </Link>
             </p>
           </TabsContent>
         </Tabs>
