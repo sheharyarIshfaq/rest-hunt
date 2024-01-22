@@ -20,7 +20,7 @@ const Navbar = ({ isDark = false }: NavbarProps) => {
       </Link>
       <div className="flex items-center gap-1 xs:gap-3">
         <Button
-          variant="outline"
+          variant={isDark ? "outline" : "default"}
           onClick={() => router.push("/login")}
           className={`${
             !isDark ? "bg-main text-white hover:bg-mainLight" : ""
