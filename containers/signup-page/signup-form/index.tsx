@@ -6,7 +6,11 @@ import { Button } from "@/components/ui/button";
 import GoogleIcon from "@/public/icons/google.svg";
 import Link from "next/link";
 
-const SignupForm = () => {
+interface SignupFormProps {
+  onSubmit: () => void;
+}
+
+const SignupForm = ({ onSubmit }: SignupFormProps) => {
   return (
     <section className="container flex justify-center lg:justify-between items-center gap-8 flex-1 md:max-w-[85vw]">
       <div className="flex-1 md:max-w-[60vw] lg:max-w-full">
@@ -20,7 +24,10 @@ const SignupForm = () => {
           <p className="text-left text-label my-1 text-sm underline">
             Password should be 8 digits long or more
           </p>
-          <Button className="bg-main hover:bg-mainLight hover:text-black">
+          <Button
+            className="bg-main hover:bg-mainLight hover:text-black"
+            onClick={onSubmit}
+          >
             Signup
           </Button>
           <div className="flex items-center gap-2">
@@ -28,7 +35,10 @@ const SignupForm = () => {
             <p className="text-muted-foreground">or</p>
             <hr className="flex-1" />
           </div>
-          <Button className="bg-white border border-black text-black hover:text-white">
+          <Button
+            className="bg-white border border-black text-black hover:text-white"
+            onClick={onSubmit}
+          >
             <Image
               src={GoogleIcon}
               alt="Google"

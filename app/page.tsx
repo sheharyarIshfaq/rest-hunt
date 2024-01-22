@@ -1,3 +1,4 @@
+import Footer from "@/components/Shared/Footer";
 import Navbar from "@/components/Shared/Navbar";
 import DestinationsSection from "@/containers/home-page/destinations-section";
 import DetailSection from "@/containers/home-page/detail-section";
@@ -22,6 +23,7 @@ export default function Home() {
       <TopPropertiesSection />
       <DetailSection />
       <FAQSection />
+      <Footer />
     </>
   );
 }

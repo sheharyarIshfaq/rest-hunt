@@ -79,3 +79,14 @@
   background: url("/images/hero-bg.svg") no-repeat bottom center;
   background-size: cover;
 }
+
+.show-graphics {
+  background: url("/images/curls-left.svg") no-repeat left bottom,
+    url("/images/curls-right.svg") no-repeat right top;
+}
+
+@media (max-width: 640px) {
+  .show-graphics {
+    background: url("/images/curls-left.svg") no-repeat left bottom;
+  }
+}
