@@ -10,6 +10,12 @@ import Link from "next/link";
 import { toast } from "@/components/ui/use-toast";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useAppDispatch } from "@/redux/store";
+import { useRouter } from "next/navigation";
+import { onLogin } from "@/redux/features/auth-slice";
+
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 // Yup schema to validate the form
 const schema = Yup.object().shape({
@@ -18,6 +24,9 @@ const schema = Yup.object().shape({
 });
 
 const DataForm = () => {
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const [loading, setLoading] = React.useState(false);
   // Formik hook to handle the form state
   const formik = useFormik({
     initialValues: {
@@ -31,7 +40,39 @@ const DataForm = () => {
 
     // Handle form submission
     onSubmit: async ({ email, password }) => {
-      // Make a request to your backend to store the data
+      try {
+        setLoading(true);
+        const response = await fetch(`${BACKEND_URL}/users/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+        });
+
+        const responseData = await response.json();
+        if (responseData.error) {
+          return toast({
+            variant: "destructive",
+            title: "Uh oh! Something went wrong.",
+            description: responseData.error,
+          });
+        }
+        const { user, token, expiresAt } = responseData;
+        dispatch(onLogin({ user, token, expiresAt }));
+        router.push("/");
+      } catch (err: any) {
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: err.message,
+        });
+      } finally {
+        setLoading(false);
+      }
     },
   });
 
@@ -73,7 +114,8 @@ const DataForm = () => {
         className="bg-main hover:bg-mainLight hover:text-black"
         type="submit"
       >
-        Login
+        {loading && <AiOutlineLoading3Quarters className="animate-spin mr-2" />}
+        {loading ? "Loading..." : "Login"}
       </Button>
       <div className="flex items-center gap-2">
         <hr className="flex-1" />

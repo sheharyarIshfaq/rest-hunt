@@ -83,7 +83,12 @@ export default function SignupPage() {
       const { user, token, expiresAt } = responseData;
       dispatch(onLogin({ user, token, expiresAt }));
       router.push("/");
-    } catch (err) {
+    } catch (err: any) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: err.message,
+      });
     } finally {
       setLoading(false);
     }

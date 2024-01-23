@@ -15,7 +15,7 @@ const initialState: AuthState = {
   userRole: null,
 };
 
-export const authSlice: any = createSlice({
+export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
