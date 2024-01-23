@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Raleway } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
+import ReduxProvider from "@/redux/provider";
+import AuthWrapper from "@/redux/AuthWrapper";
 
 const raleway = Raleway({ subsets: ["latin"] });
 
@@ -17,10 +19,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={raleway.className}>
-        <main>{children}</main>
-        <Toaster />
-      </body>
+      <ReduxProvider>
+        <AuthWrapper>
+          <body className={raleway.className}>
+            <main>{children}</main>
+            <Toaster />
+          </body>
+        </AuthWrapper>
+      </ReduxProvider>
     </html>
   );
 }

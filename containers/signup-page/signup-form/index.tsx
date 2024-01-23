@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import SignupImage from "@/public/images/login.svg";
@@ -5,12 +6,39 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import GoogleIcon from "@/public/icons/google.svg";
 import Link from "next/link";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+
+// Yup schema to validate the form
+const schema = Yup.object().shape({
+  email: Yup.string().required().email(),
+  password: Yup.string().required().min(6),
+});
 
 interface SignupFormProps {
-  onSubmit: () => void;
+  onInitialSubmit: (email: string, password: string) => void;
 }
 
-const SignupForm = ({ onSubmit }: SignupFormProps) => {
+const SignupForm = ({ onInitialSubmit }: SignupFormProps) => {
+  // Formik hook to handle the form state
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+
+    // Pass the Yup schema to validate the form
+    validationSchema: schema,
+
+    // Handle form submission
+    onSubmit: async ({ email, password }) => {
+      onInitialSubmit(email, password);
+    },
+  });
+
+  // Destructure the formik object
+  const { errors, touched, values, handleChange, handleSubmit } = formik;
+
   return (
     <section className="container flex justify-center lg:justify-between items-center gap-8 flex-1 md:max-w-[85vw]">
       <div className="flex-1 md:max-w-[60vw] lg:max-w-full">
@@ -18,15 +46,41 @@ const SignupForm = ({ onSubmit }: SignupFormProps) => {
         <p className="my-4 text-center">
           Welcome to RestHunt, the land of Perfect Stay
         </p>
-        <div className="flex flex-col gap-3">
-          <Input type="email" placeholder="Enter your Email" />
-          <Input type="password" placeholder="Enter your password" />
+        <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
+          <Input
+            type="email"
+            placeholder="Enter your Email"
+            value={values.email}
+            onChange={handleChange}
+            id="email"
+            name="email"
+            error={errors.email && touched.email ? true : false}
+          />
+          {errors.email && touched.email && (
+            <span className="text-sm text-red-500 ml-1 capitalize">
+              {errors.email}
+            </span>
+          )}
+          <Input
+            type="password"
+            placeholder="Enter your password"
+            value={values.password}
+            onChange={handleChange}
+            id="password"
+            name="password"
+            error={errors.password && touched.password ? true : false}
+          />
+          {errors.password && touched.password && (
+            <span className="text-sm text-red-500 ml-1 capitalize">
+              {errors.password}
+            </span>
+          )}
           <p className="text-left text-label my-1 text-sm underline">
             Password should be 8 digits long or more
           </p>
           <Button
             className="bg-main hover:bg-mainLight hover:text-black"
-            onClick={onSubmit}
+            type="submit"
           >
             Signup
           </Button>
@@ -37,7 +91,7 @@ const SignupForm = ({ onSubmit }: SignupFormProps) => {
           </div>
           <Button
             className="bg-white border border-black text-black hover:text-white"
-            onClick={onSubmit}
+            type="button"
           >
             <Image
               src={GoogleIcon}
@@ -52,7 +106,7 @@ const SignupForm = ({ onSubmit }: SignupFormProps) => {
               Login
             </Link>
           </p>
-        </div>
+        </form>
       </div>
       <div className="flex-1 hidden lg:flex justify-end">
         <Image src={SignupImage} alt="Signup Image" />

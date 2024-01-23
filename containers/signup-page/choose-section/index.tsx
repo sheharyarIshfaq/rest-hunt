@@ -30,38 +30,52 @@ const ChooseCard = ({
 };
 
 interface ChooseSectionProps {
-  onSubmit: () => void;
+  onSubmit: (role: string) => void;
 }
 
 const ChooseSection = ({ onSubmit }: ChooseSectionProps) => {
+  const [value, setValue] = React.useState("user");
   return (
     <section className="container py-10 xs:py-20 w-fit">
       <h1 className="text-3xl font-semibold text-center">Please Choose</h1>
       <p className="my-4 text-center">Please choose how you want to sign up</p>
       <RadioGroup
-        defaultValue="user"
+        defaultValue={value}
         className="flex flex-col xs:flex-row gap-8 justify-center items-center mt-10"
+        value={value}
       >
         <div className="relative w-full">
-          <ChooseCard title="As a User" icon={UserIcon} onClick={() => {}} />
+          <ChooseCard
+            title="As a User"
+            icon={UserIcon}
+            onClick={() => {
+              setValue("user");
+            }}
+          />
           <RadioGroupItem
             value="user"
             id="user"
             className="absolute top-3 right-3"
+            onClick={() => setValue("user")}
           />
         </div>
         <div className="relative w-full">
-          <ChooseCard title="As an Owner" icon={OwnerIcon} onClick={() => {}} />
+          <ChooseCard
+            title="As an Owner"
+            icon={OwnerIcon}
+            onClick={() => setValue("property_owner")}
+          />
           <RadioGroupItem
-            value="owner"
-            id="owner"
+            value="property_owner"
+            id="property_owner"
             className="absolute top-3 right-3"
+            onClick={() => setValue("property_owner")}
           />
         </div>
       </RadioGroup>
       <Button
         className="bg-main hover:bg-mainLight hover:text-black mt-10 w-full"
-        onClick={onSubmit}
+        onClick={() => onSubmit(value)}
       >
         Next
       </Button>
