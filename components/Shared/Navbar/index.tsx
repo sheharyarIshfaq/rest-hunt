@@ -23,14 +23,16 @@ import {
   BsGear,
   BsBoxArrowRight,
 } from "react-icons/bs";
+import CustomSearch from "@/components/CustomSearch";
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 interface NavbarProps {
   isDark?: boolean;
+  showSearch?: boolean;
 }
 
-const Navbar = ({ isDark = false }: NavbarProps) => {
+const Navbar = ({ isDark = false, showSearch = false }: NavbarProps) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { isLoggedIn, user } = useAppSelector((state) => state.auth);
@@ -43,10 +45,17 @@ const Navbar = ({ isDark = false }: NavbarProps) => {
     <nav className="container flex justify-between items-center gap-4 py-4">
       <Link
         href="/"
-        className={`text-2xl font-bold ${!isDark ? "text-main" : ""}`}
+        className={`text-2xl font-bold ${!isDark ? "text-main" : ""} ${
+          showSearch ? "text-main" : ""
+        }`}
       >
         RestHunt
       </Link>
+      {showSearch && (
+        <div className="hidden sm:block">
+          <CustomSearch isSmall={true} />
+        </div>
+      )}
       {!isLoggedIn && (
         <div className="flex items-center gap-1 xs:gap-3">
           <Button
