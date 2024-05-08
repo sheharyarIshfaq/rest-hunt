@@ -24,6 +24,7 @@ import { AiOutlineFire } from "react-icons/ai";
 import { LuSofa } from "react-icons/lu";
 import { CiDumbbell } from "react-icons/ci";
 import { GiWashingMachine } from "react-icons/gi";
+import ImageSlider from "@/components/ImageSlider";
 
 interface IRoomDetail {
   title: string;
@@ -49,7 +50,7 @@ const RoomDetail = ({ title, price, image }: IRoomDetail) => {
           </DialogTitle>
         </DialogHeader>
         <div>
-          <Image src={image} alt="Room" className="w-full h-56 object-cover" />
+          <ImageSlider />
           <div className="mt-2">
             <div className="flex items-center gap-3 my-3">
               <IconButton icon={<MdOutlineBathtub />} title="4 bathrooms" />

@@ -1,17 +1,5 @@
-import { Button } from "@/components/ui/button";
 import Image, { StaticImageData } from "next/image";
-import { BsChevronRight } from "react-icons/bs";
 import { FaRegCircleCheck } from "react-icons/fa6";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import Enquire from "./Enquire";
 import Book from "./Book";
 import RoomDetail from "./RoomDetail";
