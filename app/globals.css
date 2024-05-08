@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  scroll-behavior: smooth;
+}
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }

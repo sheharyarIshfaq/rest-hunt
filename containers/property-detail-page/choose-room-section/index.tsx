@@ -6,7 +6,7 @@ import RoomCard from "./RoomCard";
 
 const ChooseRoomSection = () => {
   return (
-    <div className="mt-4 border-b pb-6">
+    <div className="mt-4 border-b pb-6" id="rooms">
       <h1 className="text-lg font-semibold">Choose Your Room</h1>
       <div className="mt-3">
         <Tabs defaultValue="private">

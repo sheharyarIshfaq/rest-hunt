@@ -24,7 +24,12 @@ const PropertySideDetailSection = () => {
         <IconButton icon={<IoFlashOutline />} title="Fast Selling" />
       </div>
       <Button className="w-full bg-main hover:bg-main font-semibold hover:shadow-md mt-2">
-        View Rooms
+        <a
+          className="w-full h-full flex items-center justify-center"
+          href="#rooms"
+        >
+          View Rooms
+        </a>
       </Button>
       <div className="mt-4 border-t pt-4">
         <h1 className="font-semibold text-lg">Popular</h1>
