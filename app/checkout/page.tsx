@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Navbar from "@/components/Shared/Navbar";
 import { IoCalendarOutline } from "react-icons/io5";
 import Image from "next/image";
@@ -23,7 +23,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 const CheckoutPage = () => {
-  const pathname = usePathname();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const property = searchParams.get("property");
   const price = searchParams.get("price");
@@ -41,6 +41,12 @@ const CheckoutPage = () => {
     return "";
   };
 
+  const checkoutHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // Checkout logic here
+    router.push("/confirmation");
+  };
+
   return (
     <>
       <Navbar showSearch={false} isDark={false} />
@@ -52,7 +58,7 @@ const CheckoutPage = () => {
             following fields, as inaccurate information may cause a failure to
             confirm your booking.
           </p>
-          <form>
+          <form onSubmit={checkoutHandler}>
             <div className="flex justify-between items-center gap-4 mb-3">
               <h1 className="text-xl font-semibold">Pay With</h1>
               <div className="flex items-center gap-2">
