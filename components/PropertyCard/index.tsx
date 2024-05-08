@@ -1,6 +1,7 @@
 import React from "react";
 import Image, { StaticImageData } from "next/image";
 import HeartIcon from "@/public/icons/heart.svg";
+import Link from "next/link";
 
 interface PropertyCardProps {
   image: StaticImageData;
@@ -11,7 +12,10 @@ interface PropertyCardProps {
 
 const PropertyCard = ({ image, title, address, price }: PropertyCardProps) => {
   return (
-    <div className="shadow-sm border flex flex-col relative rounded-lg cursor-pointer hover:shadow-md">
+    <Link
+      href={`/property/${title.replace(/\s+/g, "-").toLowerCase()}`}
+      className="shadow-sm border flex flex-col relative rounded-lg cursor-pointer hover:shadow-md"
+    >
       <Image
         src={image}
         alt={title}
@@ -32,7 +36,7 @@ const PropertyCard = ({ image, title, address, price }: PropertyCardProps) => {
       <button className="absolute top-3 right-3 bg-white bg-opacity-95 transition-all duration-200 ease-in hover:bg-opacity-100 p-2 rounded-full shadow-md">
         <Image src={HeartIcon} alt="Like" />
       </button>
-    </div>
+    </Link>
   );
 };
 

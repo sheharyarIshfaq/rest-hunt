@@ -5,7 +5,14 @@ import { onLogin, onLogout } from "./features/auth-slice";
 import moment from "moment";
 import { usePathname, useRouter } from "next/navigation";
 
-const PUBLIC_ROUTES = ["/", "/signup", "/forgot-password", "/login", "/search"];
+const PUBLIC_ROUTES = [
+  "/",
+  "/signup",
+  "/forgot-password",
+  "/login",
+  "/search",
+  "/property/",
+];
 
 const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useAppDispatch();
