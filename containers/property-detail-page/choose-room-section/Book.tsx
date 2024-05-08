@@ -19,6 +19,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
+import moment from "moment";
+import IconButton from "@/components/Shared/IconButton";
 
 interface IBook {
   title: string;
@@ -27,6 +29,20 @@ interface IBook {
 }
 
 const Book = ({ title, price, image }: IBook) => {
+  const [moveInDate, setMoveInDate] = React.useState<any>(null);
+  const [moveOutDate, setMoveOutDate] = React.useState<any>(null);
+
+  const calculateDifference = () => {
+    //in months, if not in months then in days
+    if (moveInDate && moveOutDate) {
+      const diff = moment(moveOutDate).diff(moveInDate, "months");
+      return diff > 0
+        ? diff + " months"
+        : moment(moveOutDate).diff(moveInDate, "days") + " days";
+    }
+    return "";
+  };
+
   return (
     <Dialog>
       <DialogTrigger>
@@ -62,16 +78,27 @@ const Book = ({ title, price, image }: IBook) => {
               <Popover>
                 <PopoverTrigger asChild>
                   <button className="text-main font-semibold">
-                    choose your dates
+                    {moveInDate
+                      ? moment(moveInDate).format("MMM DD, YYYY")
+                      : "choose your dates"}
                   </button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar />
+                  <Calendar
+                    mode="single"
+                    selected={moveInDate}
+                    onSelect={setMoveInDate}
+                  />
                 </PopoverContent>
               </Popover>
             </div>
-            <div className="h-10 my-1 ml-2">
+            <div className="h-10 my-1 ml-2 flex items-center gap-4">
               <Separator orientation="vertical" className="" />
+              {moveInDate && moveOutDate && (
+                <div className="bg-gray-100 rounded-sm py-2 px-4 text-sm">
+                  {calculateDifference()}
+                </div>
+              )}
             </div>
             <div className="flex items-center gap-2">
               <IoCalendarOutline className="text-lg" />
@@ -79,18 +106,33 @@ const Book = ({ title, price, image }: IBook) => {
               <Popover>
                 <PopoverTrigger asChild>
                   <button className="text-main font-semibold">
-                    choose your dates
+                    {moveOutDate
+                      ? moment(moveOutDate).format("MMM DD, YYYY")
+                      : "choose your dates"}
                   </button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar />
+                  <Calendar
+                    mode="single"
+                    selected={moveOutDate}
+                    onSelect={setMoveOutDate}
+                  />
                 </PopoverContent>
               </Popover>
             </div>
           </div>
+          <div className="mt-2 border-t pt-2 flex items-center gap-3 justify-between">
+            <h1>Total</h1>
+            <p className="font-semibold">Rs.{price}</p>
+          </div>
         </div>
         <DialogFooter className="sm:justify-start">
-          <Button className="bg-main w-full">Continue</Button>
+          <Button
+            disabled={!moveInDate || !moveOutDate}
+            className="bg-main w-full"
+          >
+            Continue
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
