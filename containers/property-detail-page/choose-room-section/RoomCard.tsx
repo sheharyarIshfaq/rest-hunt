@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import Enquire from "./Enquire";
 import Book from "./Book";
+import RoomDetail from "./RoomDetail";
 
 interface IRoomCard {
   title: string;
@@ -41,22 +42,7 @@ const RoomCard = ({ title, price, image, facilities }: IRoomCard) => {
               </div>
             ))}
           </div>
-          <Dialog>
-            <DialogTrigger>
-              <button className="flex items-center gap-2 my-3 text-gray-500">
-                View Details <BsChevronRight />
-              </button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Are you absolutely sure?</DialogTitle>
-                <DialogDescription>
-                  This action cannot be undone. This will permanently delete
-                  your account and remove your data from our servers.
-                </DialogDescription>
-              </DialogHeader>
-            </DialogContent>
-          </Dialog>
+          <RoomDetail title={title} price={price} image={image} />
         </div>
       </div>
       <div className="flex justify-end items-center gap-3">
