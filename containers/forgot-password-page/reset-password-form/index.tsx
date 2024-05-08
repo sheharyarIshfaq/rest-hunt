@@ -85,9 +85,9 @@ const ResetPasswordForm = ({ email, code }: ResetPasswordFormProps) => {
   const { errors, touched, values, handleChange, handleSubmit } = formik;
   return (
     <form onSubmit={handleSubmit} className="container py-10 xs:py-20 w-fit">
-      <h1 className="text-3xl font-semibold text-center">Forgot Password?</h1>
+      <h1 className="text-3xl font-semibold text-center">New Password</h1>
       <p className="my-4 text-center">
-        Enter the email address associated with your account
+        Please enter the new password below that you can memorize easily
       </p>
       <div className="mt-8 flex flex-col gap-3">
         <div className="flex flex-col gap-1">

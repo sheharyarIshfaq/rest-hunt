@@ -109,7 +109,9 @@ const DataForm = () => {
           {errors.password}
         </span>
       )}
-      <p className="text-right underline">Forgot Password?</p>
+      <Link href="/forgot-password" className="text-right underline">
+        Forgot Password?
+      </Link>
       <Button
         className="bg-main hover:bg-mainLight hover:text-black"
         type="submit"
