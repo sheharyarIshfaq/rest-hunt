@@ -24,6 +24,7 @@ import {
   BsBoxArrowRight,
 } from "react-icons/bs";
 import CustomSearch from "@/components/CustomSearch";
+import { BellIcon } from "lucide-react";
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -80,46 +81,182 @@ const Navbar = ({ isDark = false, showSearch = false }: NavbarProps) => {
         </div>
       )}
       {isLoggedIn && (
-        <DropdownMenu>
-          <DropdownMenuTrigger className="outline-none focus:outline-none">
-            <Avatar className="cursor-pointer">
-              <AvatarImage src={BACKEND_URL + user.profilePicture} />
-              <AvatarFallback className="bg-black text-white">
-                {user.name
-                  .split(" ")
-                  .map((name: string) => name[0])
-                  .slice(0, 2)}
-              </AvatarFallback>
-            </Avatar>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-44">
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <BsPerson className="mr-2" /> Profile
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <BsCalendar2Check className="mr-2" /> Bookings
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <BsChatDots className="mr-2" /> Messages
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <BsHeart className="mr-2" /> Saved Properties
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <BsArrowClockwise className="mr-2" /> Recently Viewed
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <BsGear className="mr-2" /> Settings
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={logoutHandler} className="text-red-500">
-              <BsBoxArrowRight className="mr-2" />
-              Logout
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="flex items-center gap-6">
+          <DropdownMenu>
+            <DropdownMenuTrigger className="outline-none focus:outline-none">
+              <button className="relative flex items-center justify-center">
+                <BellIcon className="cursor-pointer" />
+                <span className="absolute top-0 right-0 -mt-1 -mr-1 px-1 text-xs text-white bg-red-500 rounded-full w-2 h-2"></span>
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="end"
+              className="w-72 max-h-[300px] overflow-y-auto custom-scrollbar"
+            >
+              <DropdownMenuLabel>
+                Notifications <span className="text-xs text-gray-500">(2)</span>
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                <div className="flex items-center gap-2">
+                  <Avatar className="w-8 h-8">
+                    <AvatarImage src="/images/avatar.png" />
+                    <AvatarFallback className="bg-black text-white">
+                      JD
+                    </AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="text-sm">
+                      John Doe{" "}
+                      <span className="text-xs text-gray-500">
+                        Booked your property
+                      </span>
+                    </p>
+                    <p className="text-xs text-gray-500">1 hour ago</p>
+                  </div>
+                </div>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <div className="flex items-center gap-2">
+                  <Avatar className="w-8 h-8">
+                    <AvatarImage src="/images/avatar.png" />
+                    <AvatarFallback className="bg-black text-white">
+                      KA
+                    </AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="text-sm">
+                      Keanu Reeves{" "}
+                      <span className="text-xs text-gray-500">
+                        Sent you a message
+                      </span>
+                    </p>
+                    <p className="text-xs text-gray-500">2 hours ago</p>
+                  </div>
+                </div>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <div className="flex items-center gap-2">
+                  <Avatar className="w-8 h-8">
+                    <AvatarImage src="/images/avatar.png" />
+                    <AvatarFallback className="bg-black text-white">
+                      JD
+                    </AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="text-sm">
+                      John Doe{" "}
+                      <span className="text-xs text-gray-500">
+                        Booked your property
+                      </span>
+                    </p>
+                    <p className="text-xs text-gray-500">1 hour ago</p>
+                  </div>
+                </div>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <div className="flex items-center gap-2">
+                  <Avatar className="w-8 h-8">
+                    <AvatarImage src="/images/avatar.png" />
+                    <AvatarFallback className="bg-black text-white">
+                      KA
+                    </AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="text-sm">
+                      Keanu Reeves{" "}
+                      <span className="text-xs text-gray-500">
+                        Sent you a message
+                      </span>
+                    </p>
+                    <p className="text-xs text-gray-500">2 hours ago</p>
+                  </div>
+                </div>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <div className="flex items-center gap-2">
+                  <Avatar className="w-8 h-8">
+                    <AvatarImage src="/images/avatar.png" />
+                    <AvatarFallback className="bg-black text-white">
+                      JD
+                    </AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="text-sm">
+                      John Doe{" "}
+                      <span className="text-xs text-gray-500">
+                        Booked your property
+                      </span>
+                    </p>
+                    <p className="text-xs text-gray-500">1 hour ago</p>
+                  </div>
+                </div>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <div className="flex items-center gap-2">
+                  <Avatar className="w-8 h-8">
+                    <AvatarImage src="/images/avatar.png" />
+                    <AvatarFallback className="bg-black text-white">
+                      KA
+                    </AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="text-sm">
+                      Keanu Reeves{" "}
+                      <span className="text-xs text-gray-500">
+                        Sent you a message
+                      </span>
+                    </p>
+                    <p className="text-xs text-gray-500">2 hours ago</p>
+                  </div>
+                </div>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <DropdownMenu>
+            <DropdownMenuTrigger className="outline-none focus:outline-none">
+              <Avatar className="cursor-pointer">
+                <AvatarImage src={BACKEND_URL + user.profilePicture} />
+                <AvatarFallback className="bg-black text-white">
+                  {user.name
+                    .split(" ")
+                    .map((name: string) => name[0])
+                    .slice(0, 2)}
+                </AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-44">
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                <BsPerson className="mr-2" /> Profile
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <BsCalendar2Check className="mr-2" /> Bookings
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <BsChatDots className="mr-2" /> Messages
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <BsHeart className="mr-2" /> Saved Properties
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <BsArrowClockwise className="mr-2" /> Recently Viewed
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <BsGear className="mr-2" /> Settings
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={logoutHandler}
+                className="text-red-500"
+              >
+                <BsBoxArrowRight className="mr-2" />
+                Logout
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       )}
     </nav>
   );
