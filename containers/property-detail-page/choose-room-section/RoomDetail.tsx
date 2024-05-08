@@ -110,7 +110,7 @@ const RoomDetail = ({ title, price, image }: IRoomDetail) => {
         </div>
         <DialogFooter>
           <Enquire title={title} price={price} image={image} />
-          <Book />
+          <Book title={title} price={price} image={image} />
         </DialogFooter>
       </DialogContent>
     </Dialog>

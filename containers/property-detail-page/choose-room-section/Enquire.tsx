@@ -27,7 +27,7 @@ const Enquire = ({ title, price, image }: IEnquire) => {
           Enquire
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-2xl">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>Enquire</DialogTitle>
           <DialogDescription>

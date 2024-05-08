@@ -35,7 +35,7 @@ const RoomCard = ({ title, price, image, facilities }: IRoomCard) => {
       </div>
       <div className="flex justify-end items-center gap-3">
         <Enquire title={title} price={price} image={image} />
-        <Book />
+        <Book title={title} price={price} image={image} />
       </div>
     </div>
   );
