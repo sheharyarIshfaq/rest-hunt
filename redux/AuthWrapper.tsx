@@ -11,7 +11,7 @@ const PUBLIC_ROUTES = [
   "/forgot-password",
   "/login",
   "/search",
-  "/property/",
+  "/property",
 ];
 
 const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
@@ -40,6 +40,9 @@ const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
       dispatch(onLogin({ user, token, expiresAt }));
     } else {
       dispatch(onLogout());
+      if (pathname.includes("/property/")) {
+        return;
+      }
       //if the route is not public then redirect to the home page
       if (!PUBLIC_ROUTES.includes(pathname)) {
         router.push("/");

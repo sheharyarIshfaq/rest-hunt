@@ -3,9 +3,7 @@ import Navbar from "@/components/Shared/Navbar";
 import {
   Breadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
@@ -29,20 +27,14 @@ const PropertyDeatailPage = ({ params }: { params: { id: string } }) => {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink>
-                <Link href="/">Home</Link>
-              </BreadcrumbLink>
+              <Link href="/">Home</Link>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink>
-                <Link href={`/search/${params.id}`}>Property</Link>
-              </BreadcrumbLink>
+              <Link href={`/search/${params.id}`}>Property</Link>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink>{params.id}</BreadcrumbLink>
-            </BreadcrumbItem>
+            <BreadcrumbItem>{params.id}</BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
         <div className="mt-6">
