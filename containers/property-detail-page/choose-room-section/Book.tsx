@@ -20,7 +20,9 @@ import {
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
 import moment from "moment";
-import IconButton from "@/components/Shared/IconButton";
+import { useRouter } from "next/navigation";
+import { useAppSelector } from "@/redux/store";
+import { toast } from "@/components/ui/use-toast";
 
 interface IBook {
   title: string;
@@ -29,6 +31,8 @@ interface IBook {
 }
 
 const Book = ({ title, price, image }: IBook) => {
+  const router = useRouter();
+  const { isLoggedIn } = useAppSelector((state) => state.auth);
   const [moveInDate, setMoveInDate] = React.useState<any>(null);
   const [moveOutDate, setMoveOutDate] = React.useState<any>(null);
 
@@ -41,6 +45,22 @@ const Book = ({ title, price, image }: IBook) => {
         : moment(moveOutDate).diff(moveInDate, "days") + " days";
     }
     return "";
+  };
+
+  const continueBookingHandler = () => {
+    if (!isLoggedIn) {
+      toast({
+        variant: "destructive",
+        title: "Please login to continue",
+        description: "You need to login to book a property",
+      });
+      return;
+    }
+    if (moveInDate && moveOutDate) {
+      router.push(
+        `/checkout?property=${title}&price=${price}&moveInDate=${moveInDate}&moveOutDate=${moveOutDate}`
+      );
+    }
   };
 
   return (
@@ -130,6 +150,7 @@ const Book = ({ title, price, image }: IBook) => {
           <Button
             disabled={!moveInDate || !moveOutDate}
             className="bg-main w-full"
+            onClick={continueBookingHandler}
           >
             Continue
           </Button>
