@@ -19,7 +19,7 @@ const CustomSearch = ({
     e.preventDefault();
     console.log(search);
     if (search.trim() === "") return;
-    router.push(`/search/${search}`);
+    router.push(`/search?query=${search}`);
   };
 
   return (

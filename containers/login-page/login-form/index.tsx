@@ -63,7 +63,7 @@ const DataForm = () => {
         }
         const { user, token, expiresAt } = responseData;
         dispatch(onLogin({ user, token, expiresAt }));
-        router.push("/search/rawalpindi");
+        router.push("/search?query=rawalpindi");
       } catch (err: any) {
         toast({
           variant: "destructive",

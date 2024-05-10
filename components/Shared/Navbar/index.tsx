@@ -232,7 +232,9 @@ const Navbar = ({ isDark = false, showSearch = false }: NavbarProps) => {
                 <BsPerson className="mr-2" /> Profile
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <BsCalendar2Check className="mr-2" /> Bookings
+                <Link href="/my-bookings" className="flex items-center">
+                  <BsCalendar2Check className="mr-2" /> Bookings
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <BsChatDots className="mr-2" /> Messages

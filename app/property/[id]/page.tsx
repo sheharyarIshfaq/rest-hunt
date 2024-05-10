@@ -31,7 +31,7 @@ const PropertyDeatailPage = ({ params }: { params: { id: string } }) => {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <Link href={`/search/${params.id}`}>Property</Link>
+              <Link href={`/search?query=${params.id}`}>Property</Link>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>{params.id}</BreadcrumbItem>

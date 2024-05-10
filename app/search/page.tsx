@@ -4,7 +4,12 @@ import Navbar from "@/components/Shared/Navbar";
 import DataSection from "@/containers/search-page/data-section";
 import FilterSection from "@/containers/search-page/filters-section";
 
-export default function SearchPage({ params }: { params: { value: string } }) {
+export default function SearchPage({
+  searchParams,
+}: {
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) {
+  console.log("searchParams", searchParams?.query);
   return (
     <>
       <Navbar showSearch={true} isDark={true} />
