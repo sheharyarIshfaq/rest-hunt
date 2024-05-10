@@ -21,6 +21,7 @@ import JazzCashImg from "@/public/images/JAZZCASH.svg";
 import EasyPaisaImg from "@/public/images/EASYPAISA.svg";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import BookingDetailCard from "@/components/BookingDetailCard";
 
 const CheckoutPage = () => {
   const router = useRouter();
@@ -29,17 +30,6 @@ const CheckoutPage = () => {
   const price = searchParams.get("price");
   const moveInDate = searchParams.get("moveInDate");
   const moveOutDate = searchParams.get("moveOutDate");
-
-  const calculateDifference = () => {
-    //in months, if not in months then in days
-    if (moveInDate && moveOutDate) {
-      const diff = moment(moveOutDate).diff(moveInDate, "months");
-      return diff > 0
-        ? diff + " months"
-        : moment(moveOutDate).diff(moveInDate, "days") + " days";
-    }
-    return "";
-  };
 
   const checkoutHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -100,54 +90,13 @@ const CheckoutPage = () => {
           </form>
         </div>
         <div className="flex justify-end flex-1">
-          <div className="w-[80%] border p-4 rounded-md flex flex-col justify-between">
-            <Image
-              src={DUMMY_PROPERTIES[0].image}
-              alt="Room"
-              className="w-full h-56 object-cover rounded-md"
-            />
-            <div className="mt-2">
-              <h1 className="text-lg font-semibold">{property}</h1>
-              <div className="flex justify-between items-center gap-3 border-b pb-2">
-                <h1 className="font-medium">Private Room</h1>
-                <p className="my-2">
-                  <span className="font-semibold">Rs.{price}</span>/Month
-                </p>
-              </div>
-            </div>
-            <div className="mt-2">
-              <div className="flex items-center gap-2">
-                <IoCalendarOutline className="text-lg" />
-                <p>Move in date: </p>
-                <button className="text-main font-semibold">
-                  {moveInDate
-                    ? moment(moveInDate).format("MMM DD, YYYY")
-                    : "choose your dates"}
-                </button>
-              </div>
-              <div className="h-10 my-1 ml-2 flex items-center gap-4">
-                <Separator orientation="vertical" className="" />
-                {moveInDate && moveOutDate && (
-                  <div className="bg-gray-100 rounded-sm py-2 px-4 text-sm">
-                    {calculateDifference()}
-                  </div>
-                )}
-              </div>
-              <div className="flex items-center gap-2">
-                <IoCalendarOutline className="text-lg" />
-                <p>Move out date: </p>
-                <button className="text-main font-semibold">
-                  {moveOutDate
-                    ? moment(moveOutDate).format("MMM DD, YYYY")
-                    : "choose your dates"}
-                </button>
-              </div>
-            </div>
-            <div className="mt-2 border-t pt-2 flex items-center gap-3 justify-between">
-              <h1 className="text-xl font-semibold">Total</h1>
-              <p className="font-semibold text-lg text-main">Rs.{price}</p>
-            </div>
-          </div>
+          <BookingDetailCard
+            image={DUMMY_PROPERTIES[0].image}
+            property={property || ""}
+            price={price || ""}
+            moveInDate={moveInDate || ""}
+            moveOutDate={moveOutDate || ""}
+          />
         </div>
       </div>
     </>
