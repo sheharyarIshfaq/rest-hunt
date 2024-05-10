@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Rating from "react-rating";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
