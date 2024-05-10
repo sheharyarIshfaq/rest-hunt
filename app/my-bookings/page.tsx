@@ -9,6 +9,7 @@ import {
 import Link from "next/link";
 import NoResultSection from "@/containers/my-booking-page/no-result-section";
 import Footer from "@/components/Shared/Footer";
+import BookingList from "@/containers/my-booking-page/bookings-list";
 
 const MyBookingsPage = () => {
   return (
@@ -26,7 +27,8 @@ const MyBookingsPage = () => {
         </Breadcrumb>
         <div className="mt-6">
           <h1 className="text-2xl font-bold">My Bookings</h1>
-          <NoResultSection />
+          {/* <NoResultSection /> */}
+          <BookingList />
         </div>
       </div>
       <Footer />
