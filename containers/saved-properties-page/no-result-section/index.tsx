@@ -8,10 +8,9 @@ const NoResultSection = () => {
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       <Image src={NoResultImg} alt="No Result" className="max-h-[50vh]" />
-      <h1 className="text-xl font-semibold mt-2">No properties booked</h1>
+      <h1 className="text-xl font-semibold mt-2">No saved properties </h1>
       <p className="my-2 text-label">
-        Find you home away from home by clicking on the button below before it
-        is too late...
+        Save properties to shortlist them by clicking on the heart icon
       </p>
       <Button className="bg-main font-semibold">
         <Link href="/search">Explore Properties</Link>

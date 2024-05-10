@@ -240,7 +240,9 @@ const Navbar = ({ isDark = false, showSearch = false }: NavbarProps) => {
                 <BsChatDots className="mr-2" /> Messages
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <BsHeart className="mr-2" /> Saved Properties
+                <Link href="/saved-properties" className="flex items-center">
+                  <BsHeart className="mr-2" /> Saved Properties
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <BsArrowClockwise className="mr-2" /> Recently Viewed
