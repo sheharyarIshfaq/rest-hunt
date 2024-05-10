@@ -13,7 +13,7 @@ const PropertyDescriptionSection = () => {
   return (
     <div className="mt-4 border-b pb-6">
       <h1 className="text-lg font-semibold">Description</h1>
-      <p className="text-gray-500 my-3">
+      <p className="text-label my-3">
         Physical space is often conceived in three linear dimensions, although
         modern physicists usually con Physical space is often conceived in three
         linear dimensions, although modern physicists usually con Physical space

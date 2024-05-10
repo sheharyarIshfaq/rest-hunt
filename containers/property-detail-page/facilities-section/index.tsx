@@ -16,8 +16,7 @@ const PropertyFacilitiesSection = () => {
     <div className="mt-4 border-b pb-6">
       <div className="mt-6">
         <h1 className="text-lg font-semibold">
-          Bills{" "}
-          <span className="text-gray-500 font-normal">(All inclusive)</span>
+          Bills <span className="text-label font-normal">(All inclusive)</span>
         </h1>
         <div className="flex items-center gap-6 flex-wrap mt-3">
           <div className="flex items-center gap-2 min-w-24">

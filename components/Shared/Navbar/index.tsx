@@ -94,7 +94,7 @@ const Navbar = ({ isDark = false, showSearch = false }: NavbarProps) => {
               className="w-72 max-h-[300px] overflow-y-auto custom-scrollbar"
             >
               <DropdownMenuLabel>
-                Notifications <span className="text-xs text-gray-500">(2)</span>
+                Notifications <span className="text-xs text-label">(2)</span>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
@@ -108,11 +108,11 @@ const Navbar = ({ isDark = false, showSearch = false }: NavbarProps) => {
                   <div>
                     <p className="text-sm">
                       John Doe{" "}
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-label">
                         Booked your property
                       </span>
                     </p>
-                    <p className="text-xs text-gray-500">1 hour ago</p>
+                    <p className="text-xs text-label">1 hour ago</p>
                   </div>
                 </div>
               </DropdownMenuItem>
@@ -127,11 +127,11 @@ const Navbar = ({ isDark = false, showSearch = false }: NavbarProps) => {
                   <div>
                     <p className="text-sm">
                       Keanu Reeves{" "}
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-label">
                         Sent you a message
                       </span>
                     </p>
-                    <p className="text-xs text-gray-500">2 hours ago</p>
+                    <p className="text-xs text-label">2 hours ago</p>
                   </div>
                 </div>
               </DropdownMenuItem>
@@ -146,11 +146,11 @@ const Navbar = ({ isDark = false, showSearch = false }: NavbarProps) => {
                   <div>
                     <p className="text-sm">
                       John Doe{" "}
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-label">
                         Booked your property
                       </span>
                     </p>
-                    <p className="text-xs text-gray-500">1 hour ago</p>
+                    <p className="text-xs text-label">1 hour ago</p>
                   </div>
                 </div>
               </DropdownMenuItem>
@@ -165,11 +165,11 @@ const Navbar = ({ isDark = false, showSearch = false }: NavbarProps) => {
                   <div>
                     <p className="text-sm">
                       Keanu Reeves{" "}
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-label">
                         Sent you a message
                       </span>
                     </p>
-                    <p className="text-xs text-gray-500">2 hours ago</p>
+                    <p className="text-xs text-label">2 hours ago</p>
                   </div>
                 </div>
               </DropdownMenuItem>
@@ -184,11 +184,11 @@ const Navbar = ({ isDark = false, showSearch = false }: NavbarProps) => {
                   <div>
                     <p className="text-sm">
                       John Doe{" "}
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-label">
                         Booked your property
                       </span>
                     </p>
-                    <p className="text-xs text-gray-500">1 hour ago</p>
+                    <p className="text-xs text-label">1 hour ago</p>
                   </div>
                 </div>
               </DropdownMenuItem>
@@ -203,11 +203,11 @@ const Navbar = ({ isDark = false, showSearch = false }: NavbarProps) => {
                   <div>
                     <p className="text-sm">
                       Keanu Reeves{" "}
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-label">
                         Sent you a message
                       </span>
                     </p>
-                    <p className="text-xs text-gray-500">2 hours ago</p>
+                    <p className="text-xs text-label">2 hours ago</p>
                   </div>
                 </div>
               </DropdownMenuItem>

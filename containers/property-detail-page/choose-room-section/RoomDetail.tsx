@@ -36,7 +36,7 @@ const RoomDetail = ({ title, price, image }: IRoomDetail) => {
   return (
     <Dialog>
       <DialogTrigger>
-        <button className="flex items-center gap-2 my-3 text-gray-500">
+        <button className="flex items-center gap-2 my-3 text-label">
           View Details <BsChevronRight />
         </button>
       </DialogTrigger>
@@ -44,7 +44,7 @@ const RoomDetail = ({ title, price, image }: IRoomDetail) => {
         <DialogHeader>
           <DialogTitle>
             Private Room{" "}
-            <span className="text-sm text-gray-500 ml-2">
+            <span className="text-sm text-label ml-2">
               (10 private rooms are available)
             </span>
           </DialogTitle>

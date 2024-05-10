@@ -12,21 +12,21 @@ const PropertyDetailsSection = () => {
         </h1>
         <IconButton title="Verified" />
       </div>
-      <p className="text-gray-500">1901 Thornridge Cir. Shiloh, Hawaii 81063</p>
+      <p className="text-label">1901 Thornridge Cir. Shiloh, Hawaii 81063</p>
       <div className="flex items-center gap-3 my-3">
         <div className="flex items-center gap-1">
           <IoLocationSharp className="text-xl" />
-          <span className="text-gray-500">
+          <span className="text-label">
             Distance to University Of Engineering & Technology, Lahore
           </span>
         </div>
         <div className="flex items-center gap-1">
           <FaWalking className="text-xl" />
-          <span className="text-gray-500">20 Mins</span>
+          <span className="text-label">20 Mins</span>
         </div>
         <div className="flex items-center gap-1">
           <FaCar className="text-xl" />
-          <span className="text-gray-500">5 Mins</span>
+          <span className="text-label">5 Mins</span>
         </div>
       </div>
     </div>

@@ -53,7 +53,7 @@ const CheckoutPage = () => {
       <div className="container py-6 grid grid-cols-2 gap-6">
         <div>
           <h1 className="text-2xl font-semibold">Confirm and Pay</h1>
-          <p className="my-3 text-sm text-gray-500">
+          <p className="my-3 text-sm text-label">
             Please ensure that you fill in real and accurate information in the
             following fields, as inaccurate information may cause a failure to
             confirm your booking.
@@ -92,7 +92,7 @@ const CheckoutPage = () => {
             <div className="mt-4">
               <Input type="email" placeholder="Email" required />
             </div>
-            <div className="mt-4 flex items-center gap-2 text-gray-500">
+            <div className="mt-4 flex items-center gap-2 text-label">
               <Checkbox />
               <p>Remember payment method</p>
             </div>
