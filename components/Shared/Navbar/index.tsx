@@ -229,7 +229,9 @@ const Navbar = ({ isDark = false, showSearch = false }: NavbarProps) => {
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <BsPerson className="mr-2" /> Profile
+                <Link href="/profile" className="flex items-center">
+                  <BsPerson className="mr-2" /> Profile
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Link href="/my-bookings" className="flex items-center">

@@ -5,7 +5,7 @@ import "./globals.css";
 import ReduxProvider from "@/redux/provider";
 import AuthWrapper from "@/redux/AuthWrapper";
 
-const raleway = Raleway({ subsets: ["latin"] });
+const raleway = Raleway({ subsets: ["latin-ext"] });
 
 export const metadata: Metadata = {
   title: "RestHunt",
