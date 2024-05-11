@@ -239,7 +239,9 @@ const Navbar = ({ isDark = false, showSearch = false }: NavbarProps) => {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <BsChatDots className="mr-2" /> Messages
+                <Link href="/messages" className="flex items-center">
+                  <BsChatDots className="mr-2" /> Messages
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Link href="/saved-properties" className="flex items-center">
