@@ -5,14 +5,7 @@ import { onLogin, onLogout } from "./features/auth-slice";
 import moment from "moment";
 import { usePathname, useRouter } from "next/navigation";
 
-const PUBLIC_ROUTES = [
-  "/",
-  "/signup",
-  "/forgot-password",
-  "/login",
-  "/search",
-  "/property",
-];
+const PUBLIC_ROUTES = ["/", "/signup", "/forgot-password", "/login", "/search"];
 
 const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useAppDispatch();
@@ -40,7 +33,7 @@ const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
       dispatch(onLogin({ user, token, expiresAt }));
     } else {
       dispatch(onLogout());
-      if (pathname.includes("/property/")) {
+      if (pathname.includes("/property/") || pathname.includes("/user/")) {
         return;
       }
       //if the route is not public then redirect to the home page
