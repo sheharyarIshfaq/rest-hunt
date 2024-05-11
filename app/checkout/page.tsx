@@ -2,11 +2,8 @@
 import React from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Navbar from "@/components/Shared/Navbar";
-import { IoCalendarOutline } from "react-icons/io5";
 import Image from "next/image";
 import DUMMY_PROPERTIES from "@/data/properties";
-import moment from "moment";
-import { Separator } from "@/components/ui/separator";
 import {
   Select,
   SelectContent,
