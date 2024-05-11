@@ -1,7 +1,4 @@
 import React from "react";
-import IconButton from "@/components/Shared/IconButton";
-import { IoLocationSharp } from "react-icons/io5";
-import { FaWalking, FaCar } from "react-icons/fa";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import moment from "moment";
 import Link from "next/link";
