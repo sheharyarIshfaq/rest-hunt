@@ -18,6 +18,7 @@ import PropertyFAQSection from "@/containers/property-detail-page/faq-section";
 import PropertyReviewSection from "@/containers/property-detail-page/reviews-section";
 import Footer from "@/components/Shared/Footer";
 import SimilarPropertiesSection from "@/containers/property-detail-page/similar-properties-section";
+import OwnerDetailsSection from "@/containers/property-detail-page/owner-detail-section";
 
 const PropertyDeatailPage = ({ params }: { params: { id: string } }) => {
   return (
@@ -42,6 +43,7 @@ const PropertyDeatailPage = ({ params }: { params: { id: string } }) => {
             <div className="flex-[2]">
               <PropertyImagesSection />
               <PropertyDetailsSection />
+              <OwnerDetailsSection />
               <PropertyDescriptionSection />
               <PropertyFacilitiesSection />
               <ChooseRoomSection />
