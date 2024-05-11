@@ -32,9 +32,9 @@ const MessagesPage = () => {
             <ChatsListSection />
             <div className="flex-1">
               {/* <EmptyChatSection /> */}
-              <ChooseChatSection />
+              {/* <ChooseChatSection /> */}
+              <ChatSection />
             </div>
-            {/* <ChatSection /> */}
           </div>
         </div>
       </div>

@@ -35,7 +35,7 @@ const ChatsListSection = () => {
     <div>
       <div className="flex items-center gap-3 mt-3">
         <Input type="text" placeholder="Search for a chat" className="w-full" />
-        <Button>
+        <Button className="bg-main">
           <BsSearch className="text-xl" />
         </Button>
       </div>
