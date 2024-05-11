@@ -1,6 +1,7 @@
+import React from "react";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
-import React from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface HorizontalPropertyCardProps {
   bookingId: string | number;
@@ -27,7 +28,7 @@ const HorizontalPropertyCard = ({
       <Image
         src={image}
         alt={title}
-        className="w-56 h-28 object-cover rounded-md"
+        className="w-56 h-36 object-cover rounded-md"
       />
       <div className="p-3 flex flex-col justify-between flex-1 gap-1">
         <h3 className="text-lg font-semibold">{title}</h3>
@@ -41,6 +42,15 @@ const HorizontalPropertyCard = ({
         <p className="text-label">
           From {startDate} to {endDate}
         </p>
+        <div className="flex items-center gap-2">
+          <Avatar className="w-6 h-6">
+            <AvatarImage src="https://github.com/shadcn.png" />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+          <p className="text-sm">
+            Hosted by <span className="font-medium">Sheharyar Ishfaq</span>
+          </p>
+        </div>
       </div>
     </Link>
   );
