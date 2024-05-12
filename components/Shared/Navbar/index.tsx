@@ -20,7 +20,6 @@ import {
   BsChatDots,
   BsHeart,
   BsArrowClockwise,
-  BsGear,
   BsBoxArrowRight,
 } from "react-icons/bs";
 import CustomSearch from "@/components/CustomSearch";
@@ -252,9 +251,6 @@ const Navbar = ({ isDark = false, showSearch = false }: NavbarProps) => {
                 <Link href="/recently-viewed" className="flex items-center">
                   <BsArrowClockwise className="mr-2" /> Recently Viewed
                 </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <BsGear className="mr-2" /> Settings
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem
