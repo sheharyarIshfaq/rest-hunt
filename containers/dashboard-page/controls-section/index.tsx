@@ -65,7 +65,7 @@ const DATA = [
 
 const ControlsSection = () => {
   return (
-    <div className="flex-[2.5] grid grid-cols-2 gap-6">
+    <div className="flex-[2.5] grid xs:grid-cols-2 gap-6">
       {DATA.map((item) => (
         <ControlItem
           key={item.id}

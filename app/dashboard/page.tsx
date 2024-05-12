@@ -13,10 +13,12 @@ const OwnerDashboard = () => {
       <Navbar showSearch={false} />
       <div className="container mb-8 mt-2">
         <div className="flex items-center gap-2">
-          <h1 className="text-3xl font-semibold">Welcome, Haseeb</h1>
-          <Image src={WaveIcon} alt="Wave" className="w-12" />
+          <h1 className="text-2xl xs:text-3xl font-semibold">
+            Welcome, Haseeb
+          </h1>
+          <Image src={WaveIcon} alt="Wave" className="w-10 xs:w-12" />
         </div>
-        <div className="flex gap-6 sm:gap-14 my-10">
+        <div className="flex flex-col md:flex-row gap-6 md:gap-14 my-10">
           <UserDetailsSection />
           <ControlsSection />
         </div>
