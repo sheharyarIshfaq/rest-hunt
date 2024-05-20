@@ -21,6 +21,8 @@ import {
   BsHeart,
   BsArrowClockwise,
   BsBoxArrowRight,
+  BsHouse,
+  BsCurrencyDollar,
 } from "react-icons/bs";
 import CustomSearch from "@/components/CustomSearch";
 import { BellIcon } from "lucide-react";
@@ -230,6 +232,16 @@ const Navbar = ({ isDark = false, showSearch = false }: NavbarProps) => {
               <DropdownMenuItem>
                 <Link href="/profile" className="flex items-center">
                   <BsPerson className="mr-2" /> Profile
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href="/manage-properties" className="flex items-center">
+                  <BsHouse className="mr-2" /> My Properties
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href="/earnings" className="flex items-center">
+                  <BsCurrencyDollar className="mr-2" /> Earnings
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
