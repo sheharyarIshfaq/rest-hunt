@@ -38,14 +38,14 @@ const DATA = [
     title: "Promote your properties",
     description: "Get discovered by potential users",
     buttonText: "Share Properties",
-    url: "/share-properties",
+    url: "/manage-properties",
   },
   {
     id: 2,
     title: "Listed properties",
     description: "You've listed 4 properties",
     buttonText: "See properties",
-    url: "/properties-list",
+    url: "/manage-properties",
   },
   {
     id: 3,
