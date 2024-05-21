@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React from "react";
 import { useDropzone } from "react-dropzone";
-import { BsPerson, BsCameraFill } from "react-icons/bs";
+import { BsX } from "react-icons/bs";
 import { GrGallery } from "react-icons/gr";
 
 const PicturesUpload = ({ images, setImages }: any) => {
@@ -32,15 +32,28 @@ const PicturesUpload = ({ images, setImages }: any) => {
         </div>
       </div>
       <div className="flex-1 flex gap-4 h-72 overflow-y-auto custom-scrollbar flex-wrap">
-        {images?.map((image: any) => (
-          <Image
-            key={image.path}
-            src={URL.createObjectURL(image)}
-            alt="Uploaded Cover Photo"
-            className="w-36 h-32 object-cover rounded-md"
-            width={100}
-            height={100}
-          />
+        {images?.map((image: any, index: number) => (
+          <div
+            key={index}
+            className="rounded-md w-36 h-32 overflow-hidden relative"
+          >
+            <Image
+              key={image.path}
+              src={URL.createObjectURL(image)}
+              alt="Uploaded Cover Photo"
+              className="w-36 h-32 object-cover rounded-md"
+              width={100}
+              height={100}
+            />
+            <button
+              className="absolute top-1 right-1 rounded-full p-1 bg-gray-100"
+              onClick={() =>
+                setImages(images.filter((img: any) => img.path !== image.path))
+              }
+            >
+              <BsX className="text-sm" />
+            </button>
+          </div>
         ))}
       </div>
     </section>
