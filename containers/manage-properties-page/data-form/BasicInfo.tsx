@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,8 +11,10 @@ import {
 } from "@/components/ui/select";
 import { BsPlus } from "react-icons/bs";
 import CheckBoxItem from "@/components/CheckBoxItem";
+import PicturesUpload from "./PicturesUpload";
 
 const BasicInfo = () => {
+  const [images, setImages] = React.useState([]);
   return (
     <div className="my-8 flex flex-col gap-6">
       <div className="flex flex-col gap-3">
@@ -171,13 +174,7 @@ const BasicInfo = () => {
             (You've to upload at least 4 images or more)
           </span>
         </Label>
-        <div className="flex items-center gap-8 flex-wrap ml-1">
-          <div className="w-[100px] h-[100px] bg-gray-300 rounded-lg"></div>
-          <div className="w-[100px] h-[100px] bg-gray-300 rounded-lg"></div>
-          <div className="w-[100px] h-[100px] bg-gray-300 rounded-lg"></div>
-          <div className="w-[100px] h-[100px] bg-gray-300 rounded-lg"></div>
-          <div className="w-[100px] h-[100px] bg-gray-300 rounded-lg"></div>
-        </div>
+        <PicturesUpload images={images} setImages={setImages} />
       </div>
       <div className="flex flex-col gap-3">
         <Label htmlFor="price" className="ml-1 font-semibold">
