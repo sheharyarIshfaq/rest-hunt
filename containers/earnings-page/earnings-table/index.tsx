@@ -241,21 +241,21 @@ const EarningsTable = () => {
         </TableBody>
       </Table>
       <Separator />
-      <div className="mt-3 flex justify-between items-center gap-3">
-        <div className="text-sm font-semibold">
+      <div className="mt-3 flex flex-col xs:flex-row xs:justify-between xs:items-center gap-3">
+        <div className="text-sm font-semibold text-right xs:text-left">
           Page {page} of {totalPages}
         </div>
         <div className="flex items-center gap-3">
           <Button
             variant="outline"
-            className="min-w-28 border-black text-black"
+            className="w-full xs:w-auto min-w-28 border-black text-black"
             onClick={handlePrev}
             disabled={page === 1}
           >
             Prev
           </Button>
           <Button
-            className="min-w-28"
+            className="w-full xs:w-auto min-w-28"
             onClick={handleNext}
             disabled={page === totalPages}
           >

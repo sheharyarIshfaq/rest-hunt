@@ -17,14 +17,14 @@ const EarningsDataSection = () => {
   const [selected, setSelected] = React.useState("till-date");
 
   return (
-    <div className="grid grid-cols-3 gap-6 items-stretch">
+    <div className="grid md:grid-cols-3 gap-3 md:gap-6 items-stretch">
       <div className="flex flex-col">
         <h1 className="text-lg font-semibold">Available Funds</h1>
         <div className="border-[1.5px] p-6 rounded-md my-3 flex-grow flex flex-col">
           <h3 className="font-semibold text-label">
             Balance available for use
           </h3>
-          <h1 className="text-3xl font-bold my-3">Rs. 34999</h1>
+          <h1 className="text-xl sm:text-3xl font-bold my-3">Rs. 34999</h1>
           <Button
             className="mt-auto bg-main"
             onClick={() => router.push("/earnings/withdraw")}
@@ -38,12 +38,12 @@ const EarningsDataSection = () => {
         <h1 className="text-lg font-semibold">Future Payments</h1>
         <div className="border-[1.5px] p-6 rounded-md my-3 flex-grow flex flex-col">
           <h3 className="font-semibold text-label">Payments being cleared</h3>
-          <h1 className="text-3xl font-bold my-3">Rs. 4500</h1>
+          <h1 className="text-xl sm:text-3xl font-bold my-3">Rs. 4500</h1>
           <Separator />
           <h3 className="font-semibold text-label mt-3">
             Payments for active orders
           </h3>
-          <h1 className="text-3xl font-bold my-3">Rs. 6800</h1>
+          <h1 className="text-xl sm:text-3xl font-bold my-3">Rs. 6800</h1>
         </div>
       </div>
       <div className="flex flex-col">
@@ -72,7 +72,7 @@ const EarningsDataSection = () => {
               ? "this month"
               : "this year"}
           </h3>
-          <h1 className="text-3xl font-bold my-3">
+          <h1 className="text-xl sm:text-3xl font-bold my-3">
             Rs.{" "}
             {selected === "till-date"
               ? 34999
