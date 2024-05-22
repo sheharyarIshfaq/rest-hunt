@@ -8,6 +8,8 @@ import {
 import Link from "next/link";
 import Footer from "@/components/Shared/Footer";
 import Navbar from "@/components/Shared/Navbar";
+import EarningsDataSection from "@/containers/earnings-page/earning-data-section";
+import EarningsTable from "@/containers/earnings-page/earnings-table";
 
 const EarningsPage = () => {
   return (
@@ -23,7 +25,10 @@ const EarningsPage = () => {
       </Breadcrumb>
       <div className="mt-6">
         <h1 className="text-2xl font-bold">My Earnings</h1>
-        <div className="mt-3"></div>
+        <div className="mt-6">
+          <EarningsDataSection />
+          <EarningsTable />
+        </div>
       </div>
     </>
   );
