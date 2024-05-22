@@ -208,7 +208,7 @@ export const columns: ColumnDef<Property>[] = [
     cell: ({ row }) => {
       const property = row.original;
       return (
-        <div>
+        <div className="min-w-max">
           <div className="flex items-center gap-2">
             <Image
               src={property.image}

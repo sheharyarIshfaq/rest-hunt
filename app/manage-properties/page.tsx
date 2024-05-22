@@ -28,21 +28,21 @@ const ManageProperties = () => {
         <h1 className="text-2xl font-bold">My Properties</h1>
         <div className="mt-3">
           <Tabs defaultValue="active">
-            <div className="flex items-center justify-between gap-3">
-              <TabsList>
-                <TabsTrigger value="active" className="sm:min-w-[100px]">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <TabsList className="flex-wrap h-auto justify-normal sm:justify-center">
+                <TabsTrigger value="active" className="md:min-w-[100px]">
                   Active
                 </TabsTrigger>
-                <TabsTrigger value="draft" className="sm:min-w-[100px]">
+                <TabsTrigger value="draft" className="md:min-w-[100px]">
                   Draft
                 </TabsTrigger>
-                <TabsTrigger value="pending" className="sm:min-w-[100px]">
+                <TabsTrigger value="pending" className="md:min-w-[100px]">
                   Pending
                 </TabsTrigger>
-                <TabsTrigger value="denied" className="sm:min-w-[100px]">
+                <TabsTrigger value="denied" className="md:min-w-[100px]">
                   Denied
                 </TabsTrigger>
-                <TabsTrigger value="paused" className="sm:min-w-[100px]">
+                <TabsTrigger value="paused" className="md:min-w-[100px]">
                   Paused
                 </TabsTrigger>
               </TabsList>
