@@ -14,8 +14,8 @@ interface IRoomCard {
 const RoomCard = ({ title, price, image, facilities }: IRoomCard) => {
   return (
     <div className="border p-4 rounded-lg w-full">
-      <div className="flex gap-4">
-        <Image src={image} alt="Room" className="w-56 object-cover" />
+      <div className="flex flex-col xs:flex-row gap-4">
+        <Image src={image} alt="Room" className="w-full xs:w-56 object-cover" />
         <div className="mt-2">
           <h1 className="text-lg font-semibold">{title}</h1>
           <p className="text-sm mt-1">From {price}/Month</p>

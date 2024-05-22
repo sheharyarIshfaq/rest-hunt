@@ -19,6 +19,7 @@ import PropertyReviewSection from "@/containers/property-detail-page/reviews-sec
 import Footer from "@/components/Shared/Footer";
 import SimilarPropertiesSection from "@/containers/property-detail-page/similar-properties-section";
 import OwnerDetailsSection from "@/containers/property-detail-page/owner-detail-section";
+import { Button } from "@/components/ui/button";
 
 const PropertyDeatailPage = ({ params }: { params: { id: string } }) => {
   return (
@@ -51,8 +52,24 @@ const PropertyDeatailPage = ({ params }: { params: { id: string } }) => {
               <PropertyFAQSection />
               <PropertyReviewSection />
             </div>
-            <div className="flex-[1.2]">
+            <div className="hidden md:block flex-[1.2]">
               <PropertySideDetailSection />
+            </div>
+            <div
+              className="fixed bottom-0 left-0 bg-white p-3 w-full flex items-center justify-between gap-2 z-50"
+              style={{
+                boxShadow: "0px -2px 4px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              <h1 className="text-xl font-medium">Starting From 8000/Month</h1>
+              <Button className="bg-main hover:bg-main font-semibold hover:shadow-md">
+                <a
+                  className="w-full h-full flex items-center justify-center"
+                  href="#rooms"
+                >
+                  View Rooms
+                </a>
+              </Button>
             </div>
           </div>
         </div>

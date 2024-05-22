@@ -6,13 +6,15 @@ import { FaWalking, FaCar } from "react-icons/fa";
 const PropertyDetailsSection = () => {
   return (
     <div className="mt-4 border-b pb-2">
-      <div className="flex justify-between items-center gap-3">
+      <div className="flex justify-between items-center gap-3 flex-wrap">
         <h1 className="text-xl font-semibold">
           Continental Boys Hostel Model Town
         </h1>
         <IconButton title="Verified" />
       </div>
-      <p className="text-label">1901 Thornridge Cir. Shiloh, Hawaii 81063</p>
+      <p className="text-label mt-2">
+        1901 Thornridge Cir. Shiloh, Hawaii 81063
+      </p>
       <div className="flex items-center gap-3 my-3">
         <div className="flex items-center gap-1">
           <IoLocationSharp className="text-xl" />

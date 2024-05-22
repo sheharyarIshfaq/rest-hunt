@@ -15,7 +15,7 @@ const PropertyReviewSection = () => {
         <h1 className="text-lg font-semibold">Reviews</h1>
         <IconButton title="4.5/5" icon={<BsStarFill />} className="text-sm" />
       </div>
-      <div className="my-4 grid grid-cols-2 gap-4">
+      <div className="my-4 grid xs:grid-cols-2 gap-4">
         <ReviewItem
           name="John Doe"
           rating={4}

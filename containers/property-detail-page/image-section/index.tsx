@@ -88,8 +88,12 @@ const PropertyImagesSection = () => {
         </CarouselContent>
         <CarouselPrevious className="absolute top-1/2 left-2 transform -translate-y-1/2" />
         <CarouselNext className="absolute top-1/2 right-2 transform -translate-y-1/2" />
+        {/* show the active and total on the right side */}
+        <div className="absolute bottom-2 right-2 text-white bg-black bg-opacity-50 px-2 py-1 rounded-md">
+          {current}/{count}
+        </div>
       </Carousel>
-      <div className="my-3">
+      <div className="hidden sm:block my-3">
         <div className="flex overflow-x-auto no-scrollbar">
           <Thumb
             selected={current === 1}

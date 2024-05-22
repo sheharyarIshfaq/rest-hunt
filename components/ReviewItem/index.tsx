@@ -23,7 +23,7 @@ const ReviewItem = ({ name, rating, review, image }: IReviewItem) => {
         </div>
         <div>
           <h3 className="font-semibold">{name}</h3>
-          <div className="flex items-center gap-3 my-1">
+          <div className="flex items-center gap-3 my-1 flex-wrap">
             <StarRating rating={rating} />
             <span className="text-sm">{moment().format("MMM DD, YYYY")}</span>
           </div>
