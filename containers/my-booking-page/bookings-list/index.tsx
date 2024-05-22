@@ -14,7 +14,7 @@ const BookingList = () => {
           <TabsTrigger value="present">Present</TabsTrigger>
         </TabsList>
         <TabsContent value="previous">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid lg:grid-cols-2 gap-4">
             {DUMMY_PROPERTIES.map((property, index) => (
               <HorizontalPropertyCard
                 key={property.id}
@@ -33,7 +33,7 @@ const BookingList = () => {
           </div>
         </TabsContent>
         <TabsContent value="present">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid lg:grid-cols-2 gap-4">
             {DUMMY_PROPERTIES.map((property, index) => (
               <HorizontalPropertyCard
                 key={property.id}
