@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   Breadcrumb,
@@ -17,8 +18,11 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { useRouter } from "next/navigation";
 
 const WithDrawBalancePage = () => {
+  const router = useRouter();
   return (
     <>
       <Breadcrumb>
@@ -78,7 +82,25 @@ const WithDrawBalancePage = () => {
                 placeholder="Enter account details, account number, account name, etc."
               />
             </div>
-            <Button>Withdraw Balance</Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button>Withdraw Balance</Button>
+              </DialogTrigger>
+              <DialogContent>
+                <div className="flex flex-col justify-center items-center text-center gap-3 min-h-56">
+                  <h1 className="text-xl font-semibold">
+                    Withdrawal Successful 🎉
+                  </h1>
+                  <p>You've successfully withdrawn Rs. 3400</p>
+                  <Button
+                    onClick={() => router.push("/earnings")}
+                    className="bg-main mt-4"
+                  >
+                    Back to Earnings
+                  </Button>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </div>
