@@ -6,8 +6,6 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
-import Footer from "@/components/Shared/Footer";
-import Navbar from "@/components/Shared/Navbar";
 import EarningsDataSection from "@/containers/earnings-page/earning-data-section";
 import EarningsTable from "@/containers/earnings-page/earnings-table";
 
