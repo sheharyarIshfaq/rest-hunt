@@ -198,12 +198,18 @@ const EarningsTable = () => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Date</TableHead>
-            <TableHead>Activity</TableHead>
-            <TableHead>Description</TableHead>
-            <TableHead>From</TableHead>
-            <TableHead>Booking ID</TableHead>
-            <TableHead className="text-right">Amount</TableHead>
+            <TableHead className="text-black font-semibold">Date</TableHead>
+            <TableHead className="text-black font-semibold">Activity</TableHead>
+            <TableHead className="text-black font-semibold">
+              Description
+            </TableHead>
+            <TableHead className="text-black font-semibold">From</TableHead>
+            <TableHead className="text-black font-semibold">
+              Booking ID
+            </TableHead>
+            <TableHead className="text-right text-black font-semibold">
+              Amount
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -236,7 +242,7 @@ const EarningsTable = () => {
       </Table>
       <Separator />
       <div className="mt-3 flex justify-between items-center gap-3">
-        <div className="text-sm">
+        <div className="text-sm font-semibold">
           Page {page} of {totalPages}
         </div>
         <div className="flex items-center gap-3">
