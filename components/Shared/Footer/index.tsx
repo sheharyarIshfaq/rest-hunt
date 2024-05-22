@@ -45,13 +45,13 @@ const Footer = () => {
           <h1 className="text-lg font-semibold mb-2">
             Stay updated by joining our Newsletter
           </h1>
-          <div className="border bg-transparent flex justify-between">
+          <div className="border bg-transparent flex flex-col xs:flex-row gap-2 justify-between">
             <input
               type="text"
               placeholder="Enter your email"
               className="bg-transparent outline-none flex-1 py-3 px-3 sm:px-4"
             />
-            <button className="px-3 sm:px-6 flex items-center justify-center bg-main font-semibold text-white">
+            <button className="py-3 px-3 sm:px-6 flex items-center justify-center bg-main font-semibold text-white">
               Subscribe
             </button>
           </div>
