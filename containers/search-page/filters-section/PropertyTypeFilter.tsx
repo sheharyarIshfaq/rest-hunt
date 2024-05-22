@@ -16,7 +16,7 @@ const PropertyTypeFilter = ({ name }: any) => {
   return (
     <DropdownMenu open={isOpen}>
       <DropdownMenuTrigger onClick={() => setIsOpen(true)}>
-        <div className="flex items-center border border-gray-300 gap-2 py-2 px-4 rounded-md cursor-pointer transition-all duration-300 ease-in hover:bg-gray-100 min-w-fit">
+        <div className="flex items-center border border-gray-300 w-max gap-2 py-2 px-4 rounded-md cursor-pointer transition-all duration-300 ease-in hover:bg-gray-100 min-w-fit">
           <p>{name}</p>
           <BsChevronDown className="text-xl" />
         </div>
