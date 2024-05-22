@@ -30,7 +30,7 @@ const BookingDetailCard = ({
     return "";
   };
   return (
-    <div className="w-[80%] border p-4 rounded-md flex flex-col justify-between">
+    <div className="w-full md:w-[80%] border p-4 rounded-md flex flex-col justify-between">
       <Image
         src={image}
         alt="Property"

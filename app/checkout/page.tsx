@@ -37,8 +37,8 @@ const CheckoutPage = () => {
   return (
     <>
       <Navbar showSearch={false} isDark={false} />
-      <div className="container py-6 grid grid-cols-2 gap-6">
-        <div>
+      <div className="container py-6 flex flex-col-reverse sm:flex-row justify-between gap-6">
+        <div className="flex-1">
           <h1 className="text-2xl font-semibold">Confirm and Pay</h1>
           <p className="my-3 text-sm text-label">
             Please ensure that you fill in real and accurate information in the
