@@ -26,7 +26,7 @@ const EarningsDataSection = () => {
           </h3>
           <h1 className="text-3xl font-bold my-3">Rs. 34999</h1>
           <Button
-            className="mt-auto"
+            className="mt-auto bg-main"
             onClick={() => router.push("/earnings/withdraw")}
           >
             Withdraw Balance

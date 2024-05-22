@@ -86,7 +86,7 @@ const WithDrawBalancePage = () => {
             </div>
             <Dialog>
               <DialogTrigger asChild>
-                <Button>Withdraw Balance</Button>
+                <Button className="bg-main">Withdraw Balance</Button>
               </DialogTrigger>
               <DialogContent>
                 <div className="flex flex-col justify-center items-center text-center gap-3 min-h-56">
