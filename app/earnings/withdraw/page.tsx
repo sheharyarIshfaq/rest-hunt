@@ -20,6 +20,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useRouter } from "next/navigation";
+import ConfirmGif from "@/public/images/confirm.gif";
+import Image from "next/image";
 
 const WithDrawBalancePage = () => {
   const router = useRouter();
@@ -88,6 +90,7 @@ const WithDrawBalancePage = () => {
               </DialogTrigger>
               <DialogContent>
                 <div className="flex flex-col justify-center items-center text-center gap-3 min-h-56">
+                  <Image src={ConfirmGif} alt="Confirmation" className="w-36" />
                   <h1 className="text-xl font-semibold">
                     Withdrawal Successful 🎉
                   </h1>
