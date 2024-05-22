@@ -10,8 +10,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import { useRouter } from "next/navigation";
 
 const EarningsDataSection = () => {
+  const router = useRouter();
   const [selected, setSelected] = React.useState("till-date");
 
   return (
@@ -23,7 +25,10 @@ const EarningsDataSection = () => {
             Balance available for use
           </h3>
           <h1 className="text-3xl font-bold my-3">Rs. 34999</h1>
-          <Button className="mt-auto">
+          <Button
+            className="mt-auto"
+            onClick={() => router.push("/earnings/withdraw")}
+          >
             Withdraw Balance
             <BsChevronRight className="ml-1 text-lg" />
           </Button>
