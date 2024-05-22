@@ -19,11 +19,11 @@ const PicturesUpload = ({ images, setImages }: any) => {
   });
 
   return (
-    <section className="flex gap-8">
-      <div className="border border-gray-300 rounded-md h-72 flex-1 cursor-pointer">
+    <section className="flex flex-col sm:flex-row gap-8">
+      <div className="border border-gray-300 rounded-md flex-1 cursor-pointer px-3 py-8">
         <div
           {...getRootProps({ className: "dropzone" })}
-          className="flex-1 w-full h-full flex flex-col items-center justify-center overflow-hidden"
+          className="flex-1 w-full h-full flex flex-col items-center justify-center overflow-hidden text-center"
         >
           <input {...getInputProps()} />
           <GrGallery className="text-4xl" />

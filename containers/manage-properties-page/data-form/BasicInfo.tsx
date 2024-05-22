@@ -44,8 +44,8 @@ const BasicInfo = () => {
           placeholder="Name of the known site around your property"
         />
       </div>
-      <div className="grid grid-cols-3 gap-6">
-        <div className="flex flex-col gap-3">
+      <div className="grid sm:grid-cols-3 gap-6">
+        <div className="flex flex-col gap-3 justify-between">
           <Label htmlFor="property-type" className="ml-1 font-semibold">
             Property Type
           </Label>
@@ -61,7 +61,7 @@ const BasicInfo = () => {
             </SelectContent>
           </Select>
         </div>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 justify-between">
           <Label htmlFor="property-size" className="ml-1 font-semibold">
             Property Size{" "}
             <span className="font-medium text-xs text-label">
@@ -88,15 +88,15 @@ const BasicInfo = () => {
             </SelectContent>
           </Select>
         </div>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 justify-between">
           <Label htmlFor="property-area" className="ml-1 font-semibold">
             Property Area
           </Label>
           <Input id="property-area" placeholder="Area of your property" />
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-6">
-        <div className="flex flex-col gap-3">
+      <div className="grid sm:grid-cols-3 gap-6">
+        <div className="flex flex-col gap-3 justify-between">
           <Label htmlFor="room-category" className="ml-1 font-semibold">
             Room Category{" "}
             <span className="font-medium text-xs text-label">
@@ -114,7 +114,7 @@ const BasicInfo = () => {
             </SelectContent>
           </Select>
         </div>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 justify-between">
           <Label htmlFor="no-of-rooms" className="ml-1 font-semibold">
             No. of rooms{" "}
             <span className="font-medium text-xs text-label">
@@ -123,7 +123,7 @@ const BasicInfo = () => {
           </Label>
           <Input id="no-of-rooms" placeholder="Number of rooms" />
         </div>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 justify-between">
           <Label htmlFor="no-of-bathrooms" className="ml-1 font-semibold">
             No. of bathrooms{" "}
             <span className="font-medium text-xs text-label">
