@@ -26,9 +26,6 @@ import {
 } from "react-icons/bs";
 import CustomSearch from "@/components/CustomSearch";
 import { BellIcon } from "lucide-react";
-
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
-
 interface NavbarProps {
   isDark?: boolean;
   showSearch?: boolean;
@@ -217,7 +214,7 @@ const Navbar = ({ isDark = false, showSearch = false }: NavbarProps) => {
           <DropdownMenu>
             <DropdownMenuTrigger className="outline-none focus:outline-none">
               <Avatar className="cursor-pointer">
-                <AvatarImage src={BACKEND_URL + user.profilePicture} />
+                <AvatarImage src={user.profilePicture} />
                 <AvatarFallback className="bg-black text-white">
                   {user.name
                     .split(" ")
