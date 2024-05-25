@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { BsPerson, BsCameraFill } from "react-icons/bs";
 
@@ -27,9 +27,11 @@ const ImageUpload = ({ image, setImage }: any) => {
         <input {...getInputProps()} />
         {image ? (
           <Image
-            src={URL.createObjectURL(image)}
+            src={image instanceof File ? URL.createObjectURL(image) : image}
             alt="Uploaded Cover Photo"
             className="w-full h-full object-cover rounded-full"
+            layout="fill"
+            sizes="100%"
           />
         ) : (
           <BsPerson className="text-2xl mx-auto" />
