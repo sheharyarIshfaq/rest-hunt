@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -9,9 +9,35 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { BsPlus } from "react-icons/bs";
+import GoogleMapContainer from "@/components/GoogleMapContainer";
+import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+
+const GOOGLE_MAP_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
 const BasicInfo = () => {
+  const [location, setLocation] = useState<any>(null);
+  const [latitude, setLatitude] = useState<number>(33.7665138);
+  const [longitude, setLongitude] = useState<number>(72.820658);
+
+  const geocodeLocation = (location: any) => {
+    const geocoder = new window.google.maps.Geocoder();
+    geocoder.geocode({ address: location }, (results, status) => {
+      if (status === "OK") {
+        const result = results && results[0];
+        if (!result) return;
+        const { lat, lng } = result?.geometry?.location;
+        setLatitude(lat());
+        setLongitude(lng());
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (location) {
+      geocodeLocation(location.label);
+    }
+  }, [location]);
+
   return (
     <div className="my-8 flex flex-col gap-6">
       <div className="flex flex-col gap-3">
@@ -24,10 +50,34 @@ const BasicInfo = () => {
         <Label htmlFor="address" className="ml-1 font-semibold">
           Address
         </Label>
-        <Input
-          id="address"
-          placeholder="Address of your property, i.e, street, block, phase etc."
+        <GooglePlacesAutocomplete
+          apiKey={GOOGLE_MAP_API_KEY}
+          selectProps={{
+            className: "w-full mt-2",
+            placeholder:
+              "Address of your property, i.e, street, block, phase etc.",
+            value: location,
+            onChange: setLocation,
+            styles: {
+              control: (provided) => ({
+                ...provided,
+                padding: "6px 6px",
+                borderColor: "214.3 31.8% 91.4%",
+                boxShadow: "none",
+                "&:hover": {
+                  borderColor: "214.3 31.8% 91.4%",
+                },
+                "&:focus-within": {
+                  borderColor: "#34C759",
+                  boxShadow: "0 0 0 1px #34C759",
+                },
+              }),
+            },
+          }}
         />
+        <div className="w-full h-[250px] mt-4">
+          <GoogleMapContainer center={{ lat: latitude, lng: longitude }} />
+        </div>
       </div>
       <div className="flex flex-col gap-3">
         <Label htmlFor="nearby-site" className="ml-1 font-semibold">
