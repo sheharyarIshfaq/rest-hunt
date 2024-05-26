@@ -6,10 +6,45 @@ import DescriptionAndFAQ from "./DescriptionAndFAQ";
 import { Button } from "@/components/ui/button";
 import RoomInfo, { IRoom } from "./RoomInfo";
 
+export interface IBasicInfo {
+  name: string;
+  address: any;
+  location: {
+    lat: number;
+    lng: number;
+  };
+  nearbySiteName: string;
+  propertyType: string;
+  propertySize: number;
+  propertySizeUnit: string;
+}
+
+export interface IFaq {
+  question: string;
+  answer: string;
+}
+
 const PropertyDataForm = () => {
   const [activeTab, setActiveTab] = React.useState("basic");
 
   const [addedRooms, setAddedRooms] = React.useState<IRoom[]>([]);
+  const [basicInfo, setBasicInfo] = React.useState<IBasicInfo>({
+    name: "",
+    address: "",
+    location: { lat: 33.7665138, lng: 72.820658 },
+    nearbySiteName: "",
+    propertyType: "",
+    propertySize: 0,
+    propertySizeUnit: "",
+  });
+  const [description, setDescription] = React.useState("");
+  const [faqs, setFaqs] = React.useState<IFaq[]>([]);
+
+  const [currentFAQ, setCurrentFAQ] = React.useState<IFaq>({
+    question: "",
+    answer: "",
+  });
+  const [instantBooking, setInstantBooking] = React.useState(false);
 
   return (
     <>
@@ -26,13 +61,25 @@ const PropertyDataForm = () => {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="basic">
-          <BasicInfo />
+          <BasicInfo basicInfo={basicInfo} setBasicInfo={setBasicInfo} />
         </TabsContent>
         <TabsContent value="rooms">
           <RoomInfo addedRooms={addedRooms} setAddedRooms={setAddedRooms} />
         </TabsContent>
         <TabsContent value="description">
-          <DescriptionAndFAQ />
+          <DescriptionAndFAQ
+            description={description}
+            setDescription={setDescription}
+            faqs={faqs}
+            currentFAQ={currentFAQ}
+            setCurrentFAQ={setCurrentFAQ}
+            onAddFAQ={() => {
+              setFaqs((prev) => [...prev, currentFAQ]);
+              setCurrentFAQ({ question: "", answer: "" });
+            }}
+            instantBooking={instantBooking}
+            setInstantBooking={setInstantBooking}
+          />
         </TabsContent>
       </Tabs>
       <div className="mt-6 flex items-center justify-between gap-3">

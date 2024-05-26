@@ -11,32 +11,47 @@ import {
 } from "@/components/ui/select";
 import GoogleMapContainer from "@/components/GoogleMapContainer";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import { IBasicInfo } from ".";
 
 const GOOGLE_MAP_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
-const BasicInfo = () => {
-  const [location, setLocation] = useState<any>(null);
-  const [latitude, setLatitude] = useState<number>(33.7665138);
-  const [longitude, setLongitude] = useState<number>(72.820658);
-
+const BasicInfo = ({
+  basicInfo,
+  setBasicInfo,
+}: {
+  basicInfo: IBasicInfo;
+  setBasicInfo: React.Dispatch<React.SetStateAction<IBasicInfo>>;
+}) => {
   const geocodeLocation = (location: any) => {
     const geocoder = new window.google.maps.Geocoder();
     geocoder.geocode({ address: location }, (results, status) => {
       if (status === "OK") {
         const result = results && results[0];
-        if (!result) return;
+        if (!result) return null;
         const { lat, lng } = result?.geometry?.location;
-        setLatitude(lat());
-        setLongitude(lng());
+        setBasicInfo((prev) => ({
+          ...prev,
+          location: {
+            lat: lat(),
+            lng: lng(),
+          },
+        }));
       }
     });
   };
 
+  const changeLocationHandler = (location: any) => {
+    if (!location) return;
+    setBasicInfo((prev) => ({
+      ...prev,
+      address: location,
+    }));
+    geocodeLocation(location.label);
+  };
+
   useEffect(() => {
-    if (location) {
-      geocodeLocation(location.label);
-    }
-  }, [location]);
+    console.log(basicInfo);
+  }, [basicInfo]);
 
   return (
     <div className="my-8 flex flex-col gap-6">
@@ -44,7 +59,14 @@ const BasicInfo = () => {
         <Label htmlFor="title" className="ml-1 font-semibold">
           Title
         </Label>
-        <Input id="title" placeholder="Name of your property" />
+        <Input
+          id="title"
+          placeholder="Name of your property"
+          value={basicInfo.name}
+          onChange={(e) =>
+            setBasicInfo((prev) => ({ ...prev, name: e.target.value }))
+          }
+        />
       </div>
       <div className="flex flex-col gap-3">
         <Label htmlFor="address" className="ml-1 font-semibold">
@@ -56,8 +78,8 @@ const BasicInfo = () => {
             className: "w-full mt-2",
             placeholder:
               "Address of your property, i.e, street, block, phase etc.",
-            value: location,
-            onChange: setLocation,
+            value: basicInfo.address,
+            onChange: changeLocationHandler,
             styles: {
               control: (provided) => ({
                 ...provided,
@@ -76,7 +98,12 @@ const BasicInfo = () => {
           }}
         />
         <div className="w-full h-[250px] mt-4">
-          <GoogleMapContainer center={{ lat: latitude, lng: longitude }} />
+          <GoogleMapContainer
+            center={{
+              lat: basicInfo.location.lat,
+              lng: basicInfo.location.lng,
+            }}
+          />
         </div>
       </div>
       <div className="flex flex-col gap-3">
@@ -89,6 +116,13 @@ const BasicInfo = () => {
         <Input
           id="nearby-site"
           placeholder="Name of the known site around your property"
+          value={basicInfo.nearbySiteName}
+          onChange={(e) =>
+            setBasicInfo((prev) => ({
+              ...prev,
+              nearbySiteName: e.target.value,
+            }))
+          }
         />
       </div>
       <div className="grid sm:grid-cols-3 gap-6">
@@ -96,7 +130,12 @@ const BasicInfo = () => {
           <Label htmlFor="property-type" className="ml-1 font-semibold">
             Property Type
           </Label>
-          <Select>
+          <Select
+            onValueChange={(value) =>
+              setBasicInfo((prev) => ({ ...prev, propertyType: value }))
+            }
+            value={basicInfo?.propertyType}
+          >
             <SelectTrigger id="property-type">
               <SelectValue placeholder="Choose Property Type" />
             </SelectTrigger>
@@ -115,7 +154,12 @@ const BasicInfo = () => {
               (As per room category)
             </span>
           </Label>
-          <Select>
+          <Select
+            onValueChange={(value) =>
+              setBasicInfo((prev) => ({ ...prev, propertySizeUnit: value }))
+            }
+            value={basicInfo?.propertySizeUnit}
+          >
             <SelectTrigger id="property-size">
               <SelectValue placeholder="Choose Property Size" />
             </SelectTrigger>
@@ -139,7 +183,18 @@ const BasicInfo = () => {
           <Label htmlFor="property-area" className="ml-1 font-semibold">
             Property Area
           </Label>
-          <Input id="property-area" placeholder="Area of your property" />
+          <Input
+            id="property-area"
+            placeholder="Area of your property"
+            type="number"
+            value={basicInfo?.propertySize}
+            onChange={(e) =>
+              setBasicInfo((prev) => ({
+                ...prev,
+                propertySize: Number(e.target.value),
+              }))
+            }
+          />
         </div>
       </div>
     </div>

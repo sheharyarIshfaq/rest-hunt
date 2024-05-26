@@ -203,11 +203,9 @@ const RoomInfo = ({ addedRooms, setAddedRooms }: IRoomInfoProps) => {
           </Label>
           <Select
             onValueChange={(value) => setRoom({ ...room, category: value })}
+            value={room.category}
           >
-            <SelectTrigger
-              id="room-category"
-              value={room.category ? room.category : "shared"}
-            >
+            <SelectTrigger id="room-category">
               <SelectValue placeholder="Choose Room Category" />
             </SelectTrigger>
             <SelectContent>
@@ -321,10 +319,9 @@ const RoomInfo = ({ addedRooms, setAddedRooms }: IRoomInfoProps) => {
             onValueChange={(value) =>
               setRoom({ ...room, rentAmountUnit: value })
             }
+            value={room.rentAmountUnit}
           >
-            <SelectTrigger
-              value={room.rentAmountUnit ? room.rentAmountUnit : "month"}
-            >
+            <SelectTrigger>
               <SelectValue placeholder="Per Month" />
             </SelectTrigger>
             <SelectContent>
