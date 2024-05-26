@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -48,10 +48,6 @@ const BasicInfo = ({
     }));
     geocodeLocation(location.label);
   };
-
-  useEffect(() => {
-    console.log(basicInfo);
-  }, [basicInfo]);
 
   return (
     <div className="my-8 flex flex-col gap-6">

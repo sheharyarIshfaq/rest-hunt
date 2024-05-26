@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 import ReduxProvider from "@/redux/provider";
 import AuthWrapper from "@/redux/AuthWrapper";
+import Script from "next/script";
 
 const raleway = Raleway({ subsets: ["latin-ext"] });
 
@@ -27,6 +28,7 @@ export default function RootLayout({
           </body>
         </AuthWrapper>
       </ReduxProvider>
+      <Script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2reipFj543d77O2igMahuGglg-LTRI70&libraries=places" />
     </html>
   );
 }

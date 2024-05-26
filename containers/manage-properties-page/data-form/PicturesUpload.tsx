@@ -1,4 +1,5 @@
 "use client";
+import { toast } from "@/components/ui/use-toast";
 import Image from "next/image";
 import React from "react";
 import { useDropzone } from "react-dropzone";
@@ -13,8 +14,29 @@ const PicturesUpload = ({ images, setImages }: any) => {
       "image/heic": [".heic", ".HEIC"],
     },
     onDrop: (acceptedFiles: any) => {
+      //if less than 4 and more than 10 images
+      if (acceptedFiles.length < 4 || acceptedFiles.length > 10) {
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: "You can only upload between 4 to 10 images",
+        });
+        return;
+      }
       // Update state with the uploaded file
       setImages(acceptedFiles);
+    },
+    maxFiles: 10,
+    onDropRejected(fileRejections, event) {
+      const error = fileRejections[0].errors[0];
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description:
+          error?.code === "too-many-files"
+            ? "You can only upload 10 images"
+            : error.message,
+      });
     },
   });
 

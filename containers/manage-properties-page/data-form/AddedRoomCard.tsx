@@ -30,7 +30,9 @@ const AddedRoomCard = ({
       <div className="flex flex-col xs:flex-row gap-4">
         <div className="xs:max-w-[250px] md:max-w-[300px]">
           <ImageSlider
-            images={images.map((image) => URL.createObjectURL(image))}
+            images={images.map((image) =>
+              image instanceof File ? URL.createObjectURL(image) : image
+            )}
           />
         </div>
         <div className="mt-2">

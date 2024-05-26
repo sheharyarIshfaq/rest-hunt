@@ -15,6 +15,7 @@ import PicturesUpload from "./PicturesUpload";
 import { randomBytes } from "crypto";
 import { toast } from "@/components/ui/use-toast";
 import AddedRoomCard from "./AddedRoomCard";
+import { useAppSelector } from "@/redux/store";
 
 const GENERAL_FACILITIES = [
   "electricity",
@@ -43,7 +44,7 @@ const ROOM_FACILITIES = [
 ];
 
 export interface IRoom {
-  id: string;
+  _id: string;
   category: string;
   availableRooms: number;
   noOfBathrooms: number;
@@ -57,11 +58,19 @@ export interface IRoom {
 interface IRoomInfoProps {
   addedRooms: IRoom[];
   setAddedRooms: React.Dispatch<React.SetStateAction<IRoom[]>>;
+  propertyId: string | undefined;
 }
 
-const RoomInfo = ({ addedRooms, setAddedRooms }: IRoomInfoProps) => {
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+
+const RoomInfo = ({
+  addedRooms,
+  setAddedRooms,
+  propertyId,
+}: IRoomInfoProps) => {
+  const { token } = useAppSelector((state) => state.auth);
   const [room, setRoom] = React.useState<IRoom>({
-    id: randomBytes(4).toString("hex"),
+    _id: randomBytes(4).toString("hex"),
     category: "",
     availableRooms: 0,
     noOfBathrooms: 0,
@@ -147,29 +156,89 @@ const RoomInfo = ({ addedRooms, setAddedRooms }: IRoomInfoProps) => {
     return true;
   };
 
-  const addNewRoomHandler = () => {
+  const addRoomToProperty = async () => {
+    //if property id is not available then show error
+    if (!propertyId) {
+      toastError("Something went wrong. Please try again");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("category", room.category);
+    formData.append("availableRooms", room.availableRooms.toString());
+    formData.append("noOfBathrooms", room.noOfBathrooms.toString());
+    formData.append(
+      "generalFacilities",
+      JSON.stringify(room.generalFacilities)
+    );
+    formData.append("roomFacilities", JSON.stringify(room.roomFacilities));
+    room.images.forEach((image) => {
+      formData.append("images", image);
+    });
+    formData.append("rentAmount", room.rentAmount.toString());
+    formData.append("rentAmountUnit", room.rentAmountUnit);
+
+    try {
+      const response = await fetch(
+        `${BACKEND_URL}/properties/${propertyId}/room`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        }
+      );
+      const responseData = await response.json();
+      if (responseData.error) {
+        toastError(responseData.error);
+        return;
+      }
+      setAddedRooms([...addedRooms, room]);
+      //reset room state
+      setRoom({
+        _id: randomBytes(4).toString("hex"),
+        category: "",
+        availableRooms: 0,
+        noOfBathrooms: 0,
+        generalFacilities: [],
+        roomFacilities: [],
+        images: [],
+        rentAmount: 0,
+        rentAmountUnit: "",
+      });
+    } catch (error: any) {
+      toastError(error.message);
+    }
+  };
+
+  const addNewRoomHandler = async () => {
     //first check inputs
     if (!verifyRoomInputs()) return;
 
-    //add room to added rooms
-    setAddedRooms([...addedRooms, room]);
-
-    //reset room state
-    setRoom({
-      id: randomBytes(4).toString("hex"),
-      category: "",
-      availableRooms: 0,
-      noOfBathrooms: 0,
-      generalFacilities: [],
-      roomFacilities: [],
-      images: [],
-      rentAmount: 0,
-      rentAmountUnit: "",
-    });
+    //add room to property
+    await addRoomToProperty();
   };
 
-  const removeRoomHandler = (id: string) => {
-    setAddedRooms(addedRooms.filter((room) => room.id !== id));
+  const removeRoomHandler = async (id: string) => {
+    try {
+      const response = await fetch(
+        `${BACKEND_URL}/properties/${propertyId}/room/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const responseData = await response.json();
+      if (responseData.error) {
+        toastError(responseData.error);
+        return;
+      }
+      setAddedRooms(addedRooms.filter((room) => room._id !== id));
+    } catch (error: any) {
+      toastError(error.message);
+    }
   };
 
   return (
@@ -182,12 +251,12 @@ const RoomInfo = ({ addedRooms, setAddedRooms }: IRoomInfoProps) => {
           <div className="ml-1">
             {addedRooms.map((room) => (
               <AddedRoomCard
-                key={room.id}
+                key={room._id}
                 title={room.category}
                 price={room.rentAmount}
                 images={room.images}
                 facilities={[...room.generalFacilities, ...room.roomFacilities]}
-                onRemove={() => removeRoomHandler(room.id)}
+                onRemove={() => removeRoomHandler(room._id)}
               />
             ))}
           </div>
@@ -322,13 +391,13 @@ const RoomInfo = ({ addedRooms, setAddedRooms }: IRoomInfoProps) => {
             value={room.rentAmountUnit}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Per Month" />
+              <SelectValue placeholder="Select Unit" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="day">Per Day</SelectItem>
-              <SelectItem value="week">Per Week</SelectItem>
-              <SelectItem value="month">Per Month</SelectItem>
-              <SelectItem value="year">Per Year</SelectItem>
+              <SelectItem value="per-day">Per Day</SelectItem>
+              <SelectItem value="per-week">Per Week</SelectItem>
+              <SelectItem value="per-month">Per Month</SelectItem>
+              <SelectItem value="per-year">Per Year</SelectItem>
             </SelectContent>
           </Select>
         </div>
