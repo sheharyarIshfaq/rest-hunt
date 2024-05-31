@@ -16,6 +16,7 @@ import { randomBytes } from "crypto";
 import { toast } from "@/components/ui/use-toast";
 import AddedRoomCard from "./AddedRoomCard";
 import { useAppSelector } from "@/redux/store";
+import { Button } from "@/components/ui/button";
 
 const GENERAL_FACILITIES = [
   "electricity",
@@ -150,6 +151,10 @@ const RoomInfo = ({
     }
     if (room.rentAmount === 0) {
       toastError("Please enter price");
+      return false;
+    }
+    if (room.rentAmountUnit === "") {
+      toastError("Please select price unit");
       return false;
     }
 
@@ -391,7 +396,7 @@ const RoomInfo = ({
             value={room.rentAmountUnit}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Select Unit" />
+              <SelectValue placeholder="Select Price Unit" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="per-day">Per Day</SelectItem>
@@ -402,14 +407,10 @@ const RoomInfo = ({
           </Select>
         </div>
       </div>
-
-      <button
-        className="flex items-center gap-1 text-main font-medium"
-        onClick={addNewRoomHandler}
-      >
+      <Button className="bg-main w-fit" onClick={addNewRoomHandler}>
         <BsPlus className="text-2xl" />
-        Add another room category
-      </button>
+        Add room category
+      </Button>
     </div>
   );
 };

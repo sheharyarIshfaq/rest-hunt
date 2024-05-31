@@ -144,7 +144,6 @@ const PropertyDataForm = ({
         body: JSON.stringify({
           ...basicInfo,
           address: basicInfo.address.label,
-          rooms: addedRooms,
           description,
           faqs,
           instantBooking,
