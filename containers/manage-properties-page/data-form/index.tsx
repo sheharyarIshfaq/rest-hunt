@@ -31,11 +31,17 @@ export interface IFaq {
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-const PropertyDataForm = ({ propertyId }: { propertyId?: string }) => {
+const PropertyDataForm = ({
+  propertyId,
+  activeTabItem,
+}: {
+  propertyId?: string;
+  activeTabItem?: string | undefined;
+}) => {
   const { token } = useAppSelector((state) => state.auth);
   const router = useRouter();
 
-  const [activeTab, setActiveTab] = React.useState("basic");
+  const [activeTab, setActiveTab] = React.useState(activeTabItem || "basic");
 
   const [addedRooms, setAddedRooms] = React.useState<IRoom[]>([]);
   const [basicInfo, setBasicInfo] = React.useState<IBasicInfo>({
@@ -117,7 +123,7 @@ const PropertyDataForm = ({ propertyId }: { propertyId?: string }) => {
         });
         return false;
       }
-      router.push(`/manage-properties/${responseData.data._id}`);
+      router.push(`/manage-properties/${responseData.data._id}?active=rooms`);
       return true;
     } catch (error: any) {
       toastError(error.message);
@@ -127,7 +133,7 @@ const PropertyDataForm = ({ propertyId }: { propertyId?: string }) => {
     }
   };
 
-  const updateProperty = async () => {
+  const updateProperty = async (publish = false) => {
     try {
       const response = await fetch(`${BACKEND_URL}/properties/${propertyId}`, {
         method: "PUT",
@@ -142,6 +148,7 @@ const PropertyDataForm = ({ propertyId }: { propertyId?: string }) => {
           description,
           faqs,
           instantBooking,
+          status: publish ? "Pending" : "Draft",
         }),
       });
       const responseData = await response.json();
@@ -211,8 +218,10 @@ const PropertyDataForm = ({ propertyId }: { propertyId?: string }) => {
   }, [propertyId]);
 
   const saveAndNextHandler = async () => {
+    setLoading(true);
     //if active tab is basic, we need to validate the basic info
     if (activeTab === "basic" && !validateBasicInfo()) {
+      setLoading(false);
       return;
     } else if (activeTab === "basic") {
       if (propertyId) {
@@ -220,25 +229,59 @@ const PropertyDataForm = ({ propertyId }: { propertyId?: string }) => {
         if (success) {
           setActiveTab("rooms");
         }
+        setLoading(false);
       } else {
         const success = await createProperty();
         if (success) {
+          setLoading(false);
           return;
         }
       }
     } else if (activeTab === "rooms") {
       setActiveTab("description");
+      setLoading(false);
     }
+  };
+
+  const publishPropertyHandler = async () => {
+    setLoading(true);
+    if (!validateBasicInfo()) {
+      setLoading(false);
+      return;
+    }
+    const success = await updateProperty(true);
+    if (success) {
+      setLoading(false);
+      toast({
+        variant: "success",
+        title: "Property Published",
+        description: "Your property has been published successfully",
+      });
+      router.push("/manage-properties");
+    }
+    setLoading(false);
+  };
+
+  const tabChangeHandler = (value: string) => {
+    //if active tab is basic, we need to validate the basic info
+    if (activeTab === "basic" && !validateBasicInfo()) {
+      return;
+    }
+    //if there is no property id, we need to create the property so we can't move to next tab without saving the basic info
+    if (!propertyId) {
+      if (activeTab === "basic") {
+        saveAndNextHandler();
+        return;
+      }
+    }
+    setActiveTab(value);
   };
 
   return (
     <>
       {!dataLoading && (
         <>
-          <Tabs
-            value={activeTab}
-            onValueChange={(value) => setActiveTab(value)}
-          >
+          <Tabs value={activeTab} onValueChange={tabChangeHandler}>
             <TabsList className="flex-col sm:flex-row w-full sm:w-auto h-auto sm:h-10 justify-start sm:justify-center">
               <TabsTrigger value="basic" className="w-full sm:w-auto">
                 Basic Information
@@ -295,11 +338,16 @@ const PropertyDataForm = ({ propertyId }: { propertyId?: string }) => {
                   variant="outline"
                   className="border-black text-black"
                   disabled={loading}
-                  onClick={updateProperty}
+                  onClick={async () => {
+                    await updateProperty();
+                    router.push("/manage-properties");
+                  }}
                 >
                   Save as Draft
                 </Button>
-                <Button className="bg-main">Publish</Button>
+                <Button className="bg-main" onClick={publishPropertyHandler}>
+                  Publish
+                </Button>
               </div>
             )}
           </div>
