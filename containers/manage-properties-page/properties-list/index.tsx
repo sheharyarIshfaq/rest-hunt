@@ -71,6 +71,7 @@ export function PropertiesList({
   refetchProperties,
 }: PropertiesListProps) {
   const { token } = useAppSelector((state) => state.auth);
+  const router = useRouter();
 
   const handleDelete = async (property: Property) => {
     try {
@@ -105,6 +106,10 @@ export function PropertiesList({
     }
   };
 
+  const handleEdit = (property: Property) => {
+    router.push(`/manage-properties/${property._id}`);
+  };
+
   const columns: ColumnDef<Property>[] = [
     {
       accessorKey: "name",
@@ -118,8 +123,8 @@ export function PropertiesList({
                 src={property.image}
                 alt={row.getValue("name")}
                 className="w-24 h-12 object-cover rounded-lg"
-                width={200}
-                height={200}
+                width={100}
+                height={100}
               />
               <div>
                 <div className="font-semibold">{row.getValue("name")}</div>
@@ -181,7 +186,7 @@ export function PropertiesList({
                   <BsEye className="mr-2" />
                   View
                 </DropdownMenuItem>
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleEdit(property)}>
                   <BsPencil className="mr-2" />
                   Edit
                 </DropdownMenuItem>
