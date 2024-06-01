@@ -5,9 +5,6 @@ import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import { MoreVertical } from "lucide-react";
@@ -28,291 +25,223 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Image from "next/image";
-import DUMMY_PROPERTIES from "@/data/properties";
+import { BsEye, BsPencil, BsTrash, BsShare } from "react-icons/bs";
+import { IoPauseCircleOutline } from "react-icons/io5";
+import { Separator } from "@/components/ui/separator";
 import {
-  BsEye,
-  BsPencil,
-  BsTrash,
-  BsShare,
-  BsPauseCircle,
-} from "react-icons/bs";
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { useRouter } from "next/navigation";
+import { toast } from "@/components/ui/use-toast";
+import { useAppSelector } from "@/redux/store";
 
-const data: Property[] = [
-  {
-    id: DUMMY_PROPERTIES[0].id,
-    image: DUMMY_PROPERTIES[0].image.src,
-    title: DUMMY_PROPERTIES[0].title,
-    category: "Private",
-    noOfRooms: 10,
-    bookings: 20,
-    cancellations: 5,
-    address: DUMMY_PROPERTIES[0].address,
-  },
-  {
-    id: DUMMY_PROPERTIES[1].id,
-    image: DUMMY_PROPERTIES[1].image.src,
-    title: DUMMY_PROPERTIES[1].title,
-    category: "Shared",
-    noOfRooms: 5,
-    bookings: 10,
-    cancellations: 2,
-    address: DUMMY_PROPERTIES[1].address,
-  },
-  {
-    id: DUMMY_PROPERTIES[2].id,
-    image: DUMMY_PROPERTIES[2].image.src,
-    title: DUMMY_PROPERTIES[2].title,
-    category: "Private",
-    noOfRooms: 8,
-    bookings: 15,
-    cancellations: 3,
-    address: DUMMY_PROPERTIES[2].address,
-  },
-  {
-    id: DUMMY_PROPERTIES[3].id,
-    image: DUMMY_PROPERTIES[3].image.src,
-    title: DUMMY_PROPERTIES[3].title,
-    category: "Shared",
-    noOfRooms: 6,
-    bookings: 12,
-    cancellations: 4,
-    address: DUMMY_PROPERTIES[3].address,
-  },
-  {
-    id: DUMMY_PROPERTIES[0].id,
-    image: DUMMY_PROPERTIES[0].image.src,
-    title: DUMMY_PROPERTIES[0].title,
-    category: "Private",
-    noOfRooms: 12,
-    bookings: 25,
-    cancellations: 6,
-    address: DUMMY_PROPERTIES[0].address,
-  },
-  {
-    id: DUMMY_PROPERTIES[0].id,
-    image: DUMMY_PROPERTIES[0].image.src,
-    title: DUMMY_PROPERTIES[0].title,
-    category: "Private",
-    noOfRooms: 10,
-    bookings: 20,
-    cancellations: 5,
-    address: DUMMY_PROPERTIES[0].address,
-  },
-  {
-    id: DUMMY_PROPERTIES[1].id,
-    image: DUMMY_PROPERTIES[1].image.src,
-    title: DUMMY_PROPERTIES[1].title,
-    category: "Shared",
-    noOfRooms: 5,
-    bookings: 10,
-    cancellations: 2,
-    address: DUMMY_PROPERTIES[1].address,
-  },
-  {
-    id: DUMMY_PROPERTIES[2].id,
-    image: DUMMY_PROPERTIES[2].image.src,
-    title: DUMMY_PROPERTIES[2].title,
-    category: "Private",
-    noOfRooms: 8,
-    bookings: 15,
-    cancellations: 3,
-    address: DUMMY_PROPERTIES[2].address,
-  },
-  {
-    id: DUMMY_PROPERTIES[3].id,
-    image: DUMMY_PROPERTIES[3].image.src,
-    title: DUMMY_PROPERTIES[3].title,
-    category: "Shared",
-    noOfRooms: 6,
-    bookings: 12,
-    cancellations: 4,
-    address: DUMMY_PROPERTIES[3].address,
-  },
-  {
-    id: DUMMY_PROPERTIES[0].id,
-    image: DUMMY_PROPERTIES[0].image.src,
-    title: DUMMY_PROPERTIES[0].title,
-    category: "Private",
-    noOfRooms: 12,
-    bookings: 25,
-    cancellations: 6,
-    address: DUMMY_PROPERTIES[0].address,
-  },
-  {
-    id: DUMMY_PROPERTIES[0].id,
-    image: DUMMY_PROPERTIES[0].image.src,
-    title: DUMMY_PROPERTIES[0].title,
-    category: "Private",
-    noOfRooms: 10,
-    bookings: 20,
-    cancellations: 5,
-    address: DUMMY_PROPERTIES[0].address,
-  },
-  {
-    id: DUMMY_PROPERTIES[1].id,
-    image: DUMMY_PROPERTIES[1].image.src,
-    title: DUMMY_PROPERTIES[1].title,
-    category: "Shared",
-    noOfRooms: 5,
-    bookings: 10,
-    cancellations: 2,
-    address: DUMMY_PROPERTIES[1].address,
-  },
-  {
-    id: DUMMY_PROPERTIES[2].id,
-    image: DUMMY_PROPERTIES[2].image.src,
-    title: DUMMY_PROPERTIES[2].title,
-    category: "Private",
-    noOfRooms: 8,
-    bookings: 15,
-    cancellations: 3,
-    address: DUMMY_PROPERTIES[2].address,
-  },
-  {
-    id: DUMMY_PROPERTIES[3].id,
-    image: DUMMY_PROPERTIES[3].image.src,
-    title: DUMMY_PROPERTIES[3].title,
-    category: "Shared",
-    noOfRooms: 6,
-    bookings: 12,
-    cancellations: 4,
-    address: DUMMY_PROPERTIES[3].address,
-  },
-  {
-    id: DUMMY_PROPERTIES[0].id,
-    image: DUMMY_PROPERTIES[0].image.src,
-    title: DUMMY_PROPERTIES[0].title,
-    category: "Private",
-    noOfRooms: 12,
-    bookings: 25,
-    cancellations: 6,
-    address: DUMMY_PROPERTIES[0].address,
-  },
-];
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export type Property = {
-  id: number | string;
+  _id: number | string;
   image: string;
-  title: string;
-  category: string;
-  noOfRooms: number;
-  bookings: number;
-  cancellations: number;
+  name: string;
+  propertyType: string;
   address: string;
+  rooms: any[];
 };
 
-export const columns: ColumnDef<Property>[] = [
-  {
-    accessorKey: "title",
-    header: "Title",
-    cell: ({ row }) => {
-      const property = row.original;
-      return (
-        <div className="min-w-max">
-          <div className="flex items-center gap-2">
-            <Image
-              src={property.image}
-              alt={row.getValue("title")}
-              className="w-24 h-12 object-cover rounded-lg"
-              width={40}
-              height={40}
-            />
-            <div>
-              <div className="font-semibold">{row.getValue("title")}</div>
-              <div className="text-xs text-label">{property.address}</div>
+interface PropertiesListProps {
+  properties: Property[];
+  currentPage: number;
+  totalPages: number;
+  setCurrentPage: (page: number) => void;
+  totalCount: number;
+  refetchProperties: () => void;
+}
+
+export function PropertiesList({
+  properties = [],
+  currentPage,
+  totalPages,
+  setCurrentPage,
+  totalCount,
+  refetchProperties,
+}: PropertiesListProps) {
+  const { token } = useAppSelector((state) => state.auth);
+
+  const handleDelete = async (property: Property) => {
+    try {
+      const res = await fetch(`${BACKEND_URL}/properties/${property._id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const responseData = await res.json();
+
+      if (responseData.error) {
+        return toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: responseData.message,
+        });
+      }
+      toast({
+        variant: "success",
+        title: "Property deleted successfully.",
+      });
+      refetchProperties();
+    } catch (err: any) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: err.message,
+      });
+    }
+  };
+
+  const columns: ColumnDef<Property>[] = [
+    {
+      accessorKey: "name",
+      header: "Title",
+      cell: ({ row }) => {
+        const property = row.original;
+        return (
+          <div className="min-w-max">
+            <div className="flex items-center gap-2">
+              <Image
+                src={property.image}
+                alt={row.getValue("name")}
+                className="w-24 h-12 object-cover rounded-lg"
+                width={200}
+                height={200}
+              />
+              <div>
+                <div className="font-semibold">{row.getValue("name")}</div>
+                <div className="text-xs text-label">{property.address}</div>
+              </div>
             </div>
           </div>
-        </div>
-      );
+        );
+      },
     },
-  },
-  {
-    accessorKey: "category",
-    header: "Category",
-    cell: ({ row }) => <div>{row.getValue("category")}</div>,
-  },
-  {
-    accessorKey: "noOfRooms",
-    header: () => <div className="text-center">No. of Rooms</div>,
-    cell: ({ row }) => {
-      return (
-        <div className="text-center font-medium">
-          {row.getValue("noOfRooms")}
-        </div>
-      );
+    {
+      accessorKey: "propertyType",
+      header: "Category",
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue("propertyType")}</div>
+      ),
     },
-  },
-  {
-    accessorKey: "bookings",
-    header: () => <div className="text-center">Booked</div>,
-    cell: ({ row }) => {
-      return (
-        <div className="text-center font-medium">
-          {row.getValue("bookings")}
-        </div>
-      );
+    {
+      accessorKey: "rooms",
+      header: () => <div className="text-center">No. of Rooms</div>,
+      cell: ({ row }) => {
+        return (
+          <div className="text-center font-medium">
+            {((row.getValue("rooms") as any[]) || []).length}
+          </div>
+        );
+      },
     },
-  },
-  {
-    accessorKey: "cancellations",
-    header: () => <div className="text-center">Cancellations</div>,
-    cell: ({ row }) => {
-      return (
-        <div className="text-center font-medium">
-          {row.getValue("cancellations")}
-        </div>
-      );
+    {
+      accessorKey: "bookings",
+      header: () => <div className="text-center">Booked</div>,
+      cell: ({ row }) => {
+        return <div className="text-center font-medium">{17}</div>;
+      },
     },
-  },
-  {
-    id: "actions",
-    cell: ({ row }) => {
-      const property = row.original;
+    {
+      accessorKey: "cancellations",
+      header: () => <div className="text-center">Cancellations</div>,
+      cell: ({ row }) => {
+        return <div className="text-center font-medium">{20}</div>;
+      },
+    },
+    {
+      id: "actions",
+      cell: ({ row }) => {
+        const property = row.original;
 
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button size="sm" variant="outline">
-              <span className="sr-only">Open menu</span>
-              <MoreVertical className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="min-w-36">
-            <DropdownMenuItem>
-              <BsEye className="mr-2" />
-              View
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <BsPencil className="mr-2" />
-              Edit
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <BsPauseCircle className="mr-2" />
-              Pause
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <BsShare className="mr-2" />
-              Share
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <BsTrash className="mr-2" />
-              Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
-  },
-];
+        return (
+          <Dialog>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button size="sm" variant="outline">
+                  <span className="sr-only">Open menu</span>
+                  <MoreVertical className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="min-w-36">
+                <DropdownMenuItem>
+                  <BsEye className="mr-2" />
+                  View
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <BsPencil className="mr-2" />
+                  Edit
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <IoPauseCircleOutline className="mr-2" />
+                  Pause
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <BsShare className="mr-2" />
+                  Share
+                </DropdownMenuItem>
 
-export function PropertiesList() {
+                <DialogTrigger asChild>
+                  <DropdownMenuItem>
+                    <BsTrash className="mr-2" />
+                    Delete
+                  </DropdownMenuItem>
+                </DialogTrigger>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Delete {property.name} property</DialogTitle>
+                <DialogDescription>
+                  Are you sure you want to delete this property? This action
+                  cannot be undone.
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <DialogClose asChild>
+                  <Button variant="outline" type="button">
+                    Cancel
+                  </Button>
+                </DialogClose>
+                <DialogClose asChild>
+                  <Button type="submit" onClick={() => handleDelete(property)}>
+                    Confirm
+                  </Button>
+                </DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        );
+      },
+    },
+  ];
+
   const table = useReactTable({
-    data,
+    data: properties,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
+    rowCount: properties.length,
+    pageCount: totalPages,
+    manualPagination: true,
+    state: {
+      pagination: {
+        pageIndex: currentPage - 1,
+        pageSize: 10,
+      },
+    },
   });
 
   return (
@@ -367,12 +296,22 @@ export function PropertiesList() {
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
+      <div className="flex items-center justify-between space-x-2 py-4">
+        <div className="flex items-center gap-2">
+          {/* show total properties and current page */}
+          <span className="text-sm text-label">
+            Total properties: {totalCount}
+          </span>
+          <Separator orientation="vertical" className="h-6" />
+          <span className="text-sm text-label">
+            Page {currentPage} of {totalPages}
+          </span>
+        </div>
         <div className="space-x-2">
           <Button
             variant="outline"
             size="sm"
-            onClick={() => table.previousPage()}
+            onClick={() => setCurrentPage(currentPage - 1)}
             disabled={!table.getCanPreviousPage()}
           >
             Previous
@@ -380,7 +319,7 @@ export function PropertiesList() {
           <Button
             variant="outline"
             size="sm"
-            onClick={() => table.nextPage()}
+            onClick={() => setCurrentPage(currentPage + 1)}
             disabled={!table.getCanNextPage()}
           >
             Next
