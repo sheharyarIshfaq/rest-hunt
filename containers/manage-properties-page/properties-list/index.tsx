@@ -51,6 +51,7 @@ export type Property = {
   propertyType: string;
   address: string;
   rooms: any[];
+  status: string;
 };
 
 interface PropertiesListProps {
@@ -108,6 +109,56 @@ export function PropertiesList({
 
   const handleEdit = (property: Property) => {
     router.push(`/manage-properties/${property._id}`);
+  };
+
+  const handleShare = (property: Property) => {
+    navigator.clipboard.writeText(
+      `${window.location.origin}/property/${property._id}`
+    );
+    toast({
+      variant: "success",
+      title: "Link copied to clipboard.",
+    });
+  };
+
+  const handleView = (property: Property) => {
+    router.push(`/property/${property._id}`);
+  };
+
+  const handlePause = async (property: Property) => {
+    try {
+      const res = await fetch(
+        `${BACKEND_URL}/properties/${property._id}/pause`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const responseData = await res.json();
+
+      if (responseData.error) {
+        return toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: responseData.message,
+        });
+      }
+      toast({
+        variant: "success",
+        title: "Property paused successfully.",
+      });
+      refetchProperties();
+    } catch (err: any) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: err.message,
+      });
+    }
   };
 
   const columns: ColumnDef<Property>[] = [
@@ -182,7 +233,7 @@ export function PropertiesList({
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="min-w-36">
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleView(property)}>
                   <BsEye className="mr-2" />
                   View
                 </DropdownMenuItem>
@@ -190,11 +241,13 @@ export function PropertiesList({
                   <BsPencil className="mr-2" />
                   Edit
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <IoPauseCircleOutline className="mr-2" />
-                  Pause
-                </DropdownMenuItem>
-                <DropdownMenuItem>
+                {property.status === "Active" && (
+                  <DropdownMenuItem onClick={() => handlePause(property)}>
+                    <IoPauseCircleOutline className="mr-2" />
+                    Pause
+                  </DropdownMenuItem>
+                )}
+                <DropdownMenuItem onClick={() => handleShare(property)}>
                   <BsShare className="mr-2" />
                   Share
                 </DropdownMenuItem>
