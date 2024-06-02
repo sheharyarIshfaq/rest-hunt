@@ -24,10 +24,6 @@ const PropertySideDetailSection = ({
       <div className="flex items-center gap-2 my-3 flex-wrap">
         <IconButton icon={<MdVerified />} title="Verified" />
         <IconButton icon={<IoFlashOutline />} title="Fast Selling" />
-        <IconButton icon={<MdVerified />} title="Verified" />
-        <IconButton icon={<IoFlashOutline />} title="Fast Selling" />
-        <IconButton icon={<MdVerified />} title="Verified" />
-        <IconButton icon={<IoFlashOutline />} title="Fast Selling" />
       </div>
       <Button className="w-full bg-main hover:bg-main font-semibold hover:shadow-md mt-2">
         <a
