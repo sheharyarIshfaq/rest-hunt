@@ -1,28 +1,26 @@
 import PropertyCard from "@/components/PropertyCard";
-import DUMMY_PROPERTIES from "@/data/properties";
 import React from "react";
 
-const PropertiesList = () => {
+const PropertiesList = ({
+  properties,
+  handleRemoveFavourite,
+}: {
+  properties: any[];
+  handleRemoveFavourite: (propertyId: string) => void;
+}) => {
   return (
     <div className="mt-6 grid xs:grid-cols-2 md:grid-cols-4 gap-4">
-      {DUMMY_PROPERTIES.map((property) => (
+      {properties.map((property) => (
         <PropertyCard
-          key={property.id}
+          key={property._id}
+          id={property._id}
           image={property.image}
-          title={property.title}
+          title={property.name}
           address={property.address}
-          price={property.price}
+          price={property.leastPrice}
+          priceUnit={property.leastPriceUnit}
           isFavorite={true}
-        />
-      ))}
-      {DUMMY_PROPERTIES.map((property) => (
-        <PropertyCard
-          key={property.id}
-          image={property.image}
-          title={property.title}
-          address={property.address}
-          price={property.price}
-          isFavorite={true}
+          updateFavourites={() => handleRemoveFavourite(property._id)}
         />
       ))}
     </div>
