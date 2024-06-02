@@ -4,12 +4,25 @@ import Navbar from "@/components/Shared/Navbar";
 import DataSection from "@/containers/search-page/data-section";
 import FilterSection from "@/containers/search-page/filters-section";
 
-export default function SearchPage({
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+
+async function getProperties(searchQuery: string, pageNumber: number) {
+  const res = await fetch(
+    `${BACKEND_URL}/properties?search=${searchQuery}&page=${pageNumber}`
+  );
+  const data = await res.json();
+  return data;
+}
+
+export default async function SearchPage({
   searchParams,
 }: {
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams?: { [key: string]: string | undefined };
 }) {
-  console.log("searchParams", searchParams?.query);
+  const searchQuery = searchParams?.query || "";
+  const pageNumber = Number(searchParams?.page) || 1;
+  const properties = await getProperties(searchQuery, pageNumber);
+  console.log("properties", properties);
   return (
     <>
       <Navbar showSearch={true} isDark={true} />
@@ -17,7 +30,7 @@ export default function SearchPage({
         <CustomSearch isSmall={true} className="w-full" />
       </div>
       <FilterSection />
-      <DataSection />
+      <DataSection pageNumber={pageNumber} searchQuery={searchQuery} />
       <div className="border-t border-gray-200"></div>
       <Footer />
     </>

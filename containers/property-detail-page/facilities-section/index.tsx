@@ -11,7 +11,13 @@ import { LuSofa } from "react-icons/lu";
 import { CiDumbbell } from "react-icons/ci";
 import { GiWashingMachine } from "react-icons/gi";
 
-const PropertyFacilitiesSection = () => {
+const PropertyFacilitiesSection = ({
+  generalFacilities,
+  roomFacilities,
+}: {
+  generalFacilities: string[];
+  roomFacilities: string[];
+}) => {
   return (
     <div className="mt-4 border-b pb-6">
       <div className="mt-6">
@@ -19,22 +25,12 @@ const PropertyFacilitiesSection = () => {
           Bills <span className="text-label font-normal">(All inclusive)</span>
         </h1>
         <div className="flex items-center gap-6 flex-wrap mt-3">
-          <div className="flex items-center gap-2 min-w-24">
-            <FaRegCircleCheck className="text-lg" />
-            <span>Wifi</span>
-          </div>
-          <div className="flex items-center gap-2 min-w-24">
-            <FaRegCircleCheck className="text-lg" />
-            <span>Water</span>
-          </div>
-          <div className="flex items-center gap-2 min-w-24">
-            <FaRegCircleCheck className="text-lg" />
-            <span>Electricity</span>
-          </div>
-          <div className="flex items-center gap-2 min-w-24">
-            <FaRegCircleCheck className="text-lg" />
-            <span>Gas</span>
-          </div>
+          {generalFacilities.map((facility) => (
+            <div key={facility} className="flex items-center gap-2 min-w-24">
+              <FaRegCircleCheck className="text-lg" />
+              <span className="capitalize">{facility}</span>
+            </div>
+          ))}
         </div>
       </div>
       <div className="mt-6">

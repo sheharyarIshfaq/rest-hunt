@@ -3,8 +3,15 @@ import DUMMY_PROPERTIES from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
 import { Button } from "@/components/ui/button";
 import { BsChevronRight } from "react-icons/bs";
+import Link from "next/link";
 
-const DataSection = () => {
+const DataSection = ({
+  pageNumber,
+  searchQuery,
+}: {
+  pageNumber: number;
+  searchQuery: string;
+}) => {
   return (
     <section className="container py-6">
       <div className="mt-8 grid xs:grid-cols-2 md:grid-cols-4 gap-4">
@@ -38,9 +45,15 @@ const DataSection = () => {
         ))}
       </div>
       <div className="py-10 flex items-center justify-center">
-        <Button variant="outline" className="border-black font-semibold">
-          Load More
-          <BsChevronRight className="text-xl" />
+        <Button
+          asChild
+          variant="outline"
+          className="border-black font-semibold"
+        >
+          <Link href={`/search?query=${searchQuery}&page=${pageNumber + 1}`}>
+            Load More
+            <BsChevronRight className="text-xl" />
+          </Link>
         </Button>
       </div>
     </section>

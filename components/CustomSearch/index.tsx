@@ -1,5 +1,5 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 import { BsSearch } from "react-icons/bs";
 
@@ -14,11 +14,15 @@ const CustomSearch = ({
 }: CustomSearchProps) => {
   const [search, setSearch] = React.useState("");
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const searchValue = searchParams.get("query") || "";
 
   const searchHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(search);
-    if (search.trim() === "") return;
+    if (search.trim() === "") {
+      return router.push(`/search`);
+    }
     router.push(`/search?query=${search}`);
   };
 
@@ -38,7 +42,7 @@ const CustomSearch = ({
           isSmall ? "py-2" : "py-4"
         }`}
         id="search"
-        value={search}
+        value={search === "" ? searchValue : search}
         onChange={(e) => setSearch(e.target.value)}
       />
       <button

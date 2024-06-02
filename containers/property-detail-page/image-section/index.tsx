@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Propery1 from "@/public/images/property1.png";
 import Propery2 from "@/public/images/property2.png";
 import Propery3 from "@/public/images/property3.png";
@@ -22,6 +22,8 @@ const ImageSlide = ({ image }: any) => {
         src={image}
         alt="property"
         className="w-full h-full object-cover rounded-lg"
+        width={1920}
+        height={1080}
       />
     </div>
   );
@@ -46,15 +48,18 @@ const Thumb = ({ selected, image, onClick }: IThumb) => {
         src={image}
         alt="property"
         className="w-full h-full object-cover"
+        width={200}
+        height={120}
       />
     </div>
   );
 };
 
-const PropertyImagesSection = () => {
+const PropertyImagesSection = ({ property }: { property: any }) => {
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
   const [count, setCount] = React.useState(0);
+  const [images, setImages] = React.useState<any[]>([]);
 
   React.useEffect(() => {
     if (!api) {
@@ -69,22 +74,23 @@ const PropertyImagesSection = () => {
     });
   }, [api]);
 
+  useEffect(() => {
+    if (!property) return;
+    //property has rooms array, and each room has images array
+    const images = property.rooms.flatMap((room: any) => room.images);
+    setImages(images);
+    setCount(images.length);
+  }, [property]);
+
   return (
     <div>
       <Carousel setApi={setApi} className="relative">
         <CarouselContent>
-          <CarouselItem>
-            <ImageSlide image={Propery1} />
-          </CarouselItem>
-          <CarouselItem>
-            <ImageSlide image={Propery2} />
-          </CarouselItem>
-          <CarouselItem>
-            <ImageSlide image={Propery3} />
-          </CarouselItem>
-          <CarouselItem>
-            <ImageSlide image={Propery4} />
-          </CarouselItem>
+          {images.map((image, index) => (
+            <CarouselItem key={index}>
+              <ImageSlide image={image} />
+            </CarouselItem>
+          ))}
         </CarouselContent>
         <CarouselPrevious className="absolute top-1/2 left-2 transform -translate-y-1/2" />
         <CarouselNext className="absolute top-1/2 right-2 transform -translate-y-1/2" />
@@ -94,27 +100,15 @@ const PropertyImagesSection = () => {
         </div>
       </Carousel>
       <div className="hidden sm:block my-3">
-        <div className="flex overflow-x-auto no-scrollbar">
-          <Thumb
-            selected={current === 1}
-            image={Propery1}
-            onClick={() => api?.scrollTo(0)}
-          />
-          <Thumb
-            selected={current === 2}
-            image={Propery2}
-            onClick={() => api?.scrollTo(1)}
-          />
-          <Thumb
-            selected={current === 3}
-            image={Propery3}
-            onClick={() => api?.scrollTo(2)}
-          />
-          <Thumb
-            selected={current === 4}
-            image={Propery4}
-            onClick={() => api?.scrollTo(3)}
-          />
+        <div className="flex overflow-x-auto no-scrollbar max-w-[53vw]">
+          {images.map((image, index) => (
+            <Thumb
+              key={index}
+              selected={current === index + 1}
+              image={image}
+              onClick={() => api?.scrollTo(index)}
+            />
+          ))}
         </div>
       </div>
     </div>
