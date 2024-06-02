@@ -5,6 +5,7 @@ import Navbar from "@/components/Shared/Navbar";
 import { Button } from "@/components/ui/button";
 import DataSection from "@/containers/search-page/data-section";
 import FilterSection from "@/containers/search-page/filters-section";
+import { useAppSelector } from "@/redux/store";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { BsChevronRight } from "react-icons/bs";
@@ -19,15 +20,16 @@ export default function SearchPage({
 }) {
   const searchQuery = searchParams?.query || "";
 
+  const { token } = useAppSelector((state) => state.auth);
+
   const [pageNumber, setPageNumber] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [properties, setProperties] = useState<any[]>([]);
+  const [favourites, setFavourites] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   const fetchProperties = async () => {
     if (pageNumber > totalPages) return;
-
-    setLoading(true);
     try {
       const response = await fetch(
         `${BACKEND_URL}/properties?search=${searchQuery}&page=${pageNumber}`
@@ -38,7 +40,6 @@ export default function SearchPage({
         console.log(responseData.error);
         return;
       }
-      console.log(responseData);
       setPageNumber(responseData.currentPage);
       setTotalPages(responseData.totalPages);
       if (pageNumber === 1) {
@@ -57,12 +58,41 @@ export default function SearchPage({
     fetchProperties();
   }, [pageNumber, searchQuery]);
 
+  const getUserFavouriteProperties = async () => {
+    try {
+      const response = await fetch(`${BACKEND_URL}/favourites`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const responseData = await response.json();
+      if (responseData.error) {
+        console.log(responseData.error);
+        return;
+      }
+      console.log(responseData.favourites);
+      setFavourites(responseData.favourites);
+    } catch (e: any) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
-    console.log(searchParams);
-    console.log(searchQuery);
-    console.log(pageNumber);
-    console.log(totalPages);
-  }, [searchParams, searchQuery, pageNumber, totalPages]);
+    if (token) {
+      getUserFavouriteProperties();
+    }
+  }, [token]);
+
+  const updateFavouriteHandler = (propertyId: string) => {
+    if (favourites.find((fav) => fav.property === propertyId)) {
+      const newFavourites = favourites.filter(
+        (fav) => fav.property !== propertyId
+      );
+      setFavourites(newFavourites);
+    } else {
+      setFavourites([...favourites, { property: propertyId }]);
+    }
+  };
 
   return (
     <>
@@ -73,7 +103,11 @@ export default function SearchPage({
       <FilterSection />
       {!loading && (
         <>
-          <DataSection properties={properties} />
+          <DataSection
+            properties={properties}
+            favourites={favourites}
+            updatedFavourites={updateFavouriteHandler}
+          />
           {pageNumber < totalPages && (
             <div className="py-10 flex items-center justify-center">
               <Button
