@@ -20,6 +20,7 @@ import Footer from "@/components/Shared/Footer";
 import SimilarPropertiesSection from "@/containers/property-detail-page/similar-properties-section";
 import OwnerDetailsSection from "@/containers/property-detail-page/owner-detail-section";
 import { Button } from "@/components/ui/button";
+import AddToRecentlyViewed from "@/containers/property-detail-page/add-to-recently-viewed";
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -33,7 +34,6 @@ async function getProperty(propertyId: string) {
 
 const PropertyDeatailPage = async ({ params }: { params: { id: string } }) => {
   const property = await getProperty(params.id);
-  console.log("property", property);
 
   const getGeneralFacilities = (rooms: any) => {
     let generalFacilities: any[] = [];
@@ -121,6 +121,7 @@ const PropertyDeatailPage = async ({ params }: { params: { id: string } }) => {
                 </Button>
               </div>
             </div>
+            <AddToRecentlyViewed propertyId={property._id} />
           </div>
         )}
       </div>
