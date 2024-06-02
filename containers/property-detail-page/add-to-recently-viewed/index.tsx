@@ -28,9 +28,9 @@ const AddToRecentlyViewed = ({ propertyId }: { propertyId: string }) => {
 
   useEffect(() => {
     addToRecentlyViewedHandler();
-  }, []);
+  });
 
-  return <div></div>;
+  return <></>;
 };
 
 export default AddToRecentlyViewed;

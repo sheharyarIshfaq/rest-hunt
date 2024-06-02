@@ -6,11 +6,17 @@ import { MdVerified } from "react-icons/md";
 import { IoFlashOutline } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
 
-const PropertySideDetailSection = () => {
+const PropertySideDetailSection = ({
+  priceInfo,
+  noOfTimesViewed,
+}: {
+  priceInfo: string;
+  noOfTimesViewed: number;
+}) => {
   return (
     <div className="bg-white border-2 rounded-lg p-6 sticky top-4 left-0">
       <div className="flex items-center justify-between gap-3">
-        <h1 className="text-2xl font-medium">Starting From 8000/Month</h1>
+        <h1 className="text-2xl font-medium">{priceInfo}</h1>
         <button className="bg-gray-100 bg-opacity-95 transition-all duration-200 ease-in hover:bg-opacity-100 p-2 rounded-full">
           <Image src={HeartIcon} alt="Like" />
         </button>
@@ -31,10 +37,15 @@ const PropertySideDetailSection = () => {
           View Rooms
         </a>
       </Button>
-      <div className="mt-4 border-t pt-4">
-        <h1 className="font-semibold text-lg">Popular</h1>
-        <p>15 people have viewed this property in the last 24 hours</p>
-      </div>
+      {noOfTimesViewed > 0 && (
+        <div className="mt-4 border-t pt-4">
+          <h1 className="font-semibold text-lg">Popular</h1>
+          <p>
+            {noOfTimesViewed} people have viewed this property in the last 24
+            hours
+          </p>
+        </div>
+      )}
     </div>
   );
 };

@@ -26,7 +26,7 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 async function getProperty(propertyId: string) {
   const res = await fetch(`${BACKEND_URL}/properties/${propertyId}`, {
-    cache: "no-store",
+    cache: "no-cache",
   });
   const data = await res.json();
   return data?.data;
@@ -57,6 +57,19 @@ const PropertyDeatailPage = async ({ params }: { params: { id: string } }) => {
       (item, index) => roomFacilities.indexOf(item) === index
     );
     return roomFacilities;
+  };
+
+  const getFormattedUnit = (priceUnit: string) => {
+    switch (priceUnit) {
+      case "per-month":
+        return "Month";
+      case "per-week":
+        return "Week";
+      case "per-day":
+        return "Day";
+      default:
+        return "";
+    }
   };
 
   return (
@@ -100,7 +113,12 @@ const PropertyDeatailPage = async ({ params }: { params: { id: string } }) => {
                 <PropertyReviewSection reviews={property?.reviews} />
               </div>
               <div className="hidden md:block flex-[1.2]">
-                <PropertySideDetailSection />
+                <PropertySideDetailSection
+                  priceInfo={`Starting From ${
+                    property?.leastPrice
+                  }/${getFormattedUnit(property?.leastPriceUnit)}`}
+                  noOfTimesViewed={property?.noOfTimesViewed}
+                />
               </div>
               <div
                 className="md:hidden fixed bottom-0 left-0 bg-white p-3 w-full flex items-center justify-between gap-2 z-50"
@@ -109,7 +127,8 @@ const PropertyDeatailPage = async ({ params }: { params: { id: string } }) => {
                 }}
               >
                 <h1 className="text-xl font-medium">
-                  Starting From 8000/Month
+                  Starting From {property?.leastPrice}/
+                  {getFormattedUnit(property?.leastPriceUnit)}
                 </h1>
                 <Button className="bg-main hover:bg-main font-semibold hover:shadow-md">
                   <a
