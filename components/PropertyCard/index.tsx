@@ -5,11 +5,12 @@ import HeartWhiteIcon from "@/public/icons/heart-white.svg";
 import Link from "next/link";
 
 interface PropertyCardProps {
-  image: StaticImageData;
+  image: string | StaticImageData;
   title: string;
   address: string;
   price: number;
   isFavorite?: boolean;
+  priceUnit?: string;
 }
 
 const PropertyCard = ({
@@ -18,7 +19,20 @@ const PropertyCard = ({
   address,
   price,
   isFavorite = false,
+  priceUnit,
 }: PropertyCardProps) => {
+  const getFormattedUnit = () => {
+    switch (priceUnit) {
+      case "per-month":
+        return "Month";
+      case "per-week":
+        return "Week";
+      case "per-day":
+        return "Day";
+      default:
+        return "";
+    }
+  };
   return (
     <Link
       href={`/property/${title.replace(/\s+/g, "-").toLowerCase()}`}
@@ -28,6 +42,8 @@ const PropertyCard = ({
         src={image}
         alt={title}
         className="w-full max-h-[300px] object-cover"
+        width={300}
+        height={200}
       />
       <div className="p-4 flex flex-col justify-between flex-1">
         <div>
@@ -37,7 +53,7 @@ const PropertyCard = ({
         <p className="mt-2">
           From{" "}
           <span className="font-semibold text-xl text-main">
-            Rs.{price}/Month
+            Rs.{price}/- {getFormattedUnit()}
           </span>
         </p>
       </div>
