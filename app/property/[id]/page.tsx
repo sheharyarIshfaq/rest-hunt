@@ -40,6 +40,10 @@ const PropertyDeatailPage = async ({ params }: { params: { id: string } }) => {
     rooms.forEach((room: any) => {
       generalFacilities = [...generalFacilities, ...room.generalFacilities];
     });
+    //remove duplicates
+    generalFacilities = generalFacilities.filter(
+      (item, index) => generalFacilities.indexOf(item) === index
+    );
     return generalFacilities;
   };
 
@@ -48,6 +52,10 @@ const PropertyDeatailPage = async ({ params }: { params: { id: string } }) => {
     rooms.forEach((room: any) => {
       roomFacilities = [...roomFacilities, ...room.roomFacilities];
     });
+    //remove duplicates
+    roomFacilities = roomFacilities.filter(
+      (item, index) => roomFacilities.indexOf(item) === index
+    );
     return roomFacilities;
   };
 
@@ -89,7 +97,7 @@ const PropertyDeatailPage = async ({ params }: { params: { id: string } }) => {
                 <ChooseRoomSection />
                 <PropertyLocationSection location={property?.location} />
                 <PropertyFAQSection propertyFAQs={property?.faqs} />
-                <PropertyReviewSection />
+                <PropertyReviewSection reviews={property?.reviews} />
               </div>
               <div className="hidden md:block flex-[1.2]">
                 <PropertySideDetailSection />
