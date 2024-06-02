@@ -25,14 +25,16 @@ import { LuSofa } from "react-icons/lu";
 import { CiDumbbell } from "react-icons/ci";
 import { GiWashingMachine } from "react-icons/gi";
 import ImageSlider from "@/components/ImageSlider";
+import getFacilityIcon from "../facilities-section/getFacilityIcons";
 
 interface IRoomDetail {
   title: string;
   price: number;
-  image: StaticImageData;
+  images: string[];
+  facilities?: string[];
 }
 
-const RoomDetail = ({ title, price, image }: IRoomDetail) => {
+const RoomDetail = ({ title, price, images, facilities }: IRoomDetail) => {
   return (
     <Dialog>
       <DialogTrigger>
@@ -50,67 +52,36 @@ const RoomDetail = ({ title, price, image }: IRoomDetail) => {
           </DialogTitle>
         </DialogHeader>
         <div>
-          <ImageSlider />
+          <ImageSlider images={images} />
           <div className="mt-2">
             <div className="flex items-center gap-3 my-3">
               <IconButton icon={<MdOutlineBathtub />} title="4 bathrooms" />
               <IconButton icon={<BiArea />} title="62.5 sq. ft." />
             </div>
             <div>
-              <h1 className="font-semibold">General Facilities</h1>
-              <div className="flex items-center gap-6 flex-wrap mt-3">
-                <div className="flex items-center gap-2 min-w-24">
-                  <FaWifi className="text-lg" />
-                  <span>Wifi</span>
-                </div>
-                <div className="flex items-center gap-2 min-w-24">
-                  <IoWaterOutline className="text-lg" />
-                  <span>Water</span>
-                </div>
-                <div className="flex items-center gap-2 min-w-24">
-                  <IoBulbOutline className="text-lg" />
-                  <span>Electricity</span>
-                </div>
-                <div className="flex items-center gap-2 min-w-24">
-                  <AiOutlineFire className="text-lg" />
-                  <span>Gas</span>
-                </div>
-                <div className="flex items-center gap-2 min-w-24">
-                  <LuSofa className="text-lg" />
-                  <span>Lounge</span>
-                </div>
-              </div>
-            </div>
-            <div className="my-3">
               <h1 className="font-semibold">Room Facilities</h1>
               <div className="flex items-center gap-6 flex-wrap mt-3">
-                <div className="flex items-center gap-2 min-w-24">
-                  <AiOutlineFire className="text-lg" />
-                  <span>Gas</span>
-                </div>
-                <div className="flex items-center gap-2 min-w-24">
-                  <LuSofa className="text-lg" />
-                  <span>Lounge</span>
-                </div>
-                <div className="flex items-center gap-2 min-w-24">
-                  <CiDumbbell className="text-lg" />
-                  <span>Gym</span>
-                </div>
-                <div className="flex items-center gap-2 min-w-24">
-                  <GiWashingMachine className="text-lg" />
-                  <span>Laundry</span>
-                </div>
-                <div className="flex items-center gap-2 min-w-24">
-                  <IoLibraryOutline className="text-lg" />
-                  <span>Library</span>
-                </div>
+                {facilities?.map((facility: string, index: number) => (
+                  <div key={index} className="flex items-center gap-2 min-w-24">
+                    {getFacilityIcon(facility)}
+                    <span className="capitalize">{facility}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
         <DialogFooter>
-          <Enquire title={title} price={price} image={image} />
-          <Book title={title} price={price} image={image} />
+          <Enquire
+            title={title}
+            price={price}
+            image={images?.length > 0 ? images[0] : ""}
+          />
+          <Book
+            title={title}
+            price={price}
+            image={images?.length > 0 ? images[0] : ""}
+          />
         </DialogFooter>
       </DialogContent>
     </Dialog>

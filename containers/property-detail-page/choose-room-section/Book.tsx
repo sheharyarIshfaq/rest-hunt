@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import { IoCalendarOutline } from "react-icons/io5";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -27,7 +27,7 @@ import { toast } from "@/components/ui/use-toast";
 interface IBook {
   title: string;
   price: number;
-  image: StaticImageData;
+  image: string;
 }
 
 const Book = ({ title, price, image }: IBook) => {
@@ -81,7 +81,13 @@ const Book = ({ title, price, image }: IBook) => {
           </DialogDescription>
         </DialogHeader>
         <div>
-          <Image src={image} alt="Room" className="w-full h-56 object-cover" />
+          <Image
+            src={image}
+            alt="Room"
+            className="w-full h-56 object-cover"
+            width={500}
+            height={500}
+          />
           <div className="mt-2">
             <h1 className="text-lg font-semibold">{title}</h1>
             <div className="flex justify-between items-center gap-3 border-b pb-2">

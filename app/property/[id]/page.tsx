@@ -94,7 +94,7 @@ const PropertyDeatailPage = async ({ params }: { params: { id: string } }) => {
                   generalFacilities={getGeneralFacilities(property.rooms)}
                   roomFacilities={getRoomFacilities(property.rooms)}
                 />
-                <ChooseRoomSection />
+                <ChooseRoomSection property={property} />
                 <PropertyLocationSection location={property?.location} />
                 <PropertyFAQSection propertyFAQs={property?.faqs} />
                 <PropertyReviewSection reviews={property?.reviews} />
