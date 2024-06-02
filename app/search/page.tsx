@@ -22,7 +22,7 @@ export default function SearchPage({
   const [pageNumber, setPageNumber] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [properties, setProperties] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const fetchProperties = async () => {
     if (pageNumber > totalPages) return;

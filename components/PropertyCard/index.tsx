@@ -5,6 +5,7 @@ import HeartWhiteIcon from "@/public/icons/heart-white.svg";
 import Link from "next/link";
 
 interface PropertyCardProps {
+  id: string;
   image: string | StaticImageData;
   title: string;
   address: string;
@@ -14,6 +15,7 @@ interface PropertyCardProps {
 }
 
 const PropertyCard = ({
+  id,
   image,
   title,
   address,
@@ -35,7 +37,7 @@ const PropertyCard = ({
   };
   return (
     <Link
-      href={`/property/${title.replace(/\s+/g, "-").toLowerCase()}`}
+      href={`/property/${id}`}
       className="shadow-sm border flex flex-col relative rounded-lg cursor-pointer hover:shadow-md"
     >
       <Image

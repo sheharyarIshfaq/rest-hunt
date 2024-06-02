@@ -9,6 +9,7 @@ const DataSection = ({ properties }: { properties: any[] }) => {
         {properties.map((property) => (
           <PropertyCard
             key={property._id}
+            id={property._id}
             image={property.image}
             title={property.name}
             address={property.address}
