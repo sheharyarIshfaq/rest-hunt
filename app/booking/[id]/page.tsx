@@ -13,20 +13,22 @@ const BookingDetailPage = ({ params }: { params: { id: string } }) => {
     <>
       <Navbar showSearch={true} />
       {property && (
-        <div className="container py-6 grid grid-cols-2 gap-6">
-          <div>
+        <div className="container py-6 flex flex-col-reverse sm:flex-row justify-between gap-6">
+          <div className="flex-1">
             <button>
               <BsChevronLeft className="text-xl" />
             </button>
             <ReviewSection />
           </div>
-          <BookingDetailsSection
-            title={property?.title}
-            image={property?.image}
-            price={property?.price}
-            moveInDate="2023-10-10"
-            moveOutDate="2024-10-10"
-          />
+          <div className="flex justify-end flex-1">
+            <BookingDetailsSection
+              title={property?.title}
+              image={property?.image}
+              price={property?.price}
+              moveInDate="2023-10-10"
+              moveOutDate="2024-10-10"
+            />
+          </div>
         </div>
       )}
     </>
