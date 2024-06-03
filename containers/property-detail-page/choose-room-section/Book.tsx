@@ -70,6 +70,24 @@ const Book = ({
       return;
     }
     if (moveInDate && moveOutDate) {
+      //check if move out date is greater than move in date
+      if (moment(moveOutDate).diff(moveInDate, "days") < 0) {
+        toast({
+          variant: "destructive",
+          title: "Invalid dates",
+          description: "Move out date should be greater than move in date",
+        });
+        return;
+      }
+      //also check if move in date is greater than today
+      if (moment(moveInDate).diff(moment(), "days") < 0) {
+        toast({
+          variant: "destructive",
+          title: "Invalid dates",
+          description: "Move in date should be greater than today",
+        });
+        return;
+      }
       router.push(
         `/checkout?property=${id}&room=${roomId}&moveInDate=${moveInDate}&moveOutDate=${moveOutDate}`
       );
