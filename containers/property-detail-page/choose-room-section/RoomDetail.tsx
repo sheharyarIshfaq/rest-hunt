@@ -32,9 +32,26 @@ interface IRoomDetail {
   price: number;
   images: string[];
   facilities?: string[];
+  noOfBathrooms: number;
+  availableRooms: string;
+  type: string;
+  rentAmountUnit: string;
+  propertySize: number;
+  propertySizeUnit: string;
 }
 
-const RoomDetail = ({ title, price, images, facilities }: IRoomDetail) => {
+const RoomDetail = ({
+  title,
+  price,
+  images,
+  facilities,
+  noOfBathrooms,
+  availableRooms,
+  type,
+  rentAmountUnit,
+  propertySize,
+  propertySizeUnit,
+}: IRoomDetail) => {
   return (
     <Dialog>
       <DialogTrigger>
@@ -45,18 +62,28 @@ const RoomDetail = ({ title, price, images, facilities }: IRoomDetail) => {
       <DialogContent className="sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>
-            Private Room{" "}
-            <span className="text-sm text-label ml-2">
-              (10 private rooms are available)
-            </span>
+            {type === "entire-place"
+              ? "Entire Place"
+              : type === "shared"
+              ? "Shared Room"
+              : "Private Room"}
+            <span className="text-sm text-label ml-2">({availableRooms})</span>
           </DialogTitle>
         </DialogHeader>
         <div>
           <ImageSlider images={images} />
           <div className="mt-2">
             <div className="flex items-center gap-3 my-3">
-              <IconButton icon={<MdOutlineBathtub />} title="4 bathrooms" />
-              <IconButton icon={<BiArea />} title="62.5 sq. ft." />
+              {noOfBathrooms > 0 && (
+                <IconButton
+                  icon={<MdOutlineBathtub />}
+                  title={`${noOfBathrooms} bathrooms`}
+                />
+              )}
+              <IconButton
+                icon={<BiArea />}
+                title={`${propertySize} ${propertySizeUnit}`}
+              />
             </div>
             <div>
               <h1 className="font-semibold">Room Facilities</h1>
@@ -76,11 +103,14 @@ const RoomDetail = ({ title, price, images, facilities }: IRoomDetail) => {
             title={title}
             price={price}
             image={images?.length > 0 ? images[0] : ""}
+            type={type}
           />
           <Book
             title={title}
             price={price}
             image={images?.length > 0 ? images[0] : ""}
+            type={type}
+            rentAmountUnit={rentAmountUnit}
           />
         </DialogFooter>
       </DialogContent>

@@ -11,13 +11,16 @@ interface IRoomCard {
 
 const RoomCard = ({ property, type }: IRoomCard) => {
   const roomData = property?.rooms?.find((item: any) => item.category === type);
+
+  const getAvailableRooms = () => {
+    return `${roomData?.availableRooms || 0} ${
+      type === "entire-place" ? "" : "rooms"
+    } ${roomData?.availableRooms === 1 ? "is" : "are"} available`;
+  };
+
   return (
     <>
-      <p>
-        {roomData?.availableRooms || 0} {type}{" "}
-        {type === "entire-place" ? "" : "rooms"}{" "}
-        {roomData?.availableRooms === 1 ? "is" : "are"} available{" "}
-      </p>
+      <p>{getAvailableRooms()} </p>
       {roomData && (
         <div className="border p-4 rounded-lg w-full mt-4">
           <div className="flex flex-col xs:flex-row gap-4">
@@ -51,6 +54,12 @@ const RoomCard = ({ property, type }: IRoomCard) => {
                 price={roomData?.rentAmount}
                 images={roomData?.images}
                 facilities={roomData?.roomFacilities}
+                noOfBathrooms={roomData?.noOfBathrooms}
+                availableRooms={getAvailableRooms()}
+                type={type}
+                rentAmountUnit={roomData?.rentAmountUnit}
+                propertySize={property?.propertySize}
+                propertySizeUnit={property?.propertySizeUnit}
               />
             </div>
           </div>
