@@ -1,9 +1,8 @@
 "use client";
 import React from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Navbar from "@/components/Shared/Navbar";
 import Image from "next/image";
-import DUMMY_PROPERTIES from "@/data/properties";
 import {
   Select,
   SelectContent,
@@ -11,15 +10,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
 import VisaImg from "@/public/images/VISA.svg";
 import MasterCardImg from "@/public/images/MASTERCARD.svg";
 import JazzCashImg from "@/public/images/JAZZCASH.svg";
 import EasyPaisaImg from "@/public/images/EASYPAISA.svg";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import BookingDetailCard from "@/components/BookingDetailCard";
 import SyncLoader from "react-spinners/SyncLoader";
+
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import PaymentForm from "./PaymentForm";
+import moment from "moment";
+
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+);
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -27,19 +33,16 @@ const CheckoutPage = () => {
   const [property, setProperty] = React.useState<any>(null);
   const [roomData, setRoomData] = React.useState<any>(null);
   const [loading, setLoading] = React.useState<boolean>(true);
+  const [totalAmount, setTotalAmount] = React.useState<number>(0);
 
-  const router = useRouter();
+  const [choosedPaymentMethod, setChoosedPaymentMethod] =
+    React.useState("card");
+
   const searchParams = useSearchParams();
   const propertyId = searchParams.get("property");
   const roomId = searchParams.get("room");
   const moveInDate = searchParams.get("moveInDate");
   const moveOutDate = searchParams.get("moveOutDate");
-
-  const checkoutHandler = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Checkout logic here
-    router.push("/confirmation");
-  };
 
   const getProperty = async () => {
     setLoading(true);
@@ -68,6 +71,39 @@ const CheckoutPage = () => {
     getProperty();
   }, []);
 
+  const setTotalPriceHandler = () => {
+    if (moveInDate && moveOutDate) {
+      //rent amount unit is per-month, per-week, per-day, per-year, so we need to calculate the total price based on the rent amount unit
+      //we can convert the rent amount to per-day and then multiply by the number of days
+      const diff = moment(moveOutDate).diff(moveInDate, "days");
+      const price = Number(roomData?.rentAmount) || 0;
+      let totalPrice = 0;
+      switch (roomData?.rentAmountUnit) {
+        case "per-month":
+          totalPrice = (price * diff) / 30;
+          break;
+        case "per-week":
+          totalPrice = (price * diff) / 7;
+          break;
+        case "per-day":
+          totalPrice = price * diff;
+          break;
+        case "per-year":
+          totalPrice = (price * diff) / 365;
+          break;
+        default:
+          totalPrice = price * diff;
+          break;
+      }
+      setTotalAmount(Number(totalPrice.toFixed(2)));
+    }
+  };
+
+  React.useEffect(() => {
+    if (!loading && moveInDate && moveOutDate && property && roomData)
+      setTotalPriceHandler();
+  }, [moveInDate, moveOutDate, property, roomData]);
+
   return (
     <>
       <Navbar showSearch={false} isDark={false} />
@@ -80,7 +116,7 @@ const CheckoutPage = () => {
               the following fields, as inaccurate information may cause a
               failure to confirm your booking.
             </p>
-            <form onSubmit={checkoutHandler}>
+            <div>
               <div className="flex justify-between items-center gap-4 mb-3">
                 <h1 className="text-xl font-semibold">Pay With</h1>
                 <div className="flex items-center gap-2">
@@ -90,38 +126,74 @@ const CheckoutPage = () => {
                   <Image src={EasyPaisaImg} alt="EasyPaisa" />
                 </div>
               </div>
-              <Select>
+              <Select
+                value={choosedPaymentMethod}
+                onValueChange={(value) => setChoosedPaymentMethod(value)}
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Choose Payment Method" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="card">Card</SelectItem>
+                  <SelectItem value="card">Debit or Credit Card</SelectItem>
                   <SelectItem value="EasyPaisa">EasyPaisa</SelectItem>
                   <SelectItem value="JazzCash">JazzCash</SelectItem>
                 </SelectContent>
               </Select>
-              <div className="mt-4">
-                <Input type="text" placeholder="Card Number" required />
-              </div>
-              <div className="mt-4 grid grid-cols-2 gap-4">
-                <Input type="text" placeholder="MM/YY" required />
-                <Input type="text" placeholder="CVV" required />
-              </div>
-              <div className="mt-4 grid grid-cols-2 gap-4">
-                <Input type="text" placeholder="First Name" required />
-                <Input type="text" placeholder="Last Name" required />
-              </div>
-              <div className="mt-4">
-                <Input type="email" placeholder="Email" required />
-              </div>
-              {/* <div className="mt-4 flex items-center gap-2 text-label">
-                <Checkbox />
-                <p>Remember payment method</p>
-              </div> */}
-              <Button className="mt-6 bg-main w-full">Confirm and pay</Button>
-            </form>
+              {choosedPaymentMethod === "card" && (
+                <Elements
+                  stripe={stripePromise}
+                  options={{
+                    mode: "payment",
+                    amount: 1000 * 100,
+                    currency: "pkr",
+                  }}
+                >
+                  <PaymentForm />
+                </Elements>
+              )}
+              {
+                //for jazzcash and easypaisa, we display our account information and ask user to transfer the amount to our account
+                choosedPaymentMethod === "JazzCash" ||
+                choosedPaymentMethod === "EasyPaisa" ? (
+                  <div className="mt-4">
+                    <p className="text-label">
+                      Please transfer the amount to the following account, once
+                      we receive the payment, your booking will be confirmed. In
+                      the meantime, you can contact us at info@rest-hunt.com for
+                      any queries.
+                    </p>
+                    <div className="mt-4 text-label flex flex-col gap-3">
+                      <p>
+                        <span className="font-semibold">Account Title:</span>{" "}
+                        Rest Hunt
+                      </p>
+                      <p>
+                        <span className="font-semibold">Account Number:</span>{" "}
+                        123456789
+                      </p>
+                      <p>
+                        <span className="font-semibold">Bank Name:</span>{" "}
+                        {choosedPaymentMethod}
+                      </p>
+                      <p>
+                        <span className="font-semibold">Amount:</span>{" "}
+                        {totalAmount}
+                      </p>
+                    </div>
+                    <p className="text-label mt-4">
+                      Once you have transferred the amount, please click the
+                      button below to confirm your booking. We will verify the
+                      payment and confirm your booking within 24 hours.
+                    </p>
+                  </div>
+                ) : null
+              }
+              {choosedPaymentMethod !== "card" && (
+                <Button className="mt-6 bg-main w-full">Proceed</Button>
+              )}
+            </div>
           </div>
-          <div className="flex justify-end flex-1">
+          <div className="flex justify-end flex-1 h-fit">
             <BookingDetailCard
               image={property?.rooms?.[0]?.images?.[0] || ""}
               property={property?.name || ""}
@@ -129,6 +201,7 @@ const CheckoutPage = () => {
               moveInDate={moveInDate || ""}
               moveOutDate={moveOutDate || ""}
               rentAmountUnit={roomData?.rentAmountUnit || ""}
+              totalAmount={totalAmount}
             />
           </div>
         </div>

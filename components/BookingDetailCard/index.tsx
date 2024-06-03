@@ -12,6 +12,7 @@ interface BookingDetailCardProps {
   moveInDate: string;
   moveOutDate: string;
   rentAmountUnit: string;
+  totalAmount: number;
 }
 
 const BookingDetailCard = ({
@@ -21,9 +22,8 @@ const BookingDetailCard = ({
   moveInDate,
   moveOutDate,
   rentAmountUnit,
+  totalAmount,
 }: BookingDetailCardProps) => {
-  const [totalPrice, setTotalPrice] = React.useState<number>(0);
-
   const calculateDifference = () => {
     //in months, if not in months then in days
     if (moveInDate && moveOutDate) {
@@ -34,37 +34,6 @@ const BookingDetailCard = ({
     }
     return "";
   };
-
-  const setTotalPriceHandler = () => {
-    if (moveInDate && moveOutDate) {
-      //rent amount unit is per-month, per-week, per-day, per-year, so we need to calculate the total price based on the rent amount unit
-      //we can convert the rent amount to per-day and then multiply by the number of days
-      const diff = moment(moveOutDate).diff(moveInDate, "days");
-      let totalPrice = 0;
-      switch (rentAmountUnit) {
-        case "per-month":
-          totalPrice = (price * diff) / 30;
-          break;
-        case "per-week":
-          totalPrice = (price * diff) / 7;
-          break;
-        case "per-day":
-          totalPrice = price * diff;
-          break;
-        case "per-year":
-          totalPrice = (price * diff) / 365;
-          break;
-        default:
-          totalPrice = price * diff;
-          break;
-      }
-      setTotalPrice(Number(totalPrice.toFixed(2)));
-    }
-  };
-
-  React.useEffect(() => {
-    setTotalPriceHandler();
-  }, [moveInDate, moveOutDate]);
 
   return (
     <div className="w-full md:w-[80%] border p-4 rounded-md flex flex-col justify-between">
@@ -114,7 +83,7 @@ const BookingDetailCard = ({
       </div>
       <div className="mt-2 border-t pt-2 flex items-center gap-3 justify-between">
         <h1 className="text-xl font-semibold">Total</h1>
-        <p className="font-semibold text-lg text-main">Rs.{totalPrice}</p>
+        <p className="font-semibold text-lg text-main">Rs.{totalAmount}</p>
       </div>
     </div>
   );
