@@ -1,11 +1,14 @@
+"use client";
 import Navbar from "@/components/Shared/Navbar";
 import { Button } from "@/components/ui/button";
 import React from "react";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import ConfirmGif from "@/public/images/confirm.gif";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const ConfirmationPage = () => {
+  const router = useRouter();
   return (
     <div className="h-screen flex flex-col">
       <Navbar showSearch={false} isDark={false} />
@@ -19,13 +22,13 @@ const ConfirmationPage = () => {
           <span className="font-medium underline">customer support</span>
         </p>
         <div className="flex items-center gap-4">
-          <Button variant="ghost">
+          <Button variant="ghost" onClick={() => router.push("/")}>
             <BsChevronLeft className="mr-1 -ml-2" />
             Back to home
           </Button>
-          <Button variant="outline">
+          {/* <Button variant="outline">
             Download Receipt <BsChevronRight className="ml-1" />
-          </Button>
+          </Button> */}
         </div>
       </div>
       <div className="h-24"></div>
