@@ -28,13 +28,16 @@ interface IBook {
   title: string;
   price: number;
   image: string;
+  type: string;
+  rentAmountUnit: string;
 }
 
-const Book = ({ title, price, image }: IBook) => {
+const Book = ({ title, price, image, type, rentAmountUnit }: IBook) => {
   const router = useRouter();
   const { isLoggedIn } = useAppSelector((state) => state.auth);
   const [moveInDate, setMoveInDate] = React.useState<any>(null);
   const [moveOutDate, setMoveOutDate] = React.useState<any>(null);
+  const [totalPrice, setTotalPrice] = React.useState<number>(0);
 
   const calculateDifference = () => {
     //in months, if not in months then in days
@@ -62,6 +65,37 @@ const Book = ({ title, price, image }: IBook) => {
       );
     }
   };
+
+  const setTotalPriceHandler = () => {
+    if (moveInDate && moveOutDate) {
+      //rent amount unit is per-month, per-week, per-day, per-year, so we need to calculate the total price based on the rent amount unit
+      //we can convert the rent amount to per-day and then multiply by the number of days
+      const diff = moment(moveOutDate).diff(moveInDate, "days");
+      let totalPrice = 0;
+      switch (rentAmountUnit) {
+        case "per-month":
+          totalPrice = (price * diff) / 30;
+          break;
+        case "per-week":
+          totalPrice = (price * diff) / 7;
+          break;
+        case "per-day":
+          totalPrice = price * diff;
+          break;
+        case "per-year":
+          totalPrice = (price * diff) / 365;
+          break;
+        default:
+          totalPrice = price * diff;
+          break;
+      }
+      setTotalPrice(Number(totalPrice.toFixed(2)));
+    }
+  };
+
+  React.useEffect(() => {
+    setTotalPriceHandler();
+  }, [moveInDate, moveOutDate]);
 
   return (
     <Dialog>
@@ -91,9 +125,16 @@ const Book = ({ title, price, image }: IBook) => {
           <div className="mt-2">
             <h1 className="text-lg font-semibold">{title}</h1>
             <div className="flex justify-between items-center gap-3 border-b pb-2">
-              <h1 className="font-medium">Private Room</h1>
+              <h1 className="font-medium">
+                {type === "entire-place"
+                  ? "Entire Place"
+                  : type === "shared"
+                  ? "Shared Room"
+                  : "Private Room"}
+              </h1>
               <p className="my-2">
-                <span className="font-semibold">Rs.{price}</span>/Month
+                <span className="font-semibold">Rs.{price}</span>/{" "}
+                {rentAmountUnit}
               </p>
             </div>
           </div>
@@ -149,7 +190,7 @@ const Book = ({ title, price, image }: IBook) => {
           </div>
           <div className="mt-2 border-t pt-2 flex items-center gap-3 justify-between">
             <h1>Total</h1>
-            <p className="font-semibold">Rs.{price}</p>
+            <p className="font-semibold">Rs.{totalPrice}</p>
           </div>
         </div>
         <DialogFooter className="sm:justify-start">
