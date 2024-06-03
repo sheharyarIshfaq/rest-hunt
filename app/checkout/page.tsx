@@ -144,11 +144,17 @@ const CheckoutPage = () => {
                   stripe={stripePromise}
                   options={{
                     mode: "payment",
-                    amount: 1000 * 100,
+                    amount: totalAmount * 100,
                     currency: "pkr",
                   }}
                 >
-                  <PaymentForm />
+                  <PaymentForm
+                    propertyId={propertyId || ""}
+                    roomId={roomId || ""}
+                    moveInDate={moveInDate || ""}
+                    moveOutDate={moveOutDate || ""}
+                    totalAmount={totalAmount || 0}
+                  />
                 </Elements>
               )}
               {

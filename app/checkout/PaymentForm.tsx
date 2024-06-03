@@ -2,30 +2,74 @@
 import React, { FormEvent, useState } from "react";
 import {
   AddressElement,
-  CardElement,
   PaymentElement,
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
 import { Button } from "@/components/ui/button";
 import { useAppSelector } from "@/redux/store";
+import { useRouter } from "next/navigation";
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-const PaymentForm = () => {
+const PaymentForm = ({
+  propertyId,
+  roomId,
+  moveInDate,
+  moveOutDate,
+  totalAmount,
+}: {
+  propertyId: string;
+  roomId: string;
+  moveInDate: string;
+  moveOutDate: string;
+  totalAmount: number;
+}) => {
   const stripe = useStripe();
   const elements = useElements();
 
+  const router = useRouter();
   const { token } = useAppSelector((state) => state.auth);
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [processing, setProcessing] = useState<boolean>(false);
+
+  const createBookingHandler = async (id: string, amount: number) => {
+    try {
+      const res = await fetch(`${BACKEND_URL}/bookings/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          property: propertyId,
+          room: roomId,
+          moveIn: moveInDate,
+          moveOut: moveOutDate,
+          amount,
+          total: amount,
+          paymentId: id,
+        }),
+      });
+      const data = await res.json();
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      router.push("/confirmation");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setProcessing(false);
+    }
+  };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("Form submitted");
+    setProcessing(true);
 
     if (elements == null) {
-      return;
+      return setProcessing(false);
     }
 
     // Trigger form validation and wallet collection
@@ -33,7 +77,7 @@ const PaymentForm = () => {
     if (submitError) {
       // Show error to your customer
       setErrorMessage(submitError?.message || "An unknown error occurred");
-      return;
+      return setProcessing(false);
     }
 
     // Create the PaymentIntent and obtain clientSecret from your server endpoint
@@ -44,14 +88,14 @@ const PaymentForm = () => {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        amount: 1000 * 100, // amount in cents
+        amount: totalAmount * 100, // amount in cents
         currency: "pkr",
       }),
     });
 
     const { client_secret: clientSecret } = await res.json();
 
-    const { error }: any = await stripe?.confirmPayment({
+    const response = await stripe?.confirmPayment({
       elements,
       clientSecret,
       confirmParams: {
@@ -60,18 +104,22 @@ const PaymentForm = () => {
       redirect: "if_required",
     });
 
+    const { error, paymentIntent }: any = response;
+
+    if (!error) {
+      // The payment has been processed!, create booking
+      createBookingHandler(
+        paymentIntent?.id,
+        Number(paymentIntent?.amount / 100)
+      );
+    }
+
     if (
       (error as any)?.type === "card_error" ||
       (error as any)?.type === "validation_error"
     ) {
-      // This point will only be reached if there is an immediate error when
-      // confirming the payment. Show error to your customer (for example, payment
-      // details incomplete)
       setErrorMessage(error?.message || "An unknown error occurred");
-    } else {
-      // Your customer will be redirected to your `return_url`. For some payment
-      // methods like iDEAL, your customer will be redirected to an intermediate
-      // site first to authorize the payment, then redirected to the `return_url`.
+      setProcessing(false);
     }
   };
 
@@ -87,9 +135,9 @@ const PaymentForm = () => {
       <Button
         type="submit"
         className="bg-main w-full"
-        disabled={!stripe || !elements}
+        disabled={!stripe || !elements || processing}
       >
-        Confirm and pay
+        {!processing ? "Confirm and pay" : "Processing..."}
       </Button>
       {/* Show error message to your customers */}
       {errorMessage && <div>{errorMessage}</div>}
