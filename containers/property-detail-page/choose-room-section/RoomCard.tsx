@@ -59,6 +59,7 @@ const RoomCard = ({ property, type }: IRoomCard) => {
               title={property?.name}
               price={roomData?.rentAmount}
               image={roomData?.images[0]}
+              type={type}
             />
             <Book
               title={property?.name}
