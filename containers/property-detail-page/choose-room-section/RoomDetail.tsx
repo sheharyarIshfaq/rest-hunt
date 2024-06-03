@@ -38,6 +38,8 @@ interface IRoomDetail {
   rentAmountUnit: string;
   propertySize: number;
   propertySizeUnit: string;
+  propertyId: string;
+  roomId: string;
 }
 
 const RoomDetail = ({
@@ -51,6 +53,8 @@ const RoomDetail = ({
   rentAmountUnit,
   propertySize,
   propertySizeUnit,
+  propertyId,
+  roomId,
 }: IRoomDetail) => {
   return (
     <Dialog>
@@ -106,6 +110,8 @@ const RoomDetail = ({
             type={type}
           />
           <Book
+            id={propertyId}
+            roomId={roomId}
             title={title}
             price={price}
             image={images?.length > 0 ? images[0] : ""}

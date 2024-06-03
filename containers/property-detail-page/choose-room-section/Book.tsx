@@ -25,14 +25,24 @@ import { useAppSelector } from "@/redux/store";
 import { toast } from "@/components/ui/use-toast";
 
 interface IBook {
+  id: string;
   title: string;
   price: number;
   image: string;
   type: string;
   rentAmountUnit: string;
+  roomId: string;
 }
 
-const Book = ({ title, price, image, type, rentAmountUnit }: IBook) => {
+const Book = ({
+  id,
+  title,
+  price,
+  image,
+  type,
+  rentAmountUnit,
+  roomId,
+}: IBook) => {
   const router = useRouter();
   const { isLoggedIn } = useAppSelector((state) => state.auth);
   const [moveInDate, setMoveInDate] = React.useState<any>(null);
@@ -61,7 +71,7 @@ const Book = ({ title, price, image, type, rentAmountUnit }: IBook) => {
     }
     if (moveInDate && moveOutDate) {
       router.push(
-        `/checkout?property=${title}&price=${price}&moveInDate=${moveInDate}&moveOutDate=${moveOutDate}`
+        `/checkout?property=${id}&room=${roomId}&moveInDate=${moveInDate}&moveOutDate=${moveOutDate}`
       );
     }
   };
