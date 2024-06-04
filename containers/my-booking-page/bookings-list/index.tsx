@@ -24,42 +24,56 @@ const BookingList = ({
           <TabsTrigger value="present">Present</TabsTrigger>
         </TabsList>
         <TabsContent value="previous">
-          <div className="grid lg:grid-cols-2 gap-4">
-            {bookings.map((booking, index) => (
-              <HorizontalPropertyCard
-                key={booking?._id}
-                bookingId={booking?._id}
-                image={booking?.room?.images?.[0]}
-                title={booking?.property?.name}
-                price={booking?.total}
-                roomCategory={booking?.room?.category}
-                startDate={moment(booking?.moveIn).format("DD/MM/YYYY")}
-                endDate={moment(booking?.moveOut).format("DD/MM/YYYY")}
-                status={booking?.status}
-                userData={booking?.user}
-                rentAmountUnit={booking?.room?.rentAmountUnit}
-              />
-            ))}
-          </div>
+          {bookings?.length > 0 && (
+            <div className="grid lg:grid-cols-2 gap-4">
+              {bookings.map((booking, index) => (
+                <HorizontalPropertyCard
+                  key={booking?._id}
+                  bookingId={booking?._id}
+                  image={booking?.room?.images?.[0]}
+                  title={booking?.property?.name}
+                  price={booking?.total}
+                  roomCategory={booking?.room?.category}
+                  startDate={moment(booking?.moveIn).format("DD/MM/YYYY")}
+                  endDate={moment(booking?.moveOut).format("DD/MM/YYYY")}
+                  status={booking?.status}
+                  userData={booking?.user}
+                  rentAmountUnit={booking?.room?.rentAmountUnit}
+                />
+              ))}
+            </div>
+          )}
+          {bookings?.length === 0 && (
+            <div className="my-6 pr-2">
+              <p className="text-lg font-semibold">No bookings found</p>
+            </div>
+          )}
         </TabsContent>
         <TabsContent value="present">
-          <div className="grid lg:grid-cols-2 gap-4">
-            {bookings.map((booking, index) => (
-              <HorizontalPropertyCard
-                key={booking?._id}
-                bookingId={booking?._id}
-                image={booking?.room?.images?.[0] || booking?.fallBackImage}
-                title={booking?.property?.name}
-                price={booking?.total}
-                startDate={moment(booking?.moveIn).format("DD/MM/YYYY")}
-                endDate={moment(booking?.moveOut).format("DD/MM/YYYY")}
-                status={booking?.status}
-                roomCategory={booking?.room?.category}
-                userData={booking?.user}
-                rentAmountUnit={booking?.room?.rentAmountUnit}
-              />
-            ))}
-          </div>
+          {bookings?.length > 0 && (
+            <div className="grid lg:grid-cols-2 gap-4">
+              {bookings.map((booking, index) => (
+                <HorizontalPropertyCard
+                  key={booking?._id}
+                  bookingId={booking?._id}
+                  image={booking?.room?.images?.[0] || booking?.fallBackImage}
+                  title={booking?.property?.name}
+                  price={booking?.total}
+                  startDate={moment(booking?.moveIn).format("DD/MM/YYYY")}
+                  endDate={moment(booking?.moveOut).format("DD/MM/YYYY")}
+                  status={booking?.status}
+                  roomCategory={booking?.room?.category}
+                  userData={booking?.user}
+                  rentAmountUnit={booking?.room?.rentAmountUnit}
+                />
+              ))}
+            </div>
+          )}
+          {bookings?.length === 0 && (
+            <div className="my-6 pr-2">
+              <p className="text-lg font-semibold">No bookings found</p>
+            </div>
+          )}
         </TabsContent>
       </Tabs>
     </div>
