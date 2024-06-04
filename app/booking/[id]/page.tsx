@@ -50,7 +50,7 @@ const BookingDetailPage = ({ params }: { params: { id: string } }) => {
             <button>
               <BsChevronLeft className="text-xl" />
             </button>
-            <ReviewSection />
+            <ReviewSection booking={booking} />
           </div>
           <div className="flex justify-end flex-1">
             <BookingDetailsSection
