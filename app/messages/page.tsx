@@ -142,7 +142,7 @@ const MessagesPage = () => {
         </Breadcrumb>
         <div className="mt-6">
           <h1 className="text-2xl font-bold">My Messages</h1>
-          <div className="flex gap-4">
+          <div className="gap-4 hidden sm:flex">
             <ChatsListSection
               chats={chats}
               activeChat={activeChat}
@@ -164,6 +164,30 @@ const MessagesPage = () => {
               {activeChat === "" && chats.length > 0 && <ChooseChatSection />}
               {activeChat === "" && chats.length === 0 && <EmptyChatSection />}
             </div>
+          </div>
+          <div className="sm:hidden pb-4">
+            {!isMobileChatOpen && chats.length > 0 && (
+              <ChatsListSection
+                chats={chats}
+                activeChat={activeChat}
+                setActiveChat={(chatId: string) => {
+                  setActiveChat(chatId);
+                  setIsMobileChatOpen(true);
+                }}
+                onlineUsers={onlineUsers}
+              />
+            )}
+            {isMobileChatOpen && activeChat !== "" && (
+              <ChatSection
+                currentChat={chats.find((chat: any) => chat._id === activeChat)}
+                setSendMessage={setSendMessage}
+                recievedMessage={recievedMessage}
+                onlineUsers={onlineUsers}
+              />
+            )}
+            {!isMobileChatOpen && activeChat === "" && chats.length === 0 && (
+              <EmptyChatSection />
+            )}
           </div>
         </div>
       </div>

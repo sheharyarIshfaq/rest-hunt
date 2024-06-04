@@ -9,14 +9,12 @@ import { toast } from "@/components/ui/use-toast";
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 interface ChatSectionProps {
   currentChat: any;
-  onBackClick?: () => void;
   setSendMessage: (message: any) => void;
   recievedMessage?: any;
   onlineUsers?: any[];
 }
 
 const ChatSection = ({
-  onBackClick,
   currentChat,
   setSendMessage,
   recievedMessage,
@@ -132,7 +130,7 @@ const ChatSection = ({
     return isOnline ? true : false;
   };
   return (
-    <div className="h-[75vh] flex gap-4">
+    <div className="h-[75vh] flex flex-col sm:flex-row gap-4">
       <div className="border-[1.5px] rounded-md flex-[3] h-[75vh] flex flex-col">
         <ChatTopBar
           userData={userData}
