@@ -146,7 +146,7 @@ const ChatSection = ({
           newMessageSendHandler={newMessageSendHandler}
         />
       </div>
-      <UserDetails />
+      <UserDetails userData={userData} />
     </div>
   );
 };

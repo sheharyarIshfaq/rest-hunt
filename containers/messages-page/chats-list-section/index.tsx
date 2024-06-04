@@ -140,7 +140,6 @@ const ChatsListSection = ({
     );
     return isOnline ? true : false;
   };
-  console.log(chats);
 
   return (
     <div>
