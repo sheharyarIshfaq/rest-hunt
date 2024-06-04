@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Navbar from "@/components/Shared/Navbar";
 import Image from "next/image";
 import {
@@ -22,6 +22,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import PaymentForm from "./PaymentForm";
 import moment from "moment";
+import { useAppSelector } from "@/redux/store";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
@@ -30,10 +31,14 @@ const stripePromise = loadStripe(
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 const CheckoutPage = () => {
+  const router = useRouter();
+  const { token } = useAppSelector((state) => state.auth);
+
   const [property, setProperty] = React.useState<any>(null);
   const [roomData, setRoomData] = React.useState<any>(null);
   const [loading, setLoading] = React.useState<boolean>(true);
   const [totalAmount, setTotalAmount] = React.useState<number>(0);
+  const [processing, setProcessing] = React.useState<boolean>(false);
 
   const [choosedPaymentMethod, setChoosedPaymentMethod] =
     React.useState("card");
@@ -103,6 +108,38 @@ const CheckoutPage = () => {
     if (!loading && moveInDate && moveOutDate && property && roomData)
       setTotalPriceHandler();
   }, [moveInDate, moveOutDate, property, roomData]);
+
+  const createBookingHandler = async () => {
+    setProcessing(true);
+    try {
+      const res = await fetch(`${BACKEND_URL}/bookings/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          property: propertyId,
+          room: roomId,
+          moveIn: moveInDate,
+          moveOut: moveOutDate,
+          total: totalAmount,
+          status: "pending",
+          provider:
+            choosedPaymentMethod === "JazzCash" ? "jazzcash" : "easypaisa",
+        }),
+      });
+      const data = await res.json();
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      router.push("/confirmation");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setProcessing(false);
+    }
+  };
 
   return (
     <>
@@ -195,7 +232,13 @@ const CheckoutPage = () => {
                 ) : null
               }
               {choosedPaymentMethod !== "card" && (
-                <Button className="mt-6 bg-main w-full">Proceed</Button>
+                <Button
+                  className="mt-6 bg-main w-full"
+                  onClick={createBookingHandler}
+                  disabled={processing}
+                >
+                  Proceed
+                </Button>
               )}
             </div>
           </div>

@@ -47,9 +47,10 @@ const PaymentForm = ({
           room: roomId,
           moveIn: moveInDate,
           moveOut: moveOutDate,
-          amount,
           total: amount,
           paymentId: id,
+          status: "approved",
+          provider: "stripe",
         }),
       });
       const data = await res.json();
