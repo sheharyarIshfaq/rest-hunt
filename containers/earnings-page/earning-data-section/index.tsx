@@ -12,7 +12,15 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { useRouter } from "next/navigation";
 
-const EarningsDataSection = () => {
+const EarningsDataSection = ({
+  totalEarnings,
+  withdrawnAmount,
+  pendingWithdrawal,
+}: {
+  totalEarnings: number;
+  withdrawnAmount: number;
+  pendingWithdrawal: number;
+}) => {
   const router = useRouter();
   const [selected, setSelected] = React.useState("till-date");
 
@@ -24,7 +32,9 @@ const EarningsDataSection = () => {
           <h3 className="font-semibold text-label">
             Balance available for use
           </h3>
-          <h1 className="text-xl sm:text-3xl font-bold my-3">Rs. 34999</h1>
+          <h1 className="text-xl sm:text-3xl font-bold my-3">
+            Rs. {totalEarnings - withdrawnAmount - pendingWithdrawal}
+          </h1>
           <Button
             className="mt-auto bg-main"
             onClick={() => router.push("/earnings/withdraw")}
@@ -37,13 +47,17 @@ const EarningsDataSection = () => {
       <div className="flex flex-col">
         <h1 className="text-lg font-semibold">Future Payments</h1>
         <div className="border-[1.5px] p-6 rounded-md my-3 flex-grow flex flex-col">
-          <h3 className="font-semibold text-label">Payments being cleared</h3>
-          <h1 className="text-xl sm:text-3xl font-bold my-3">Rs. 4500</h1>
+          <h3 className="font-semibold text-label">Withdraws in progress</h3>
+          <h1 className="text-xl sm:text-3xl font-bold my-3">
+            Rs. {pendingWithdrawal}
+          </h1>
           <Separator />
           <h3 className="font-semibold text-label mt-3">
-            Payments for active orders
+            Total Withdrawn Amount
           </h3>
-          <h1 className="text-xl sm:text-3xl font-bold my-3">Rs. 6800</h1>
+          <h1 className="text-xl sm:text-3xl font-bold my-3">
+            Rs. {withdrawnAmount}
+          </h1>
         </div>
       </div>
       <div className="flex flex-col">
@@ -73,12 +87,7 @@ const EarningsDataSection = () => {
               : "this year"}
           </h3>
           <h1 className="text-xl sm:text-3xl font-bold my-3">
-            Rs.{" "}
-            {selected === "till-date"
-              ? 34999
-              : selected === "this-month"
-              ? 4500
-              : 6800}
+            Rs. {totalEarnings}
           </h1>
         </div>
       </div>
