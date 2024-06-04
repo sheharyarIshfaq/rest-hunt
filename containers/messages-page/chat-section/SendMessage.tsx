@@ -23,6 +23,7 @@ const SendMessage = ({
         id="message"
         value={newMessage}
         onChange={(e) => setNewMessage(e.target.value)}
+        onKeyDown={(e) => e.key === "Enter" && newMessageSendHandler()}
       />
       <Button type="submit" className="bg-main" onClick={newMessageSendHandler}>
         Send
