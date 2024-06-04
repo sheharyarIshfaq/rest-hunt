@@ -62,6 +62,7 @@ const RoomCard = ({ property, type }: IRoomCard) => {
                 propertySizeUnit={property?.propertySizeUnit}
                 propertyId={property?._id}
                 roomId={roomData?._id}
+                ownerId={property?.owner?._id}
               />
             </div>
           </div>
@@ -71,6 +72,9 @@ const RoomCard = ({ property, type }: IRoomCard) => {
               price={roomData?.rentAmount}
               image={roomData?.images[0]}
               type={type}
+              ownerId={property?.owner?._id}
+              propertyId={property?._id}
+              roomId={roomData?._id}
             />
             <Book
               id={property?._id}

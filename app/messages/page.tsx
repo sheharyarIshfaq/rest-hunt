@@ -25,7 +25,6 @@ const SOCKET_URL =
 const MessagesPage = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
-  console.log(id);
 
   const { user, token } = useAppSelector((state) => state.auth);
   const socket = useRef<any>(null);

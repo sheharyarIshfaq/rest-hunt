@@ -9,21 +9,10 @@ import {
 } from "@/components/ui/dialog";
 import { BsChevronRight } from "react-icons/bs";
 import Enquire from "./Enquire";
-import Image, { StaticImageData } from "next/image";
 import Book from "./Book";
 import IconButton from "@/components/Shared/IconButton";
 import { MdOutlineBathtub } from "react-icons/md";
 import { BiArea } from "react-icons/bi";
-import { FaWifi } from "react-icons/fa";
-import {
-  IoWaterOutline,
-  IoBulbOutline,
-  IoLibraryOutline,
-} from "react-icons/io5";
-import { AiOutlineFire } from "react-icons/ai";
-import { LuSofa } from "react-icons/lu";
-import { CiDumbbell } from "react-icons/ci";
-import { GiWashingMachine } from "react-icons/gi";
 import ImageSlider from "@/components/ImageSlider";
 import getFacilityIcon from "../facilities-section/getFacilityIcons";
 
@@ -40,6 +29,7 @@ interface IRoomDetail {
   propertySizeUnit: string;
   propertyId: string;
   roomId: string;
+  ownerId: string;
 }
 
 const RoomDetail = ({
@@ -55,6 +45,7 @@ const RoomDetail = ({
   propertySizeUnit,
   propertyId,
   roomId,
+  ownerId,
 }: IRoomDetail) => {
   return (
     <Dialog>
@@ -108,6 +99,9 @@ const RoomDetail = ({
             price={price}
             image={images?.length > 0 ? images[0] : ""}
             type={type}
+            ownerId={ownerId}
+            propertyId={propertyId}
+            roomId={roomId}
           />
           <Book
             id={propertyId}

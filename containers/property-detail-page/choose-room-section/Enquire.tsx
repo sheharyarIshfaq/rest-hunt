@@ -12,16 +12,81 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { toast } from "@/components/ui/use-toast";
+import { useAppSelector } from "@/redux/store";
+
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 interface IEnquire {
   title: string;
   price: number;
   image: string;
   type: string;
+  ownerId: string;
+  propertyId: string;
+  roomId: string;
 }
 
-const Enquire = ({ title, price, image, type }: IEnquire) => {
+const Enquire = ({
+  title,
+  price,
+  image,
+  type,
+  ownerId,
+  propertyId,
+  roomId,
+}: IEnquire) => {
+  const router = useRouter();
+  const { user } = useAppSelector((state) => state.auth);
+
   const [message, setMessage] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
+
+  const enquireHandler = async () => {
+    //if message is empty return
+    if (message.trim() === "") return;
+    setLoading(true);
+    try {
+      const res = await fetch(`${BACKEND_URL}/messages/enquiry`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user?.token}`,
+        },
+        body: JSON.stringify({
+          senderId: user?._id,
+          receiverId: ownerId,
+          propertyId,
+          roomId,
+          text: message,
+        }),
+      });
+      const data = await res.json();
+      if (data.error) {
+        toast({
+          variant: "destructive",
+          title: "Something went wrong",
+          description: data.error,
+        });
+        return;
+      }
+      toast({
+        variant: "success",
+        title: "Enquiry sent successfully",
+      });
+      setMessage("");
+      router.push(`/messages?id=${ownerId}`);
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Something went wrong",
+        description: "Please try again later",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Dialog>
@@ -67,7 +132,11 @@ const Enquire = ({ title, price, image, type }: IEnquire) => {
           </div>
         </div>
         <DialogFooter className="sm:justify-start">
-          <Button className="bg-main w-full" disabled={message?.trim() === ""}>
+          <Button
+            className="bg-main w-full"
+            disabled={message?.trim() === "" || loading}
+            onClick={enquireHandler}
+          >
             Enquire
           </Button>
         </DialogFooter>
