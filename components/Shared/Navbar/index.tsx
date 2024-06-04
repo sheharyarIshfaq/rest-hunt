@@ -22,6 +22,7 @@ import {
   BsBoxArrowRight,
   BsHouse,
   BsCurrencyDollar,
+  BsDashSquare,
 } from "react-icons/bs";
 import CustomSearch from "@/components/CustomSearch";
 import { BellIcon } from "lucide-react";
@@ -37,6 +38,7 @@ const Navbar = ({ isDark = false, showSearch = false }: NavbarProps) => {
 
   const logoutHandler = () => {
     dispatch(onLogout());
+    router.push("/");
   };
 
   return (
@@ -230,16 +232,27 @@ const Navbar = ({ isDark = false, showSearch = false }: NavbarProps) => {
                   <BsPerson className="mr-2" /> Profile
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link href="/manage-properties" className="flex items-center">
-                  <BsHouse className="mr-2" /> My Properties
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link href="/earnings" className="flex items-center">
-                  <BsCurrencyDollar className="mr-2" /> Earnings
-                </Link>
-              </DropdownMenuItem>
+              {user?.role === "property_owner" && (
+                <DropdownMenuItem>
+                  <Link href="/dashboard" className="flex items-center">
+                    <BsDashSquare className="mr-2" /> Dashboard
+                  </Link>
+                </DropdownMenuItem>
+              )}
+              {user?.role === "property_owner" && (
+                <DropdownMenuItem>
+                  <Link href="/manage-properties" className="flex items-center">
+                    <BsHouse className="mr-2" /> My Properties
+                  </Link>
+                </DropdownMenuItem>
+              )}
+              {user?.role === "property_owner" && (
+                <DropdownMenuItem>
+                  <Link href="/earnings" className="flex items-center">
+                    <BsCurrencyDollar className="mr-2" /> Earnings
+                  </Link>
+                </DropdownMenuItem>
+              )}
               <DropdownMenuItem>
                 <Link href="/my-bookings" className="flex items-center">
                   <BsCalendar2Check className="mr-2" /> Bookings

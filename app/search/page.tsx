@@ -100,7 +100,7 @@ export default function SearchPage({
       <div className="container w-full sm:hidden">
         <CustomSearch isSmall={true} className="w-full" />
       </div>
-      <FilterSection />
+      {/* <FilterSection /> */}
       {!loading && (
         <>
           <DataSection
