@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAppSelector } from "@/redux/store";
+import moment from "moment";
 
 interface ChatItemProps {
   chatData: any;
@@ -19,6 +20,7 @@ const ChatItem = ({ chatData, isActive, onClick, online }: ChatItemProps) => {
 
   const [userData, setUserData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [messages, setMessages] = useState<any[]>([]);
 
   const getUserData = async () => {
     setIsLoading(true);
@@ -45,9 +47,25 @@ const ChatItem = ({ chatData, isActive, onClick, online }: ChatItemProps) => {
     }
   };
 
+  const getMessages = async () => {
+    try {
+      const res = await fetch(`${BACKEND_URL}/messages/${chatData._id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.json();
+      const { messages } = data;
+      setMessages(messages);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (!user) return;
     getUserData();
+    getMessages();
 
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chatData, user, token]);
@@ -60,16 +78,29 @@ const ChatItem = ({ chatData, isActive, onClick, online }: ChatItemProps) => {
           }`}
           onClick={onClick}
         >
-          <Avatar>
-            <AvatarImage src={userData?.profilePicture} />
-            <AvatarFallback>{userData?.name[0]}</AvatarFallback>
-          </Avatar>
+          <div className="relative">
+            <Avatar>
+              <AvatarImage src={userData?.profilePicture} />
+              <AvatarFallback>{userData?.name[0]}</AvatarFallback>
+            </Avatar>
+            <div
+              className={`absolute bottom-0 right-0 h-[10px] w-[10px] rounded-full ${
+                online ? "bg-green-500" : "bg-gray-300"
+              }`}
+            ></div>
+          </div>
           <div>
             <div className="flex items-center gap-3 justify-between">
               <h1 className="font-semibold">{userData?.name}</h1>
-              <p className="text-sm text-label font-medium">5/4/24</p>
+              <p className="text-sm text-label font-medium">
+                {messages[messages.length - 1]?.createdAt &&
+                  moment(messages[messages.length - 1]?.createdAt).fromNow()}
+              </p>
             </div>
-            <p className="text-label text-sm">Ask CDCR San dha whta dha...</p>
+            <p className="text-label text-sm">
+              {messages[messages.length - 1]?.text?.slice(0, 20) ||
+                "No messages yet"}
+            </p>
           </div>
         </div>
       )}
@@ -103,12 +134,13 @@ const ChatsListSection = ({
   const { user } = useAppSelector((state) => state.auth);
 
   const isOnline = (chat: any) => {
-    const chatMember = chat.members.find((member: any) => member !== user._id);
+    const chatMember = chat?.members.find((member: any) => member !== user._id);
     const isOnline = onlineUsers.find(
       (user: any) => user.userId === chatMember
     );
     return isOnline ? true : false;
   };
+  console.log(chats);
 
   return (
     <div>
@@ -119,15 +151,19 @@ const ChatsListSection = ({
         </Button>
       </div>
       <div className="my-4 flex flex-col gap-2 overflow-y-auto h-[65vh] pr-3 custom-scrollbar">
-        {chats?.map((chat: any) => (
-          <ChatItem
-            key={chat._id}
-            chatData={chat}
-            isActive={chat._id === activeChat}
-            onClick={() => setActiveChat(chat._id || "")}
-            online={isOnline(chat)}
-          />
-        ))}
+        {chats?.length > 0 &&
+          chats?.map((chat: any) => (
+            <ChatItem
+              key={chat._id}
+              chatData={chat}
+              isActive={chat?._id === activeChat}
+              onClick={() => setActiveChat(chat._id || "")}
+              online={isOnline(chat)}
+            />
+          ))}
+        {chats?.length === 0 && (
+          <div className="text-center text-label text-sm">No chats found</div>
+        )}
       </div>
     </div>
   );

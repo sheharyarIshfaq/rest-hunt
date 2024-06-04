@@ -99,10 +99,15 @@ const MessagesPage = () => {
         }),
       });
       const data = await res.json();
+      if (data.error) {
+        console.log(data.error);
+        return;
+      }
       const { chat } = data;
       setChats((prevChats) => [...prevChats, chat]);
       setActiveChat(chat._id);
     } catch (error) {
+      setChats((prevChats) => [...prevChats]);
       console.log(error);
     }
   };
@@ -156,7 +161,8 @@ const MessagesPage = () => {
                   onlineUsers={onlineUsers}
                 />
               )}
-              {activeChat === "" && <EmptyChatSection />}
+              {activeChat === "" && chats.length > 0 && <ChooseChatSection />}
+              {activeChat === "" && chats.length === 0 && <EmptyChatSection />}
             </div>
           </div>
         </div>

@@ -134,7 +134,11 @@ const ChatSection = ({
   return (
     <div className="h-[75vh] flex gap-4">
       <div className="border-[1.5px] rounded-md flex-[3] h-[75vh] flex flex-col">
-        <ChatTopBar userData={userData} online={isOnline(currentChat)} />
+        <ChatTopBar
+          userData={userData}
+          online={isOnline(currentChat)}
+          messages={messages}
+        />
         <ChatContainer messages={messages} user={user} userData={userData} />
         <SendMessage
           newMessage={newMessage}
