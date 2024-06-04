@@ -1,72 +1,64 @@
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import DUMMY_PROPERTIES from "@/data/properties";
 import HorizontalPropertyCard from "@/components/HorizontalPropertyCard";
 import moment from "moment";
-import { Button } from "@/components/ui/button";
 
-const BookingList = () => {
+const BookingList = ({
+  bookings,
+  filterValue,
+  setFilterValue,
+}: {
+  bookings: any[];
+  filterValue: string;
+  setFilterValue: (value: string) => void;
+}) => {
+  console.log(bookings);
   return (
     <div className="mt-6">
-      <Tabs defaultValue="previous">
+      <Tabs
+        value={filterValue}
+        onValueChange={(value) => setFilterValue(value)}
+      >
         <TabsList>
           <TabsTrigger value="previous">Previous</TabsTrigger>
           <TabsTrigger value="present">Present</TabsTrigger>
         </TabsList>
         <TabsContent value="previous">
           <div className="grid lg:grid-cols-2 gap-4">
-            {DUMMY_PROPERTIES.map((property, index) => (
+            {bookings.map((booking, index) => (
               <HorizontalPropertyCard
-                key={property.id}
-                bookingId={property.id}
-                image={property.image}
-                title={property.title}
-                price={property.price}
-                startDate={moment()
-                  .subtract(index, "days")
-                  .format("DD/MM/YYYY")}
-                endDate={moment()
-                  .subtract(index - 2, "days")
-                  .format("DD/MM/YYYY")}
+                key={booking?._id}
+                bookingId={booking?._id}
+                image={booking?.room?.images?.[0]}
+                title={booking?.property?.name}
+                price={booking?.total}
+                roomCategory={booking?.room?.category}
+                startDate={moment(booking?.moveIn).format("DD/MM/YYYY")}
+                endDate={moment(booking?.moveOut).format("DD/MM/YYYY")}
+                status={booking?.status}
+                userData={booking?.user}
+                rentAmountUnit={booking?.room?.rentAmountUnit}
               />
             ))}
           </div>
         </TabsContent>
         <TabsContent value="present">
           <div className="grid lg:grid-cols-2 gap-4">
-            {DUMMY_PROPERTIES.map((property, index) => (
+            {bookings.map((booking, index) => (
               <HorizontalPropertyCard
-                key={property.id}
-                bookingId={property.id}
-                image={property.image}
-                title={property.title}
-                price={property.price}
-                startDate={moment()
-                  .subtract(index, "days")
-                  .format("DD/MM/YYYY")}
-                endDate={moment()
-                  .subtract(index - 2, "days")
-                  .format("DD/MM/YYYY")}
+                key={booking?._id}
+                bookingId={booking?._id}
+                image={booking?.room?.images?.[0] || booking?.fallBackImage}
+                title={booking?.property?.name}
+                price={booking?.total}
+                startDate={moment(booking?.moveIn).format("DD/MM/YYYY")}
+                endDate={moment(booking?.moveOut).format("DD/MM/YYYY")}
+                status={booking?.status}
+                roomCategory={booking?.room?.category}
+                userData={booking?.user}
+                rentAmountUnit={booking?.room?.rentAmountUnit}
               />
             ))}
-            {DUMMY_PROPERTIES.map((property, index) => (
-              <HorizontalPropertyCard
-                key={property.id}
-                bookingId={property.id}
-                image={property.image}
-                title={property.title}
-                price={property.price}
-                startDate={moment()
-                  .subtract(index, "days")
-                  .format("DD/MM/YYYY")}
-                endDate={moment()
-                  .subtract(index - 2, "days")
-                  .format("DD/MM/YYYY")}
-              />
-            ))}
-          </div>
-          <div className="flex items-center justify-center pt-14 mb-6">
-            <Button className="bg-main">View More</Button>
           </div>
         </TabsContent>
       </Tabs>
