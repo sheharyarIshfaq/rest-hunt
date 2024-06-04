@@ -83,8 +83,6 @@ const MessagesPage = () => {
   }, [sendMessage]);
 
   const createChat = async (receiverId: any) => {
-    console.log("creating chat");
-    console.log(receiverId);
     try {
       const res = await fetch(`${BACKEND_URL}/chats/create`, {
         method: "POST",
