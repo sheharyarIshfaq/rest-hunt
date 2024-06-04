@@ -3,28 +3,34 @@ import { StaticImageData } from "next/image";
 import React from "react";
 
 interface BookingDetailCardProps {
-  image: string | StaticImageData;
-  title: string;
-  price: string | number;
+  image: StaticImageData | string;
+  property: string;
+  price: number;
   moveInDate: string;
   moveOutDate: string;
+  rentAmountUnit: string;
+  totalAmount: number;
 }
 
 const BookingDetailsSection = ({
   image,
-  title,
+  property,
   price,
   moveInDate,
   moveOutDate,
+  rentAmountUnit,
+  totalAmount,
 }: BookingDetailCardProps) => {
   return (
     <div className="flex justify-end flex-1">
       <BookingDetailCard
         image={image}
-        property={title}
+        property={property}
         price={price}
         moveInDate={moveInDate}
         moveOutDate={moveOutDate}
+        rentAmountUnit={rentAmountUnit}
+        totalAmount={totalAmount}
       />
     </div>
   );
