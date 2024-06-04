@@ -1,5 +1,5 @@
 import React from "react";
-import Image, { StaticImageData } from "next/image";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import StarRating from "../StarRating";
 import moment from "moment";
 
@@ -7,25 +7,38 @@ interface IReviewItem {
   name: string;
   rating: number;
   review: string;
-  image: StaticImageData;
+  image: string;
+  createdAt: string;
 }
 
-const ReviewItem = ({ name, rating, review, image }: IReviewItem) => {
+const ReviewItem = ({
+  name,
+  rating,
+  review,
+  image,
+  createdAt,
+}: IReviewItem) => {
   return (
     <div>
       <div className="flex gap-4">
         <div>
-          <Image
-            src={image}
-            className="w-14 h-14 rounded-full object-cover"
-            alt={name}
-          />
+          <Avatar className="h-12 w-12">
+            <AvatarImage src={image} />
+            <AvatarFallback>
+              {name
+                ?.split(" ")
+                ?.map((n: string) => n[0])
+                ?.join("")}
+            </AvatarFallback>
+          </Avatar>
         </div>
         <div>
           <h3 className="font-semibold">{name}</h3>
           <div className="flex items-center gap-3 my-1 flex-wrap">
             <StarRating rating={rating} />
-            <span className="text-sm">{moment().format("MMM DD, YYYY")}</span>
+            <span className="text-sm">
+              {moment(createdAt).format("MMM DD, YYYY")}
+            </span>
           </div>
         </div>
       </div>
