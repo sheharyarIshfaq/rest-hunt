@@ -8,7 +8,18 @@ import InfoSection from "@/containers/home-page/info-section";
 import TopPropertiesSection from "@/containers/home-page/top-properties-section";
 import TrendingPropertiesSection from "@/containers/home-page/trending-properties-section";
 
-export default function Home() {
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+
+async function getProperties() {
+  const res = await fetch(`${BACKEND_URL}/properties/`, {
+    cache: "no-cache",
+  });
+  const data = await res.json();
+  return data?.data;
+}
+
+export default async function Home() {
+  const properties = await getProperties();
   return (
     <>
       <div className="sm:h-screen flex flex-col justify-between">
@@ -19,8 +30,8 @@ export default function Home() {
         <InfoSection />
       </div>
       <DestinationsSection />
-      <TrendingPropertiesSection />
-      <TopPropertiesSection />
+      <TrendingPropertiesSection properties={properties} />
+      <TopPropertiesSection properties={properties} />
       <DetailSection />
       <FAQSection />
       <Footer />

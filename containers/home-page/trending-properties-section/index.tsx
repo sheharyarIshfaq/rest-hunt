@@ -1,19 +1,19 @@
 import PropertyCard from "@/components/PropertyCard";
-import DUMMY_PROPERTIES from "@/data/properties";
 import React from "react";
 
-const TrendingPropertiesSection = () => {
+const TrendingPropertiesSection = ({ properties }: { properties: any[] }) => {
   return (
     <section className="container py-10">
       <h1 className="text-3xl font-semibold">Trending Properties</h1>
       <div className="mt-8 grid md:grid-cols-3 gap-4">
-        {DUMMY_PROPERTIES.slice(0, 3).map((property) => (
+        {properties?.slice(0, 3)?.map((property) => (
           <PropertyCard
-            key={property.id}
+            key={property._id}
+            id={property._id}
+            title={property.name}
+            address={property?.address}
+            price={property?.leastPrice}
             image={property.image}
-            title={property.title}
-            address={property.address}
-            price={property.price}
           />
         ))}
       </div>

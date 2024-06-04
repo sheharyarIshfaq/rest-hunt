@@ -41,56 +41,8 @@ const UserReviews = () => {
           rating={4}
           review="This is a great place to live in. I would recommend it to everyone. It
           has all the facilities that you need. The staff is very friendly and helpful."
-          image={PersonImage1}
-        />
-        <ReviewItem
-          name="Jane Doe"
-          rating={5}
-          review="Great experience. The staff is very friendly and helpful. The rooms are
-          very clean and well maintained. The food is also very good. I would recommend"
-          image={PersonImage2}
-        />
-        <ReviewItem
-          name="John Doe"
-          rating={4}
-          review="Wow! What a great place to live in. The staff is very friendly and helpful. The rooms are very clean and well maintained. The food is also very good. I would recommend this place to everyone."
-          image={PersonImage3}
-        />
-        <ReviewItem
-          name="Jane Doe"
-          rating={5}
-          review="The best place to live, really enjoyed my stay here. The staff is very
-          friendly and helpful. The rooms are very clean and well maintained. The food is
-          also very good. I would recommend this place to everyone."
-          image={PersonImage4}
-        />
-        <ReviewItem
-          name="John Doe"
-          rating={4}
-          review="This is a great place to live in. I would recommend it to everyone. It
-          has all the facilities that you need. The staff is very friendly and helpful."
-          image={PersonImage1}
-        />
-        <ReviewItem
-          name="Jane Doe"
-          rating={5}
-          review="Great experience. The staff is very friendly and helpful. The rooms are
-          very clean and well maintained. The food is also very good. I would recommend"
-          image={PersonImage2}
-        />
-        <ReviewItem
-          name="John Doe"
-          rating={4}
-          review="Wow! What a great place to live in. The staff is very friendly and helpful. The rooms are very clean and well maintained. The food is also very good. I would recommend this place to everyone."
-          image={PersonImage3}
-        />
-        <ReviewItem
-          name="Jane Doe"
-          rating={5}
-          review="The best place to live, really enjoyed my stay here. The staff is very
-          friendly and helpful. The rooms are very clean and well maintained. The food is
-          also very good. I would recommend this place to everyone."
-          image={PersonImage4}
+          image={""}
+          createdAt="2021-09-01"
         />
       </div>
     </div>

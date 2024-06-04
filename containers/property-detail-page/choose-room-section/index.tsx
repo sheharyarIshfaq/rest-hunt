@@ -1,7 +1,6 @@
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-import DUMMY_PROPERTIES from "@/data/properties";
 import RoomCard from "./RoomCard";
 
 const ChooseRoomSection = ({ property }: { property: any[] }) => {
