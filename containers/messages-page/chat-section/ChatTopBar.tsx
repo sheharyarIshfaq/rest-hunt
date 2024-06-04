@@ -16,7 +16,7 @@ const ChatTopBar = ({
       <div className="flex items-center gap-2">
         <Avatar>
           <AvatarImage src={userData?.profilePicture} />
-          <AvatarFallback>{userData?.name[0]}</AvatarFallback>
+          <AvatarFallback>{userData?.name?.[0]}</AvatarFallback>
         </Avatar>
         <h1 className="font-semibold text-lg">{userData?.name}</h1>
         <div className="flex items-center gap-2">

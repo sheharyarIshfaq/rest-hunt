@@ -81,7 +81,7 @@ const ChatItem = ({ chatData, isActive, onClick, online }: ChatItemProps) => {
           <div className="relative">
             <Avatar>
               <AvatarImage src={userData?.profilePicture} />
-              <AvatarFallback>{userData?.name[0]}</AvatarFallback>
+              <AvatarFallback>{userData?.name?.[0]}</AvatarFallback>
             </Avatar>
             <div
               className={`absolute bottom-0 right-0 h-[10px] w-[10px] rounded-full ${
