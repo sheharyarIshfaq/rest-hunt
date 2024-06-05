@@ -23,6 +23,7 @@ import {
   BsHouse,
   BsCurrencyDollar,
   BsDashSquare,
+  BsSafe,
 } from "react-icons/bs";
 import CustomSearch from "@/components/CustomSearch";
 import { BellIcon } from "lucide-react";
@@ -232,6 +233,13 @@ const Navbar = ({ isDark = false, showSearch = false }: NavbarProps) => {
                   <BsPerson className="mr-2" /> Profile
                 </Link>
               </DropdownMenuItem>
+              {user?.role === "admin" && (
+                <DropdownMenuItem>
+                  <Link href="/admin" className="flex items-center">
+                    <BsSafe className="mr-2" /> Admin
+                  </Link>
+                </DropdownMenuItem>
+              )}
               {user?.role === "property_owner" && (
                 <DropdownMenuItem>
                   <Link href="/dashboard" className="flex items-center">
