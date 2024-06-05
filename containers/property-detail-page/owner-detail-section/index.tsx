@@ -4,6 +4,7 @@ import moment from "moment";
 import Link from "next/link";
 
 const OwnerDetailsSection = ({ ownerData }: { ownerData: any }) => {
+  console.log(ownerData);
   return (
     <div className="mt-4 border-b pb-2">
       <Link
@@ -20,9 +21,9 @@ const OwnerDetailsSection = ({ ownerData }: { ownerData: any }) => {
           </AvatarFallback>
         </Avatar>
         <div>
-          <h1 className="text-lg font-semibold">Sheharyar Ishfaq</h1>
+          <h1 className="text-lg font-semibold">{ownerData?.name}</h1>
           <p className="text-label font-medium">
-            Joined on {moment().format("MMMM D, YYYY")}
+            Joined on {moment(ownerData?.createdAt).format("MMMM D, YYYY")}
           </p>
         </div>
       </Link>

@@ -12,7 +12,19 @@ import AboutUser from "@/containers/profile-detail-page/about-user";
 import UserReviews from "@/containers/profile-detail-page/user-reviews";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-const UserProfilePage = ({ params }: { params: { id: string } }) => {
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+
+async function getUserData(userId: string) {
+  const res = await fetch(`${BACKEND_URL}/users/${userId}`, {
+    cache: "no-cache",
+  });
+  const data = await res.json();
+  return data?.user;
+}
+
+const UserProfilePage = async ({ params }: { params: { id: string } }) => {
+  const user = await getUserData(params.id);
+
   return (
     <>
       <Navbar />
@@ -29,7 +41,11 @@ const UserProfilePage = ({ params }: { params: { id: string } }) => {
         <div className="mt-6">
           <h1 className="text-2xl font-bold">User Profile</h1>
           <div>
-            <UserDetails />
+            <UserDetails
+              image={user?.profilePicture}
+              name={user?.name}
+              createdAt={user?.createdAt}
+            />
             <Tabs
               defaultValue="about"
               className="flex justify-center items-center flex-col"
@@ -49,10 +65,14 @@ const UserProfilePage = ({ params }: { params: { id: string } }) => {
                 </TabsTrigger>
               </TabsList>
               <TabsContent value="about">
-                <AboutUser />
+                <AboutUser address={user?.location} email={user?.email} />
               </TabsContent>
               <TabsContent value="reviews">
-                <UserReviews />
+                <UserReviews
+                  reviewsCount={user?.reviewsCount}
+                  averageRating={user?.averageRating}
+                  reviews={user?.reviews}
+                />
               </TabsContent>
             </Tabs>
           </div>

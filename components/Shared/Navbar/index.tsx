@@ -218,8 +218,8 @@ const Navbar = ({ isDark = false, showSearch = false }: NavbarProps) => {
                 <AvatarImage src={user.profilePicture} />
                 <AvatarFallback className="bg-black text-white">
                   {user.name
-                    .split(" ")
-                    .map((name: string) => name[0])
+                    ?.split(" ")
+                    ?.map((name: string) => name[0])
                     .slice(0, 2)}
                 </AvatarFallback>
               </Avatar>
