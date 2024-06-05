@@ -41,6 +41,7 @@ import {
 import { useRouter } from "next/navigation";
 import { toast } from "@/components/ui/use-toast";
 import { useAppSelector } from "@/redux/store";
+import moment from "moment";
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -52,6 +53,9 @@ export type Property = {
   address: string;
   rooms: any[];
   status: string;
+  propertySize?: string;
+  propertySizeUnit?: string;
+  createdAt: string;
 };
 
 interface PropertiesListProps {
@@ -71,6 +75,7 @@ export function PropertiesList({
   totalCount,
   refetchProperties,
 }: PropertiesListProps) {
+  console.log(properties);
   const { token } = useAppSelector((state) => state.auth);
   const router = useRouter();
 
@@ -188,7 +193,7 @@ export function PropertiesList({
     },
     {
       accessorKey: "propertyType",
-      header: "Category",
+      header: "Property Type",
       cell: ({ row }) => (
         <div className="capitalize">{row.getValue("propertyType")}</div>
       ),
@@ -205,17 +210,27 @@ export function PropertiesList({
       },
     },
     {
-      accessorKey: "bookings",
-      header: () => <div className="text-center">Booked</div>,
+      accessorKey: "propertySize",
+      header: () => <div className="text-center">Property Size</div>,
       cell: ({ row }) => {
-        return <div className="text-center font-medium">{17}</div>;
+        return (
+          <div className="text-center font-medium">
+            {row.original.propertySize
+              ? `${row.original.propertySize} ${row.original.propertySizeUnit}`
+              : "N/A"}
+          </div>
+        );
       },
     },
     {
-      accessorKey: "cancellations",
-      header: () => <div className="text-center">Cancellations</div>,
+      accessorKey: "createdAt",
+      header: () => <div className="text-center">Created At</div>,
       cell: ({ row }) => {
-        return <div className="text-center font-medium">{20}</div>;
+        return (
+          <div className="text-center font-medium">
+            {moment(row.original.createdAt).format("DD/MM/YYYY")}
+          </div>
+        );
       },
     },
     {
