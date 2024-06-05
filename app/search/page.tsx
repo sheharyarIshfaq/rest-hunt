@@ -7,34 +7,32 @@ import DataSection from "@/containers/search-page/data-section";
 import FilterSection from "@/containers/search-page/filters-section";
 import { useAppSelector } from "@/redux/store";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { BsChevronRight } from "react-icons/bs";
 import SyncLoader from "react-spinners/SyncLoader";
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-export default function SearchPage({
-  searchParams,
-}: {
-  searchParams?: { [key: string]: string | undefined };
-}) {
-  const searchQuery = searchParams?.query || "";
+export default function SearchPage() {
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams.get("query") || "";
 
   const { token } = useAppSelector((state) => state.auth);
 
   const [pageNumber, setPageNumber] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const [totalPages, setTotalPages] = useState(2);
   const [properties, setProperties] = useState<any[]>([]);
   const [favourites, setFavourites] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   const fetchProperties = async () => {
-    if (pageNumber > totalPages) return;
     try {
       const response = await fetch(
         `${BACKEND_URL}/properties?search=${searchQuery}&page=${pageNumber}`
       );
       const responseData = await response.json();
+      console.log(responseData);
 
       if (responseData.error) {
         console.log(responseData.error);

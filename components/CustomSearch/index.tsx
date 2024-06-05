@@ -13,6 +13,7 @@ const CustomSearch = ({
   className = "",
 }: CustomSearchProps) => {
   const [search, setSearch] = React.useState("");
+  const [firstTime, setFirstTime] = React.useState(true);
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -42,8 +43,13 @@ const CustomSearch = ({
           isSmall ? "py-2" : "py-4"
         }`}
         id="search"
-        value={search === "" ? searchValue : search}
-        onChange={(e) => setSearch(e.target.value)}
+        value={search === "" && firstTime ? searchValue : search}
+        onChange={(e) => {
+          setSearch(e.target.value);
+          if (firstTime) {
+            setFirstTime(false);
+          }
+        }}
       />
       <button
         className={`flex items-center justify-center bg-main text-2xl text-white ${
