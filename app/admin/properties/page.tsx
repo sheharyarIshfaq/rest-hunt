@@ -182,11 +182,11 @@ const PropertiesPage = () => {
                   <DialogContent>
                     <DialogHeader>
                       <DialogTitle>
-                        Are you sure you want to approve this booking?
+                        Are you sure you want to approve this property?
                       </DialogTitle>
                       <DialogDescription>
                         This action cannot be undone. This will confirm the
-                        booking for the user.
+                        property for the user.
                       </DialogDescription>
                     </DialogHeader>
                     <DialogFooter>
@@ -211,11 +211,11 @@ const PropertiesPage = () => {
                   <DialogContent>
                     <DialogHeader>
                       <DialogTitle>
-                        Are you sure you want to reject this booking?
+                        Are you sure you want to reject this property?
                       </DialogTitle>
                       <DialogDescription>
                         This action cannot be undone. This will reject the
-                        booking for the user.
+                        property for the user.
                       </DialogDescription>
                     </DialogHeader>
                     <DialogFooter>

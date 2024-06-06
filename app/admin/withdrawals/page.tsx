@@ -178,11 +178,11 @@ const WithdrawalsPage = () => {
                   <DialogContent>
                     <DialogHeader>
                       <DialogTitle>
-                        Are you sure you want to approve this booking?
+                        Are you sure you want to approve this withdrawal?
                       </DialogTitle>
                       <DialogDescription>
                         This action cannot be undone. This will confirm the
-                        booking for the user.
+                        withdrawal for the user.
                       </DialogDescription>
                     </DialogHeader>
                     <DialogFooter>
@@ -207,11 +207,11 @@ const WithdrawalsPage = () => {
                   <DialogContent>
                     <DialogHeader>
                       <DialogTitle>
-                        Are you sure you want to reject this booking?
+                        Are you sure you want to reject this withdrawal?
                       </DialogTitle>
                       <DialogDescription>
                         This action cannot be undone. This will reject the
-                        booking for the user.
+                        withdrawal for the user.
                       </DialogDescription>
                     </DialogHeader>
                     <DialogFooter>
