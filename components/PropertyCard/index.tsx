@@ -131,7 +131,7 @@ const PropertyCard = ({
       <Image
         src={image}
         alt={title}
-        className="w-full max-h-[300px] object-cover"
+        className="w-full h-[200px] object-cover"
         width={300}
         height={200}
       />
