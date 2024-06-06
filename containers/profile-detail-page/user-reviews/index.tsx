@@ -47,7 +47,7 @@ const UserReviews = ({
         {reviews.map((review, index) => (
           <ReviewItem
             key={index}
-            name={review.name}
+            name={review.user?.name}
             rating={review.rating}
             review={review.review}
             image={review?.user?.profilePicture}
