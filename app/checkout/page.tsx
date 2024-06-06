@@ -37,7 +37,7 @@ const CheckoutPage = () => {
   const [property, setProperty] = React.useState<any>(null);
   const [roomData, setRoomData] = React.useState<any>(null);
   const [loading, setLoading] = React.useState<boolean>(true);
-  const [totalAmount, setTotalAmount] = React.useState<number>(0);
+  const [totalAmount, setTotalAmount] = React.useState<number>(1);
   const [processing, setProcessing] = React.useState<boolean>(false);
 
   const [choosedPaymentMethod, setChoosedPaymentMethod] =
@@ -80,7 +80,9 @@ const CheckoutPage = () => {
     if (moveInDate && moveOutDate) {
       //rent amount unit is per-month, per-week, per-day, per-year, so we need to calculate the total price based on the rent amount unit
       //we can convert the rent amount to per-day and then multiply by the number of days
-      const diff = moment(moveOutDate).diff(moveInDate, "days");
+      const moveInDateValue = moment(moveInDate);
+      const moveOutDateValue = moment(moveOutDate);
+      const diff = moment(moveOutDateValue).diff(moveInDateValue, "days");
       const price = Number(roomData?.rentAmount) || 0;
       let totalPrice = 0;
       switch (roomData?.rentAmountUnit) {
@@ -100,7 +102,7 @@ const CheckoutPage = () => {
           totalPrice = price * diff;
           break;
       }
-      setTotalAmount(Number(totalPrice.toFixed(2)));
+      setTotalAmount(Number(totalPrice?.toFixed(2)) || 1);
     }
   };
 

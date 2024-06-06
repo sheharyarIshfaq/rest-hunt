@@ -88,8 +88,10 @@ const Book = ({
         });
         return;
       }
+      const moveInDateStr = moment(moveInDate).format("YYYY-MM-DD");
+      const moveOutDateStr = moment(moveOutDate).format("YYYY-MM-DD");
       router.push(
-        `/checkout?property=${id}&room=${roomId}&moveInDate=${moveInDate}&moveOutDate=${moveOutDate}`
+        `/checkout?property=${id}&room=${roomId}&moveInDate=${moveInDateStr}&moveOutDate=${moveOutDateStr}`
       );
     }
   };
