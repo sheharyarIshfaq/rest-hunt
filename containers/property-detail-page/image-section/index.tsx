@@ -17,7 +17,7 @@ import Image from "next/image";
 
 const ImageSlide = ({ image }: any) => {
   return (
-    <div className="rounded-lg overflow-hidden max-h-[450px]">
+    <div className="rounded-lg overflow-hidden h-[350px]">
       <Image
         src={image}
         alt="property"
