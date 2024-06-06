@@ -24,7 +24,9 @@ const UserDetailsSection = ({ user }: { user: any }) => {
           </div>
           <div className="flex items-center gap-2 justify-between">
             <h2>Rating</h2>
-            <p className="text-main font-medium">{user?.averageRating}/5</p>
+            <p className="text-main font-medium">
+              {Number(user?.averageRating).toFixed(1) || 0}/5
+            </p>
           </div>
           <div className="flex items-center gap-2 justify-between">
             <h2>Reviews Count</h2>
